@@ -17,6 +17,7 @@ class JobFactory extends Factory
     public function definition(): array
     {
         return [
+            'category_id' => $this->faker->numberBetween(1, 11),
             'title' => $this->faker->jobTitle,
             'description' => $this->faker->paragraph,
             'slug' => $this->faker->unique()->slug,
