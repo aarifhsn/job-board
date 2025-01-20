@@ -16,10 +16,13 @@ class JobFactory extends Factory
      */
     public function definition(): array
     {
+        $ranges = ['1-2', '2-3', '3-4', '5+'];
         return [
-            'category_id' => $this->faker->numberBetween(1, 11),
+            'category_id' => $this->faker->numberBetween(1, 10),
             'title' => $this->faker->jobTitle,
             'description' => $this->faker->paragraph,
+            'experience' => $this->faker->randomElement($ranges),
+            'type' => $this->faker->randomElement(['full-time', 'part-time', 'contract', 'temporary', 'internship', 'volunteer', 'freelance']),
             'slug' => $this->faker->unique()->slug,
             'vacancy' => $this->faker->numberBetween(1, 10),
             'location' => $this->faker->city,

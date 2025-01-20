@@ -43,7 +43,7 @@
                                         <div class="grid items-center grid-cols-12">
                                             <div class="col-span-12 lg:col-span-2">
                                                 <div class="mb-4 text-center mb-md-0">
-                                                    <a href="company-details.html"><img src="{{asset('/images/featured-job/img-01.png')}}" alt="" class="mx-auto img-fluid rounded-3"></a>
+                                                    <a href="company-details.html"><img src="{{asset('images/featured-job/img-01.png')}}" alt="" class="mx-auto img-fluid rounded-3"></a>
                                                 </div>
                                             </div>
                                             <!--end col-->

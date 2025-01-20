@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-    
     <!-- Start team -->
         <section class="pt-44 pb-24">
             <div class="container mx-auto">
@@ -348,6 +346,8 @@
                             </ul>
                         </div>
                         <div class="mt-14">
+                        @foreach ($jobs as $job )
+                            
                             <div class="relative mt-4 overflow-hidden transition-all duration-500 ease-in-out bg-white border rounded-md border-gray-100/50 group/job group-data-[theme-color=violet]:hover:border-violet-500 group-data-[theme-color=sky]:hover:border-sky-500 group-data-[theme-color=red]:hover:border-red-500 group-data-[theme-color=green]:hover:border-green-500 group-data-[theme-color=pink]:hover:border-pink-500 group-data-[theme-color=blue]:hover:border-blue-500 hover:-translate-y-2 dark:bg-neutral-900 dark:border-neutral-600">
                                 <div class="w-48 absolute -top-[5px] -left-20 -rotate-45 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 group-data-[theme-color=violet]:group-hover/job:bg-violet-500 group-data-[theme-color=sky]:group-hover/job:bg-sky-500 group-data-[theme-color=red]:group-hover/job:bg-red-500 group-data-[theme-color=green]:group-hover/job:bg-green-500 group-data-[theme-color=pink]:group-hover/job:bg-pink-500 group-data-[theme-color=blue]:group-hover/job:bg-blue-500 transition-all duration-500 ease-in-out p-[6px] text-center dark:bg-violet-500/20">
                                     <a href="javascript:void(0)" class="text-2xl text-white align-middle"><i class="mdi mdi-star"></i></a>
@@ -362,9 +362,9 @@
                                         <!--end col-->
                                         <div class="col-span-12 lg:col-span-3">
                                             <div class="mb-2 mb-md-0">
-                                                <h5 class="mb-1 fs-18"><a href="job-details.html" class="text-gray-900 dark:text-gray-50">Product Director</a>
+                                                <h5 class="mb-1 fs-18"><a href="job-details.html" class="text-gray-900 dark:text-gray-50">{{$job->title}}</a>
                                                 </h5>
-                                                <p class="mb-0 text-gray-500 fs-14 dark:text-gray-300">Creative Agency</p>
+                                                <p class="mb-0 text-gray-500 fs-14 dark:text-gray-300">{{$job->company->name}}</p>
                                             </div>
                                         </div>
                                         <!--end col-->
@@ -373,19 +373,19 @@
                                                 <div class="flex-shrink-0">
                                                     <i class="mr-1 mdi mdi-map-marker group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
                                                 </div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300">Escondido,California</p>
+                                                <p class="mb-0 text-gray-500 dark:text-gray-300">{{$job->company->city}}, {{$job->company->country}}</p>
                                             </div>
                                         </div>
                                         <!--end col-->
                                         <div class="col-span-12 lg:col-span-2">
                                             <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"> <i class="mr-1 uil uil-clock-three group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i> 3 min ago</p>
+                                                <p class="mb-0 text-gray-500 dark:text-gray-300"> <i class="mr-1 uil uil-clock-three group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i> {{$job->created_at->diffForHumans()}}</p>
                                             </div>
                                         </div>
                                         <!--end col-->
                                         <div class="col-span-12 lg:col-span-2">
                                             <div class="flex flex-wrap gap-1.5">
-                                                <span class="bg-green-500/20 text-green-500 text-13 px-2 py-0.5 font-medium rounded">Full Time</span>
+                                                <span class="bg-green-500/20 text-green-500 text-13 px-2 py-0.5 font-medium rounded capitalize">{{$job->type}}</span>
                                             </div>
                                         </div>
                                         <!--end col-->
@@ -396,8 +396,7 @@
                                     <div class="grid grid-cols-12">
                                         <div class="col-span-12 lg:col-span-6">
                                             <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"><span class="font-medium text-gray-900 dark:text-gray-50">Experience :</span> 1
-                                                    - 2 years</p>
+                                                <p class="mb-0 text-gray-500 dark:text-gray-300"><span class="font-medium text-gray-900 dark:text-gray-50">Experience :</span>{{$job->experience}} years</p>
                                             </div>
                                         </div>
                                         <!--end col-->
@@ -412,489 +411,22 @@
                                 </div>
                             </div>
 
-                            <div class="relative mt-4 overflow-hidden transition-all duration-500 ease-in-out bg-white border rounded-md border-gray-100/50 group/job group-data-[theme-color=violet]:hover:border-violet-500 group-data-[theme-color=sky]:hover:border-sky-500 group-data-[theme-color=red]:hover:border-red-500 group-data-[theme-color=green]:hover:border-green-500 group-data-[theme-color=pink]:hover:border-pink-500 group-data-[theme-color=blue]:hover:border-blue-500 hover:-translate-y-2 dark:bg-neutral-900 dark:border-neutral-600">
-                                <div class="w-48 absolute -top-[5px] -left-20 -rotate-45 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 group-data-[theme-color=violet]:group-hover/job:bg-violet-500 group-data-[theme-color=sky]:group-hover/job:bg-sky-500 group-data-[theme-color=red]:group-hover/job:bg-red-500 group-data-[theme-color=green]:group-hover/job:bg-green-500 group-data-[theme-color=pink]:group-hover/job:bg-pink-500 group-data-[theme-color=blue]:group-hover/job:bg-blue-500 transition-all duration-500 ease-in-out p-[6px] text-center dark:bg-violet-500/20">
-                                    <a href="javascript:void(0)" class="text-2xl text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                </div>
-                                <div class="p-4">
-                                    <div class="grid items-center grid-cols-12">
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div class="mb-4 text-center mb-md-0">
-                                                <a href="company-details.html"><img src="assets/images/featured-job/img-02.png" alt="" class="mx-auto img-fluid rounded-3"></a>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-3">
-                                            <div class="mb-2 mb-md-0">
-                                                <h5 class="mb-1 fs-18"><a href="job-details.html" class="text-gray-900 dark:text-gray-50">Digital Marketing Manager</a>
-                                                </h5>
-                                                <p class="mb-0 text-gray-500 fs-14 dark:text-gray-300">Jobcy Technology Pvt.Ltd</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-3">
-                                            <div class="mb-2 lg:flex">
-                                                <div class="flex-shrink-0">
-                                                    <i class="mr-1 mdi mdi-map-marker group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
-                                                </div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300">Phoenix, Arizona</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"> <i class="mr-1 uil uil-clock-three group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i> 15 min ago</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div class="flex flex-wrap gap-1.5">
-                                                <span class="bg-green-500/20 text-green-500 text-13 px-2 py-0.5 font-medium rounded">Full Time</span>
-                                                <span class="bg-yellow-500/20 text-yellow-500 text-13 px-2 py-0.5 font-medium rounded">Urgent</span>
-                                                <span class="bg-violet-500/20 text-violet-500 text-13 px-2 py-0.5 font-medium rounded">Freelance</span>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </div>
-                                <div class="px-4 py-3 bg-gray-50 dark:bg-neutral-700">
-                                    <div class="grid grid-cols-12">
-                                        <div class="col-span-12 lg:col-span-6">
-                                            <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"><span class="font-medium text-gray-900 dark:text-gray-50">Experience :</span> 1
-                                                    - 2 years</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 mt-2 lg:col-span-6 lg:mt-0">
-                                            <div class="ltr:lg:text-right rtl:lg:text-left dark:text-gray-50">
-                                                <a href="#applyNow" data-bs-toggle="modal">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </div>
-                            </div>
+                        @endforeach
 
-                                <div class="relative mt-4 overflow-hidden transition-all duration-500 ease-in-out bg-white border rounded-md border-gray-100/50 group group-data-[theme-color=violet]:hover:border-violet-500 group-data-[theme-color=sky]:hover:border-sky-500 group-data-[theme-color=red]:hover:border-red-500 group-data-[theme-color=green]:hover:border-green-500 group-data-[theme-color=pink]:hover:border-pink-500 group-data-[theme-color=blue]:hover:border-blue-500 hover:-translate-y-2 dark:bg-neutral-900 dark:border-neutral-600">
-                                <div class="w-48 absolute -top-[5px] -left-20 -rotate-45 group-data-[theme-color=violet]:bg-violet-500 group-data-[theme-color=sky]:bg-sky-500 group-data-[theme-color=red]:bg-red-500 group-data-[theme-color=green]:bg-green-500 group-data-[theme-color=pink]:bg-pink-500 group-data-[theme-color=blue]:bg-blue-500 p-[6px] text-center">
-                                    <a href="javascript:void(0)" class="text-2xl text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                </div>
-                                <div class="p-4">
-                                    <div class="grid items-center grid-cols-12">
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div class="mb-4 text-center mb-md-0">
-                                                <a href="company-details.html"><img src="assets/images/featured-job/img-03.png" alt="" class="mx-auto img-fluid rounded-3"></a>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-3">
-                                            <div class="mb-2 mb-md-0">
-                                                <h5 class="mb-1 fs-18"><a href="job-details.html" class="text-gray-900 dark:text-gray-50">Product Director</a>
-                                                </h5>
-                                                <p class="mb-0 text-gray-500 fs-14 dark:text-gray-300">Creative Agency</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-3">
-                                            <div class="mb-2 lg:flex">
-                                                <div class="flex-shrink-0">
-                                                    <i class="mr-1 mdi mdi-map-marker group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
-                                                </div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300">Escondido, California</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"> <i class="mr-1 uil uil-clock-three group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i> 37 min ago</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div class="flex flex-wrap gap-1.5">
-                                                <span class="bg-sky-500/20 text-sky-500 text-13 px-2 py-0.5 font-medium rounded">Internship</span>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </div>
-                                <div class="px-4 py-3 bg-gray-50 dark:bg-neutral-700">
-                                    <div class="grid grid-cols-12">
-                                        <div class="col-span-12 lg:col-span-6">
-                                            <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"><span class="font-medium text-gray-900 dark:text-gray-50">Experience :</span> 1
-                                                    - 2 years</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 mt-2 lg:col-span-6 lg:mt-0">
-                                            <div class="ltr:lg:text-right rtl:lg:text-left dark:text-gray-50">
-                                                <a href="#applyNow" data-bs-toggle="modal">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </div>
-                            </div>
-
-                                <div class="relative mt-4 overflow-hidden transition-all duration-500 ease-in-out bg-white border rounded-md border-gray-100/50 group group-data-[theme-color=violet]:hover:border-violet-500 group-data-[theme-color=sky]:hover:border-sky-500 group-data-[theme-color=red]:hover:border-red-500 group-data-[theme-color=green]:hover:border-green-500 group-data-[theme-color=pink]:hover:border-pink-500 group-data-[theme-color=blue]:hover:border-blue-500 hover:-translate-y-2 dark:bg-neutral-900 dark:border-neutral-600">
-                                <div class="w-48 absolute -top-[5px] -left-20 -rotate-45 group-data-[theme-color=violet]:bg-violet-500 group-data-[theme-color=sky]:bg-sky-500 group-data-[theme-color=red]:bg-red-500 group-data-[theme-color=green]:bg-green-500 group-data-[theme-color=pink]:bg-pink-500 group-data-[theme-color=blue]:bg-blue-500 p-[6px] text-center">
-                                    <a href="javascript:void(0)" class="text-2xl text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                </div>
-                                <div class="p-4">
-                                    <div class="grid items-center grid-cols-12">
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div class="mb-4 text-center mb-md-0">
-                                                <a href="company-details.html"><img src="assets/images/featured-job/img-04.png" alt="" class="mx-auto img-fluid rounded-3"></a>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-3">
-                                            <div class="mb-2 mb-md-0">
-                                                <h5 class="mb-1 fs-18"><a href="job-details.html" class="text-gray-900 dark:text-gray-50">Product Director</a>
-                                                </h5>
-                                                <p class="mb-0 text-gray-500 fs-14 dark:text-gray-300">Creative Agency</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-3">
-                                            <div class="mb-2 lg:flex">
-                                                <div class="flex-shrink-0">
-                                                    <i class="mr-1 mdi mdi-map-marker group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
-                                                </div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300">Escondido, California</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"> <i class="mr-1 uil uil-clock-three group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i> 50 min ago</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div class="flex flex-wrap gap-1.5">
-                                                <span class="bg-violet-500/20 text-violet-500 text-13 px-2 py-0.5 font-medium rounded">Freelance</span>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </div>
-                                <div class="px-4 py-3 bg-gray-50 dark:bg-neutral-700">
-                                    <div class="grid grid-cols-12">
-                                        <div class="col-span-12 lg:col-span-6">
-                                            <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"><span class="font-medium text-gray-900 dark:text-gray-50">Experience :</span> 1
-                                                    - 2 years</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 mt-2 lg:col-span-6 lg:mt-0">
-                                            <div class="ltr:lg:text-right rtl:lg:text-left dark:text-gray-50">
-                                                <a href="#applyNow" data-bs-toggle="modal">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </div>
-                            </div>
-
-                            <div class="relative mt-4 overflow-hidden transition-all duration-500 ease-in-out bg-white border rounded-md border-gray-100/50 group/job group-data-[theme-color=violet]:hover:border-violet-500 group-data-[theme-color=sky]:hover:border-sky-500 group-data-[theme-color=red]:hover:border-red-500 group-data-[theme-color=green]:hover:border-green-500 group-data-[theme-color=pink]:hover:border-pink-500 group-data-[theme-color=blue]:hover:border-blue-500 hover:-translate-y-2 dark:bg-neutral-900 dark:border-neutral-600">
-                                <div class="w-48 absolute -top-[5px] -left-20 -rotate-45 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 group-data-[theme-color=violet]:group-hover/job:bg-violet-500 group-data-[theme-color=sky]:group-hover/job:bg-sky-500 group-data-[theme-color=red]:group-hover/job:bg-red-500 group-data-[theme-color=green]:group-hover/job:bg-green-500 group-data-[theme-color=pink]:group-hover/job:bg-pink-500 group-data-[theme-color=blue]:group-hover/job:bg-blue-500 transition-all duration-500 ease-in-out p-[6px] text-center dark:bg-violet-500/20">
-                                    <a href="javascript:void(0)" class="text-2xl text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                </div>
-                                <div class="p-4">
-                                    <div class="grid items-center grid-cols-12">
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div class="mb-4 text-center mb-md-0">
-                                                <a href="company-details.html"><img src="assets/images/featured-job/img-05.png" alt="" class="mx-auto img-fluid rounded-3"></a>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-3">
-                                            <div class="mb-2 mb-md-0">
-                                                <h5 class="mb-1 fs-18"><a href="job-details.html" class="text-gray-900 dark:text-gray-50">Product Director</a>
-                                                </h5>
-                                                <p class="mb-0 text-gray-500 fs-14 dark:text-gray-300">Creative Agency</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-3">
-                                            <div class="mb-2 lg:flex">
-                                                <div class="flex-shrink-0">
-                                                    <i class="mr-1 mdi mdi-map-marker group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
-                                                </div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300">Escondido, California</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"> <i class="mr-1 uil uil-clock-three group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i> 1 month ago</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div class="flex flex-wrap gap-1.5">
-                                                <span class="bg-red-500/20 text-red-500 text-13 px-2 py-0.5 font-medium rounded">Part Time</span>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </div>
-                                <div class="px-4 py-3 bg-gray-50 dark:bg-neutral-700">
-                                    <div class="grid grid-cols-12">
-                                        <div class="col-span-12 lg:col-span-6">
-                                            <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"><span class="font-medium text-gray-900 dark:text-gray-50">Experience :</span> 1
-                                                    - 2 years</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 mt-2 lg:col-span-6 lg:mt-0">
-                                            <div class="ltr:lg:text-right rtl:lg:text-left dark:text-gray-50">
-                                                <a href="#applyNow" data-bs-toggle="modal">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </div>
-                            </div>
-
-                            <div class="relative mt-4 overflow-hidden transition-all duration-500 ease-in-out bg-white border rounded-md border-gray-100/50 group group-data-[theme-color=violet]:hover:border-violet-500 group-data-[theme-color=sky]:hover:border-sky-500 group-data-[theme-color=red]:hover:border-red-500 group-data-[theme-color=green]:hover:border-green-500 group-data-[theme-color=pink]:hover:border-pink-500 group-data-[theme-color=blue]:hover:border-blue-500 hover:-translate-y-2 dark:bg-neutral-900 dark:border-neutral-600">
-                                <div class="w-48 absolute -top-[5px] -left-20 -rotate-45 group-data-[theme-color=violet]:bg-violet-500 group-data-[theme-color=sky]:bg-sky-500 group-data-[theme-color=red]:bg-red-500 group-data-[theme-color=green]:bg-green-500 group-data-[theme-color=pink]:bg-pink-500 group-data-[theme-color=blue]:bg-blue-500 p-[6px] text-center">
-                                    <a href="javascript:void(0)" class="text-2xl text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                </div>
-                                <div class="p-4">
-                                    <div class="grid items-center grid-cols-12">
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div class="mb-4 text-center mb-md-0">
-                                                <a href="company-details.html"><img src="assets/images/featured-job/img-06.png" alt="" class="mx-auto img-fluid rounded-3"></a>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-3">
-                                            <div class="mb-2 mb-md-0">
-                                                <h5 class="mb-1 fs-18"><a href="job-details.html" class="text-gray-900 dark:text-gray-50">Product Director</a>
-                                                </h5>
-                                                <p class="mb-0 text-gray-500 fs-14 dark:text-gray-300">Creative Agency</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-3">
-                                            <div class="mb-2 lg:flex">
-                                                <div class="flex-shrink-0">
-                                                    <i class="mr-1 mdi mdi-map-marker group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
-                                                </div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300">Escondido, California</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"> <i class="mr-1 uil uil-clock-three group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i> 2 month ago</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div class="flex flex-wrap gap-1.5">
-                                                <span class="bg-violet-500/20 text-violet-500 text-13 px-2 py-0.5 font-medium rounded">Freelance</span>
-                                                <span class="bg-yellow-500/20 text-yellow-500 text-13 px-2 py-0.5 font-medium rounded">Urgent</span>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </div>
-                                <div class="px-4 py-3 bg-gray-50 dark:bg-neutral-700">
-                                    <div class="grid grid-cols-12">
-                                        <div class="col-span-12 lg:col-span-6">
-                                            <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"><span class="font-medium text-gray-900 dark:text-gray-50">Experience :</span> 1
-                                                    - 2 years</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 mt-2 lg:col-span-6 lg:mt-0">
-                                            <div class="ltr:lg:text-right rtl:lg:text-left dark:text-gray-50">
-                                                <a href="#applyNow" data-bs-toggle="modal">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </div>
-                            </div>
-
-                            <div class="relative mt-4 overflow-hidden transition-all duration-500 ease-in-out bg-white border rounded-md border-gray-100/50 group group-data-[theme-color=violet]:hover:border-violet-500 group-data-[theme-color=sky]:hover:border-sky-500 group-data-[theme-color=red]:hover:border-red-500 group-data-[theme-color=green]:hover:border-green-500 group-data-[theme-color=pink]:hover:border-pink-500 group-data-[theme-color=blue]:hover:border-blue-500 hover:-translate-y-2 dark:bg-neutral-900 dark:border-neutral-600">
-                                <div class="w-48 absolute -top-[5px] -left-20 -rotate-45 group-data-[theme-color=violet]:bg-violet-500 group-data-[theme-color=sky]:bg-sky-500 group-data-[theme-color=red]:bg-red-500 group-data-[theme-color=green]:bg-green-500 group-data-[theme-color=pink]:bg-pink-500 group-data-[theme-color=blue]:bg-blue-500 p-[6px] text-center">
-                                    <a href="javascript:void(0)" class="text-2xl text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                </div>
-                                <div class="p-4">
-                                    <div class="grid items-center grid-cols-12">
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div class="mb-4 text-center mb-md-0">
-                                                <a href="company-details.html"><img src="assets/images/featured-job/img-07.png" alt="" class="mx-auto img-fluid rounded-3"></a>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-3">
-                                            <div class="mb-2 mb-md-0">
-                                                <h5 class="mb-1 fs-18"><a href="job-details.html" class="text-gray-900 dark:text-gray-50">Product Director</a>
-                                                </h5>
-                                                <p class="mb-0 text-gray-500 fs-14 dark:text-gray-300">Creative Agency</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-3">
-                                            <div class="mb-2 lg:flex">
-                                                <div class="flex-shrink-0">
-                                                    <i class="mr-1 mdi mdi-map-marker group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
-                                                </div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300">Escondido, California</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"> <i class="mr-1 uil uil-clock-three group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i> 1 month ago</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div class="flex flex-wrap gap-1.5">
-                                                <span class="bg-red-500/20 text-red-500 text-13 px-2 py-0.5 font-medium rounded">Part Time</span>
-                                                <span class="bg-yellow-500/20 text-yellow-500 text-13 px-2 py-0.5 font-medium rounded">Urgent</span>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </div>
-                                <div class="px-4 py-3 bg-gray-50 dark:bg-neutral-700">
-                                    <div class="grid grid-cols-12">
-                                        <div class="col-span-12 lg:col-span-6">
-                                            <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"><span class="font-medium text-gray-900 dark:text-gray-50">Experience :</span> 1
-                                                    - 2 years</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 mt-2 lg:col-span-6 lg:mt-0">
-                                            <div class="ltr:lg:text-right rtl:lg:text-left dark:text-gray-50">
-                                                <a href="#applyNow" data-bs-toggle="modal">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </div>
-                            </div>
-
-                            <div class="relative mt-4 overflow-hidden transition-all duration-500 ease-in-out bg-white border rounded-md border-gray-100/50 group group-data-[theme-color=violet]:hover:border-violet-500 group-data-[theme-color=sky]:hover:border-sky-500 group-data-[theme-color=red]:hover:border-red-500 group-data-[theme-color=green]:hover:border-green-500 group-data-[theme-color=pink]:hover:border-pink-500 group-data-[theme-color=blue]:hover:border-blue-500 hover:-translate-y-2 dark:bg-neutral-900 dark:border-neutral-600">
-                                <div class="w-48 absolute -top-[5px] -left-20 -rotate-45 group-data-[theme-color=violet]:bg-violet-500 group-data-[theme-color=sky]:bg-sky-500 group-data-[theme-color=red]:bg-red-500 group-data-[theme-color=green]:bg-green-500 group-data-[theme-color=pink]:bg-pink-500 group-data-[theme-color=blue]:bg-blue-500 p-[6px] text-center">
-                                    <a href="javascript:void(0)" class="text-2xl text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                </div>
-                                <div class="p-4">
-                                    <div class="grid items-center grid-cols-12">
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div class="mb-4 text-center mb-md-0">
-                                                <a href="company-details.html"><img src="assets/images/featured-job/img-03.png" alt="" class="mx-auto img-fluid rounded-3"></a>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-3">
-                                            <div class="mb-2 mb-md-0">
-                                                <h5 class="mb-1 fs-18"><a href="job-details.html" class="text-gray-900 dark:text-gray-50">Product Director</a>
-                                                </h5>
-                                                <p class="mb-0 text-gray-500 fs-14 dark:text-gray-300">Creative Agency</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-3">
-                                            <div class="mb-2 lg:flex">
-                                                <div class="flex-shrink-0">
-                                                    <i class="mr-1 mdi mdi-map-marker group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
-                                                </div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300">Escondido, California</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"> <i class="mr-1 uil uil-clock-three group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i> 3 month ago</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 lg:col-span-2">
-                                            <div class="flex flex-wrap gap-1.5">
-                                                <span class="bg-sky-500/20 text-sky-500 text-13 px-2 py-0.5 font-medium rounded">Internship</span>
-                                                <span class="bg-violet-500/20 text-violet-500 text-13 px-2 py-0.5 font-medium rounded">Private</span>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </div>
-                                <div class="px-4 py-3 bg-gray-50 dark:bg-neutral-700">
-                                    <div class="grid grid-cols-12">
-                                        <div class="col-span-12 lg:col-span-6">
-                                            <div>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300"><span class="font-medium text-gray-900 dark:text-gray-50">Experience :</span> 1
-                                                    - 2 years</p>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-span-12 mt-2 lg:col-span-6 lg:mt-0">
-                                            <div class="ltr:lg:text-right rtl:lg:text-left dark:text-gray-50">
-                                                <a href="#applyNow" data-bs-toggle="modal">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </div>
-                            </div>
                         </div>
 
+                        @if ($jobs->hasPages())
                         <div class="grid grid-cols-12">
                             <div class="col-span-12">
-                                <ul class="flex justify-center gap-2 mt-8">
-                                    <li class="w-12 h-12 text-center border rounded-full cursor-default border-gray-100/50 dark:border-gray-100/20">
-                                        <a class="cursor-auto" href="javascript:void(0)" tabindex="-1">
-                                            <i class="mdi mdi-chevron-double-left text-16 leading-[2.8] dark:text-white"></i>
-                                        </a>
-                                    </li>
-                                    <li class="w-12 h-12 text-center text-white border border-transparent rounded-full cursor-pointer group-data-[theme-color=violet]:bg-violet-500 group-data-[theme-color=sky]:bg-sky-500 group-data-[theme-color=red]:bg-red-500 group-data-[theme-color=green]:bg-green-500 group-data-[theme-color=pink]:bg-pink-500 group-data-[theme-color=blue]:bg-blue-500">
-                                        <a class="text-16 leading-[2.8]" href="javascript:void(0)">1</a>
-                                    </li>
-                                    <li class="w-12 h-12 text-center text-gray-900 transition-all duration-300 border rounded-full cursor-pointer border-gray-100/50 hover:bg-gray-100/30 focus:bg-gray-100/30 dark:border-gray-100/20 dark:text-gray-50 dark:hover:bg-gray-500/20">
-                                        <a class="text-16 leading-[2.8]" href="javascript:void(0)">2</a>
-                                    </li>
-                                    <li class="w-12 h-12 text-center text-gray-900 transition-all duration-300 border rounded-full cursor-pointer border-gray-100/50 hover:bg-gray-100/30 focus:bg-gray-100/30 dark:border-gray-100/20 dark:text-gray-50 dark:hover:bg-gray-500/20">
-                                        <a class="text-16 leading-[2.8]" href="javascript:void(0)">3</a>
-                                    </li>
-                                    <li class="w-12 h-12 text-center text-gray-900 transition-all duration-300 border rounded-full cursor-pointer border-gray-100/50 hover:bg-gray-100/30 focus:bg-gray-100/30 dark:border-gray-100/20 dark:text-gray-50 dark:hover:bg-gray-500/20">
-                                        <a class="text-16 leading-[2.8]" href="javascript:void(0)">4</a>
-                                    </li>
-                                    <li class="w-12 h-12 text-center text-gray-900 transition-all duration-300 border rounded-full cursor-pointer border-gray-100/50 hover:bg-gray-100/30 focus:bg-gray-100/30 dark:border-gray-100/20 dark:text-gray-50 dark:hover:bg-gray-500/20">
-                                        <a href="javascript:void(0)" tabindex="-1">
-                                            <i class="mdi mdi-chevron-double-right text-16 leading-[2.8]"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                                <span class="flex justify-center gap-2 mt-8">
+                                    
+                                {{ $jobs->links() }}
+                                    
+                                </span>
                             </div>
                             <!--end col-->
                         </div>
+                        @endif
                     </div>
                     <div class="col-span-12 space-y-5 lg:col-span-3">
                         <div data-tw-accordion="collapse">

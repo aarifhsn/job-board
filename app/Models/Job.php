@@ -15,6 +15,7 @@ class Job extends Model
         'category_id',
         'title',
         'description',
+        'experience',
         'slug',
         'vacancy',
         'location',

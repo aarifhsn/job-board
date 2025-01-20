@@ -27,8 +27,7 @@
                     <div class="p-6">
                         <ul class="space-y-4">
                             @foreach ($categories as  $category)
-                                
-                           
+
                             <li
                                 class="px-4 py-2 bg-white rounded dark:bg-neutral-600"
                             >
@@ -38,7 +37,7 @@
                                     >{{$category->name}}
                                     <span
                                         class="px-2 py-1 rounded bg-sky-500/20 text-11 text-sky-500 ltr:float-right rtl:float-left"
-                                        >{{ $category->jobs_count }}</span
+                                        >{{ $category->jobs()->count()}}</span
                                     ></a
                                 >
                             </li>

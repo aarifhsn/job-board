@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Job\JobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +26,7 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/browse-jobs', function () {
-    return view('job-lists');
-})->name('job-lists');
+Route::get('/browse-jobs', [JobController::class, 'viewJobs'])->name('job-lists');
 
 Route::get('/job-categories', [HomeController::class, 'jobCategories'])->name('job-categories');
 

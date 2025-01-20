@@ -17,6 +17,7 @@ class HomeController extends Controller
     public function jobCategories()
     {
         $categories = Category::withCount('jobs')->get();
+
         return view('job-categories', compact('categories'));
     }
 }
