@@ -4,7 +4,10 @@
 
     @include('components.home-job-search')
 
-    @include('components.home-job-categories')
+    @if (isset($categories) && count($categories) > 0)
+        @include('components.home-job-categories')
+    @endif
+    
 
     @include('components.home-job-random')
 
