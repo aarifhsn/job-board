@@ -118,6 +118,16 @@
                             <span class="hidden fw-medium xl:block dark:text-gray-50">Shawn L.</span>
                         </button>
                         <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800" id="profile/log" aria-labelledby="navNotifications">
+                            
+                            @if (!auth()->check())
+                            <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                <a href="{{route('login')}}" class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50" >Login</a>
+                            </li>
+                            <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                <a href="{{route('register')}}" class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50" >Register</a>
+                            </li>
+            
+                            @else
                             <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
                                 <a href="{{route('manage-jobs')}}" class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50" >Manage Jobs</a>
                             </li>
@@ -125,14 +135,10 @@
                             <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
                                 <a href="{{route('profile')}}" class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50" >Profile</a>
                             </li>
-                            <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                <a href="{{route('login')}}" class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50" >Login</a>
-                            </li>
-                            <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                <a href="{{route('register')}}" class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50" >Register</a>
-                            </li>
                             <li  class="p-2 dropdown-item group/dropdown dark:text-gray-300">
                                 <a href="{{route('logout')}}" class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50" >Logout</a>
+                            </li>
+                            @endif
                         </ul>
                     </div>
                 </div>

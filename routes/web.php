@@ -51,8 +51,6 @@ Route::get('/profile', function () {
     return view('profile');
 })->name('profile');
 
-Route::get('/logout', function () {
-    return view('logout');
-})->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
