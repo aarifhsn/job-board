@@ -50,6 +50,9 @@ Route::get('/profile', function () {
     return view('profile');
 })->name('profile');
 
+Route::get('/jobs/search', [JobController::class, 'search'])->name('jobs.search');
+
+
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 

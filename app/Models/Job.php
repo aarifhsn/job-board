@@ -63,4 +63,22 @@ class Job extends Model
     {
         return $query->where('user_id', $userId);
     }
+
+    public function scopeSearch($query, $term)
+    {
+        return $query->where('title', 'like', '%' . $term . '%')
+            ->orWhereHas('company', function ($q) use ($term) {
+                $q->where('name', 'like', '%' . $term . '%');
+            });
+    }
+
+
+    public function scopeFilterByCountry($query, $country)
+    {
+        if ($country) {
+            return $query->where('country', $country);
+        }
+        return $query;
+    }
+
 }

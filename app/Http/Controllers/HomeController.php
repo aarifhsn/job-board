@@ -42,5 +42,12 @@ class HomeController extends Controller
         return view('job-categories', compact('all_categories'));
     }
 
+    public function homeSearch()
+    {
+        $countries = config('countries');
+        return view('home', compact('countries'));
+    }
+
+
 
 }

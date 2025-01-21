@@ -21,5 +21,15 @@ class JobController extends Controller
         return view('job-lists', compact('jobs', 'company', 'popular_jobs'));
     }
 
+    public function search(Request $request)
+    {
+        $jobs = Job::query()
+            ->search($request->input('query'))
+            ->filterByCountry($request->input('country'))
+            ->paginate(10);
+
+        return view('jobs.search-results', compact('jobs'));
+    }
+
 
 }
