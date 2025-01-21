@@ -26,7 +26,7 @@
                 <div class="mt-10 rounded bg-gray-50 dark:bg-neutral-700">
                     <div class="p-6">
                         <ul class="space-y-4">
-                            @foreach ($categories as  $category)
+                            @foreach ($all_categories as  $category)
 
                             <li
                                 class="px-4 py-2 bg-white rounded dark:bg-neutral-600"

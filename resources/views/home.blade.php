@@ -7,9 +7,10 @@
     @if (isset($categories) && count($categories) > 0)
         @include('components.home-job-categories')
     @endif
-    
 
-    @include('components.home-job-random')
+    @if (isset($recent_jobs) && count($recent_jobs) > 0)
+        @include('components.home-job-random')
+    @endif
 
     @include('components.home-job-policies')
 

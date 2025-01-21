@@ -20,7 +20,7 @@
                                 <a href="job-categories.html" class="text-gray-900">
                                     <h5 class="text-lg dark:text-gray-50">{{ $category->name }}</h5>
                                 </a>
-                                <p class="mt-1 font-medium text-gray-500 dark:text-gray-300">2024 Jobs</p>
+                                <p class="mt-1 font-medium text-gray-500 dark:text-gray-300">{{ $category->jobs->count() }} Jobs</p>
                             </div>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
         </div>
         <div class="grid grid-cols-1">
             <div class="mt-5 text-center">
-                <a href="job-categories.html" class="text-white border-transparent group-data-[theme-color=violet]:bg-violet-500 group-data-[theme-color=sky]:bg-sky-500 group-data-[theme-color=red]:bg-red-500 group-data-[theme-color=green]:bg-green-500 group-data-[theme-color=pink]:bg-pink-500 group-data-[theme-color=blue]:bg-blue-500 btn hover:-translate-y-2">Browse All Categories <i class="uil uil-arrow-right ms-1"></i></a>
+                <a href="{{route('job-categories')}}" class="text-white border-transparent group-data-[theme-color=violet]:bg-violet-500 group-data-[theme-color=sky]:bg-sky-500 group-data-[theme-color=red]:bg-red-500 group-data-[theme-color=green]:bg-green-500 group-data-[theme-color=pink]:bg-pink-500 group-data-[theme-color=blue]:bg-blue-500 btn hover:-translate-y-2">Browse All Categories <i class="uil uil-arrow-right ms-1"></i></a>
             </div>
         </div>
     </div>
