@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $categories = Category::withCount('jobs')->get();
+        $categories = Category::all();
 
         // Fetch distinct job types from the jobs table
         $jobTypes = Job::select('type')->distinct()->pluck('type');

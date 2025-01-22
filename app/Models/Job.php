@@ -39,6 +39,11 @@ class Job extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'job_tags');
+    }
+
     public function jobClicks()
     {
         return $this->hasMany(JobClick::class);
@@ -71,7 +76,6 @@ class Job extends Model
                 $q->where('name', 'like', '%' . $term . '%');
             });
     }
-
     public function scopeFilterByCountry($query, $country)
     {
         if ($country) {
@@ -79,13 +83,4 @@ class Job extends Model
         }
         return $query;
     }
-
-    public function scopeFilterBySector($query, $sector)
-    {
-        if ($sector) {
-            return $query->where('sector', $sector);
-        }
-        return $query;
-    }
-
 }

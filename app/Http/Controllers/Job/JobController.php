@@ -17,6 +17,7 @@ class JobController extends Controller
         $company = Company::all();
 
         $popular_jobs = Job::withCount('company')->orderBy('company_count', 'desc')->take(5)->get();
+        $popular_tags = Tag::withCount('jobs')->orderBy('jobs_count', 'desc')->take(5)->get();
 
         $tags = Tag::all();
 
@@ -25,9 +26,10 @@ class JobController extends Controller
 
     public function search(Request $request)
     {
-
         $search = $request->input('search');
         $country = $request->input('country');
+        $category = $request->input('category');
+        $tags = $request->input('tags');
 
         // Retrieve the country code from the request
         $countryCode = request('country');
@@ -40,7 +42,14 @@ class JobController extends Controller
                 $query->where('title', 'like', "%$search%")
                     ->orWhereHas('company', function ($q) use ($search) {
                         $q->where('name', 'like', "%$search%");
-                    });
+                    })
+                    ->orWhereHas('tag', function ($q) use ($search) {
+                        $q->where('name', 'like', "%$search%");
+                    })
+                    ->orWhereHas('category', function ($q) use ($search) {
+                        $q->where('name', 'like', "%$search%");
+                    })
+                    ->orWhere('location', 'like', "%$search%");
             })
             ->when($countryName, function ($query) use ($countryName) {
                 $query->whereHas('company', function ($q) use ($countryName) {

@@ -5,12 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tag;
 use Illuminate\Support\Str;
+use App\Models\Job;
 
 class TagController extends Controller
 {
     public function index()
     {
-        // Get all tags
+        $tags = Tag::withCount('jobs')
+            ->orderBy('jobs_count', 'desc')
+            ->limit(5)
+            ->get();
+
+        $popular_tags = Tag::withCount('jobs')
+            ->orderBy('jobs_count', 'desc')
+            ->limit(5)
+            ->get();
+
+        $jobs = Job::paginate(10);
+
+        return view('tags.browse-by-tag', ['tags' => $tags, 'popular_tags' => $popular_tags, 'jobs' => $jobs]);
     }
 
     public function store(Request $request)

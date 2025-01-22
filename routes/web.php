@@ -51,7 +51,7 @@ Route::get('/profile', function () {
 
 Route::get('/jobs/search', [JobController::class, 'search'])->name('jobs.search');
 
-Route::get('/tags', [TagController::class, 'index'])->name('tags.index');
+Route::get('/tag/{name}', [TagController::class, 'index'])->name('tags.index');
 Route::post('/tags', [TagController::class, 'store'])->name('tags.store');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
