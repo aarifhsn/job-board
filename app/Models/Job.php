@@ -72,11 +72,18 @@ class Job extends Model
             });
     }
 
-
     public function scopeFilterByCountry($query, $country)
     {
         if ($country) {
             return $query->where('country', $country);
+        }
+        return $query;
+    }
+
+    public function scopeFilterBySector($query, $sector)
+    {
+        if ($sector) {
+            return $query->where('sector', $sector);
         }
         return $query;
     }

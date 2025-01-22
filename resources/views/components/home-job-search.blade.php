@@ -16,17 +16,17 @@
                             <div class="col-span-12 xl:col-span-4">
                                 <div class="mt-3 rounded-l filter-search-form filter-border mt-md-0">
                                     <i class="uil uil-briefcase-alt"></i>
-                                    <input type="search" id="job-title" class="w-full filter-input-box placeholder:text-gray-100 placeholder:text-13 dark:text-gray-100" placeholder="Job, Company name...">
+                                    <input type="search" name="search" id="job-title" class="w-full filter-input-box placeholder:text-gray-100 placeholder:text-13 dark:text-gray-100" placeholder="Job, Company name..." value="{{ request('search') }}">
                                 </div>
                             </div><!--end col-->
                             <div class="col-span-12 xl:col-span-4">
                                 <div class="mt-3 filter-search-form mt-md-0">
                                     <i class="uil uil-map-marker"></i>
-                                    <select class="form-select" data-trigger name="choices-single-location" id="choices-single-location" aria-label="Default select example">
+                                    <select class="form-select" data-trigger name="country" id="choices-single-location" aria-label="Default select example">
                                         <option value="0" selected>Location</option>
                                         
                                     @foreach (config('countries') as $code => $name)
-                                        <option value="{{$code}}">{{$name}}</option>
+                                    <option value="{{ $code }}" {{ request('country') == $code ? 'selected' : '' }}>{{ $name }}</option>
                                     @endforeach
                                     </select>
                                 </div>

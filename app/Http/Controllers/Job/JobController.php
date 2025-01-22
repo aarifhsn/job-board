@@ -23,13 +23,31 @@ class JobController extends Controller
 
     public function search(Request $request)
     {
+
+        $search = $request->input('search');
+        $country = $request->input('country');
+
+        // Retrieve the country code from the request
+        $countryCode = request('country');
+
+        // Get the country name from the configuration file
+        $countryName = config('countries.' . $countryCode);
+
         $jobs = Job::query()
-            ->search($request->input('query'))
-            ->filterByCountry($request->input('country'))
-            ->paginate(10);
+            ->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%$search%")
+                    ->orWhereHas('company', function ($q) use ($search) {
+                        $q->where('name', 'like', "%$search%");
+                    });
+            })
+            ->when($countryName, function ($query) use ($countryName) {
+                $query->whereHas('company', function ($q) use ($countryName) {
+                    $q->where('country', $countryName);
+                });
+            })
+            ->get();
 
         return view('jobs.search-results', compact('jobs'));
     }
-
 
 }
