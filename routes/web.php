@@ -42,9 +42,7 @@ Route::get('/manage-jobs-post', function () {
     return view('manage-jobs-post');
 })->name('manage-jobs-post');
 
-Route::get('/job-details', function () {
-    return view('job-details');
-})->name('job-details');
+Route::get('/job-details/{id}', [JobController::class, 'show'])->name('job-details');
 
 Route::get('/profile', function () {
     return view('profile');

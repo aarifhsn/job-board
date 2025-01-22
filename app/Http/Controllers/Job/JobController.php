@@ -50,4 +50,11 @@ class JobController extends Controller
         return view('jobs.search-results', compact('jobs'));
     }
 
+    public function show($id)
+    {
+        $job = Job::with('company')->findOrFail($id);
+
+        return view('job-details', compact('job'));
+    }
+
 }
