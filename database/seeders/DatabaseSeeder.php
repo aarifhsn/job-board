@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Company;
 use App\Models\Subscription;
 use App\Models\Payment;
+use App\Models\Tag;
 
 class DatabaseSeeder extends Seeder
 {
@@ -57,5 +58,9 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         });
+
+        $this->call([
+            TagSeeder::class,
+        ]);
     }
 }

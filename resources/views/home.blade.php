@@ -5,7 +5,7 @@
     @include('components.home-job-search')
 
     @if (isset($categories) && count($categories) > 0)
-        @include('components.home-job-categories')
+        @include('components.home-job-categories', ['categories' => $categories])
     @endif
 
     @if (isset($recent_jobs) && count($recent_jobs) > 0)
