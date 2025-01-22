@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegistrationController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Job\JobController;
@@ -53,6 +54,9 @@ Route::get('/jobs/search', [JobController::class, 'search'])->name('jobs.search'
 
 Route::get('/tag/{name}', [TagController::class, 'index'])->name('tags.index');
 Route::post('/tags', [TagController::class, 'store'])->name('tags.store');
+
+Route::get('/category/{name}', [CategoryController::class, 'index'])->name('categories.index');
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 

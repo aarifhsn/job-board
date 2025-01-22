@@ -23,7 +23,9 @@ class TagController extends Controller
 
         $jobs = Job::paginate(10);
 
-        return view('tags.browse-by-tag', ['tags' => $tags, 'popular_tags' => $popular_tags, 'jobs' => $jobs]);
+        $tag = request('name');
+
+        return view('tags.browse-by-tag', ['tags' => $tags, 'popular_tags' => $popular_tags, 'jobs' => $jobs], compact('tag'));
     }
 
     public function store(Request $request)
