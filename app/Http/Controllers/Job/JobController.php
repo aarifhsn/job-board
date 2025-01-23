@@ -58,7 +58,9 @@ class JobController extends Controller
             })
             ->get();
 
-        return view('jobs.search-results', compact('jobs'));
+        $tags = Tag::all();
+
+        return view('jobs.search-results', compact('jobs', 'tags'));
     }
 
     public function show($id)

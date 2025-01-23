@@ -73,6 +73,16 @@ class CompanyController extends Controller
         return back()->with('error', 'Invalid credentials.');
     }
 
+    public function profile($slug)
+    {
+        $company = Company::where('slug', $slug)->firstOrFail();
+
+        // Get the latest jobs posted by the company
+        $company_jobs = $company->jobs()->latest()->get();
+
+        return view('company.profile', compact('company', 'company_jobs'));
+    }
+
     public function editProfile()
     {
         $company = auth()->user()->company;  // Get the company related to the logged-in user

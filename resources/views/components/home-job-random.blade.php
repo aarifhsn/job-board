@@ -48,7 +48,8 @@
                                                         <a href="{{route('job-details', $recent_job->id)}}" class="text-gray-900 dark:text-gray-50">{{$recent_job->title}}
                                                         </a>
                                                     </h5>
-                                                    <p class="mb-0 text-gray-500 fs-14 dark:text-gray-300">{{$recent_job->company->name}}</p>
+                                                    <a href="{{route('company.profile', ['slug' => $recent_job->company->slug])}}" class="text-gray-500 dark:text-gray-300">{{$recent_job->company->name}}</a>
+                                                    
                                                 </div>
                                             </div>
                                             <!--end col-->
@@ -126,7 +127,7 @@
                                             <div class="mb-2 mb-md-0">
                                                 <h5 class="mb-1 fs-18"><a href="{{route('job-details', $job->id)}}" class="text-gray-900 dark:text-gray-50">{{$job->title}}</a>
                                                 </h5>
-                                                <p class="mb-0 text-gray-500 fs-14 dark:text-gray-300">{{$job->company->name}}</p>
+                                                <a href="{{route('company.profile', ['slug' => $job->company->slug])}}" class="text-gray-500 dark:text-gray-300">{{$job->company->name}}</a>
                                             </div>
                                         </div>
                                         <!--end col-->

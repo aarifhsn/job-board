@@ -63,20 +63,18 @@ Route::post('/categories', [CategoryController::class, 'store'])->name('categori
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::get('/login/company', [CompanyController::class, 'showLoginForm'])->name('company.login');
-Route::post('/login/company', [CompanyController::class, 'login']);
+Route::get('/company/login', [CompanyController::class, 'showLoginForm'])->name('company.login');
+Route::post('/company/login', [CompanyController::class, 'login']);
 
-Route::get('/register/company', [CompanyController::class, 'showRegistrationForm'])->name('company.register');
-Route::post('/register/company', [CompanyController::class, 'register']);
+Route::get('/company/register', [CompanyController::class, 'showRegistrationForm'])->name('company.register');
+Route::post('/company/register', [CompanyController::class, 'register']);
 
 Route::middleware(['auth', 'company'])->group(function () {
     Route::get('/company/dashboard', function () {
         return view('company.dashboard');
     })->name('company.dashboard');
 
-    Route::get('/company/profile', function () {
-        return view('company.profile');
-    })->name('company.profile');
+    Route::get('/company/{slug}', [CompanyController::class, 'profile'])->name('company.profile');
 });
 
 
