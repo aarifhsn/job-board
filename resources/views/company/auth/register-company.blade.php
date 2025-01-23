@@ -82,7 +82,7 @@
 
                                                 <div class="mb-5">
                                                     <label for="contact_number" class="text-white">Contact Number</label>
-                                                    <input type="text" name="contact_number" class="w-full mt-1 group-data-[theme-color=violet]:bg-violet-400/40  py-2.5 rounded border-transparent placeholder:text-sm placeholder:text-gray-50 text-white" required="" id="contact_number" placeholder="Enter your contact number" value="{{old('contact_number')}}">
+                                                    <input type="text" name="contact_number" class="w-full mt-1 group-data-[theme-color=violet]:bg-violet-400/40  py-2.5 rounded border-transparent placeholder:text-sm placeholder:text-gray-50 text-white" id="contact_number" placeholder="Enter your contact number" value="{{old('contact_number')}}">
                                                     @error('contact_number') <span class="text-danger">{{ $message }}</span> @enderror
                                                 </div>
 

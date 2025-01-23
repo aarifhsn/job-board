@@ -73,7 +73,13 @@ Route::middleware(['auth', 'company'])->group(function () {
     Route::get('/company/dashboard', function () {
         return view('company.dashboard');
     })->name('company.dashboard');
+
+    Route::get('/company/profile', function () {
+        return view('company.profile');
+    })->name('company.profile');
 });
+
+
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
