@@ -414,12 +414,11 @@
                                                     <a
                                                         href="job-details.html"
                                                         class="text-gray-900 dark:text-gray-50"
-                                                        >HTML
-                                                        Developer</a
+                                                        >{{$job->title}}</a
                                                     >
                                                     <small
                                                         class="font-normal text-gray-500 dark:text-gray-300"
-                                                        >(0-2 Yrs
+                                                        >({{$job->experience}} Yrs
                                                         Exp.)</small
                                                     >
                                                 </h5>
@@ -430,9 +429,7 @@
                                                         <p
                                                             class="mb-0 text-sm text-gray-500 dark:text-gray-300"
                                                         >
-                                                            Jobcy
-                                                            Technology
-                                                            Pvt.Ltd
+                                                            {{$job->company->name}}
                                                         </p>
                                                     </li>
                                                     <li>
@@ -442,7 +439,7 @@
                                                             <i
                                                                 class="mdi mdi-map-marker"
                                                             ></i>
-                                                            California
+                                                            {{$job->city}}, {{$job->Country}}
                                                         </p>
                                                     </li>
                                                     <li>
@@ -452,8 +449,7 @@
                                                             <i
                                                                 class="uil uil-wallet ltr:mr-2 rtl:ml-2"
                                                             ></i>
-                                                            $250 -
-                                                            $800 /
+                                                            {{Number::currency($job->salary_range)}} /
                                                             month
                                                         </p>
                                                     </li>
@@ -464,17 +460,9 @@
                                                     >
                                                         <span
                                                             class="badge bg-green-500/20 text-green-500 text-11 px-2 py-0.5 font-medium rounded"
-                                                            >Full
-                                                            Time</span
+                                                            >{{$job->type}}</span
                                                         >
-                                                        <span
-                                                            class="badge bg-yellow-500/20 text-yellow-500 text-11 px-2 py-0.5 font-medium rounded"
-                                                            >Urgent</span
-                                                        >
-                                                        <span
-                                                            class="badge bg-sky-500/20 text-sky-500 text-11 px-2 py-0.5 font-medium rounded"
-                                                            >Private</span
-                                                        >
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -499,21 +487,15 @@
                                                         ></i>
                                                         Keywords :
                                                     </li>
+                                                    @foreach ($job->tag as $each_tag)
                                                     <li>
                                                         <a
                                                             href="javascript:void(0)"
                                                             class="primary-link text-muted"
-                                                            >Ui
-                                                            designer</a
-                                                        >,
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="javascript:void(0)"
-                                                            class="primary-link text-muted"
-                                                            >developer</a
+                                                            >{{$each_tag->name}}</a
                                                         >
                                                     </li>
+                                                    @endforeach
                                                 </ul>
                                             </div>
                                             <!--end col-->

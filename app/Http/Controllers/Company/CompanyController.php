@@ -78,7 +78,7 @@ class CompanyController extends Controller
         $company = Company::where('slug', $slug)->firstOrFail();
 
         // Get the latest jobs posted by the company
-        $company_jobs = $company->jobs()->latest()->get();
+        $company_jobs = $company->jobs()->with('tag')->latest()->get();
 
         return view('company.profile', compact('company', 'company_jobs'));
     }

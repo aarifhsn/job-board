@@ -77,8 +77,6 @@ Route::middleware(['auth', 'company'])->group(function () {
     Route::get('/company/{slug}', [CompanyController::class, 'profile'])->name('company.profile');
 });
 
-
-
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/candidates', [AdminController::class, 'candidates'])->name('admin.candidates');
