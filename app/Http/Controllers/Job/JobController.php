@@ -29,7 +29,7 @@ class JobController extends Controller
         $search = $request->input('search');
         $country = $request->input('country');
         $category = $request->input('category');
-        $tags = $request->input('tags');
+        $tag = $request->input('tag');
 
         // Retrieve the country code from the request
         $countryCode = request('country');

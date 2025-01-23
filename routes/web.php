@@ -7,6 +7,8 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Job\JobController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\Company\CompanyController;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,5 +61,26 @@ Route::get('/category/{name}', [CategoryController::class, 'index'])->name('cate
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+Route::get('/login/company', [CompanyController::class, 'showLoginForm'])->name('company.login');
+Route::post('/login/company', [CompanyController::class, 'login']);
+
+Route::get('/register/company', [CompanyController::class, 'showRegistrationForm'])->name('company.register');
+Route::post('/register/company', [CompanyController::class, 'register']);
+
+Route::middleware(['auth', 'company'])->group(function () {
+    Route::get('/company/dashboard', function () {
+        return view('company.dashboard');
+    })->name('company.dashboard');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/candidates', [AdminController::class, 'candidates'])->name('admin.candidates');
+    Route::get('/admin/companies', [AdminController::class, 'companies'])->name('admin.companies');
+    Route::post('/admin/companies/{id}/approve', [AdminController::class, 'approveCompany'])->name('admin.companies.approve');
+});
+
 
 

@@ -36,6 +36,6 @@ class RegistrationController extends Controller
         auth()->attempt($request->only('email', 'password'));
 
         // redirect to home page
-        return redirect()->route('login')->with('success', 'Your account has been created. Please update your profile.');
+        return redirect()->route('login')->with('success', 'Your account has been created. Please Login.');
     }
 }
