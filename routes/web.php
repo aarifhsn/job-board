@@ -9,6 +9,7 @@ use App\Http\Controllers\Job\JobController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +84,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/companies', [AdminController::class, 'companies'])->name('admin.companies');
     Route::post('/admin/companies/{id}/approve', [AdminController::class, 'approveCompany'])->name('admin.companies.approve');
 });
+
+Route::get('/news', [NewsController::class, 'index'])->name('news.index');
 
 
 
