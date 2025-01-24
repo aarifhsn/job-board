@@ -1,7 +1,7 @@
 <!-- start home -->
-<div style="position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center;">
+<div style="color: green; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center; text-align: center;">
     @if (session('success'))
-    <p class="text-green-800 font-semibold border border-solid border-green-500 p-4">{{ session('success') }}</p>
+    <p class="font-semibold border border-solid border-green-500 p-4">{{ session('success') }}</p>
     @endif
 </div>
 <section class="relative bg-opacity-10 py-28 dark:bg-violet-900 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20">
