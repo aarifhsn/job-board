@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-mode="light" class="scroll-smooths group" data-theme-color="violet">
     
-<!-- Mirrored from themesdesign.in/jobcy-tailwind/layout/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Jan 2025 03:57:44 GMT -->
+<!-- Mirrored from themesdesign.in/{{config('app.name')}}-tailwind/layout/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Jan 2025 03:57:44 GMT -->
 <head>
         <meta charset="utf-8" />
         <title>{{config('app.name')}}</title>
@@ -52,7 +52,7 @@
                                 <div class="grid flex-col grid-cols-12">
                                     <div class="col-span-6 ltr:rounded-l-lg rtl:rounded-r-lg">
                                         <div class="p-10">
-                                            <a href="index.html">
+                                            <a href="{{route('home')}}">
                                                 <img src="{{asset('images/logo-light.png')}}" alt="" class="hidden mx-auto dark:block">
                                                 <img src="{{asset('images/logo-dark.png')}}" alt="" class="block mx-auto dark:hidden">
                                             </a>
@@ -65,7 +65,7 @@
                                         <div class="flex flex-col justify-center h-full p-12">
                                             <div class="text-center">
                                                 <h5 class="text-[18.5px] text-white">Let's Get Started</h5>
-                                                <p class="mt-3 text-gray-50">Sign Up and get access to all the features of Jobcy</p>
+                                                <p class="mt-3 text-gray-50">Sign Up and get access to all the features of {{config('app.name')}}</p>
                                             </div>
                                             <form action="{{route('register')}}" method="POST" class="mt-8">
                                                 @csrf
@@ -133,5 +133,5 @@
 
 </body>
 
-<!-- Mirrored from themesdesign.in/jobcy-tailwind/layout/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Jan 2025 03:59:06 GMT -->
+<!-- Mirrored from themesdesign.in/{{config('app.name')}}-tailwind/layout/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Jan 2025 03:59:06 GMT -->
 </html>

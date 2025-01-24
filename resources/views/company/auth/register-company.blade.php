@@ -52,7 +52,7 @@
                                 <div class="grid flex-col grid-cols-12">
                                     <div class="col-span-6 ltr:rounded-l-lg rtl:rounded-r-lg">
                                         <div class="p-10">
-                                            <a href="index.html">
+                                            <a href="{{route('home')}}">
                                                 <img src="{{asset('images/logo-light.png')}}" alt="" class="hidden mx-auto dark:block">
                                                 <img src="{{asset('images/logo-dark.png')}}" alt="" class="block mx-auto dark:hidden">
                                             </a>

@@ -50,27 +50,7 @@ class CompanyController extends Controller
         ]);
 
         // Redirect to login with a success message
-        return redirect()->route('home')->with('success', 'Your company account has been created. Please wait for admin approval.');
-    }
-
-
-    public function showLoginForm()
-    {
-        return view('company.auth.login-company');
-    }
-
-    public function login(Request $request)
-    {
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        if (auth()->guard('company')->attempt($validated)) {
-            return redirect()->route('company.dashboard');
-        }
-
-        return back()->with('error', 'Invalid credentials.');
+        return redirect()->route('home')->with('success', __('messages.company_registration_success'));
     }
 
     public function profile($slug)

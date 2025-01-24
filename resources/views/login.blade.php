@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-mode="light" class="scroll-smooths group" data-theme-color="violet">
     
-<!-- Mirrored from themesdesign.in/jobcy-tailwind/layout/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Jan 2025 03:57:44 GMT -->
+<!-- Mirrored from themesdesign.in/{{config('app.name')}}-tailwind/layout/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Jan 2025 03:57:44 GMT -->
 <head>
         <meta charset="utf-8" />
         <title>{{config('app.name')}}</title>
@@ -32,11 +32,12 @@
 
         <div class="main-content">
             <div class="page-content relative">
-                <div class="flex justify-center items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+                <div style="position: absolute; top: 5%; left: 50%; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center;">
                     @if (session('success'))
-                    <p class="text-green-800 border border-solid border-green-500 p-4">{{ session('success') }}</p>
+                    <p class="text-green-800 font-semibold border border-solid border-green-500 p-4">{{ session('success') }}</p>
                     @endif
                 </div>
+                
                 <section class="flex items-center justify-center min-h-screen py-20 group-data-[theme-color=violet]:bg-violet-500/10  dark:bg-neutral-700">
                     <div class="container mx-auto">
                         <div class="grid grid-cols-12">
@@ -45,7 +46,7 @@
                                     <div class="grid flex-col grid-cols-12 ">
                                         <div class="col-span-12 lg:col-span-6 ltr:rounded-l-lg rtl:rounded-r-lg">
                                             <div class="p-10">
-                                                <a href="index.html">
+                                                <a href="{{route('home')}}">
                                                     <img src="{{asset('images/logo-light.png')}}" alt="" class="hidden mx-auto dark:block">
                                                     <img src="{{asset('images/logo-dark.png')}}" alt="" class="block mx-auto dark:hidden">
                                                 </a>
@@ -59,7 +60,7 @@
                                                 
                                                 <div class="text-center">
                                                     <h5 class="text-[18.5px] text-white">Welcome Back !</h5>
-                                                    <p class="mt-3 text-white/80">Sign in to continue to Jobcy.</p>
+                                                    <p class="mt-3 text-white/80">Sign in to continue to {{config('app.name')}}.</p>
                                                 </div>
                                                 <form action="{{route('login')}}" method="POST" class="mt-8">
                                                     @csrf
@@ -119,5 +120,5 @@
 
 </body>
 
-<!-- Mirrored from themesdesign.in/jobcy-tailwind/layout/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Jan 2025 03:59:06 GMT -->
+<!-- Mirrored from themesdesign.in/{{config('app.name')}}-tailwind/layout/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Jan 2025 03:59:06 GMT -->
 </html>

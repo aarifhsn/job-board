@@ -55,8 +55,8 @@ Route::post('/categories', [CategoryController::class, 'store'])->name('categori
 Route::get('/profile', fn() => view('profile'))->name('profile');
 
 // Company Routes
-Route::get('/company/login', [CompanyController::class, 'showLoginForm'])->name('company.login');
-Route::post('/company/login', [CompanyController::class, 'login']);
+// Route::get('/company/login', [CompanyController::class, 'showLoginForm'])->name('company.login');
+// Route::post('/company/login', [CompanyController::class, 'login']);
 Route::get('/company/register', [CompanyController::class, 'showRegistrationForm'])->name('company.register');
 Route::post('/company/register', [CompanyController::class, 'register']);
 
