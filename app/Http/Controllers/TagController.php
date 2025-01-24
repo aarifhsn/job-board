@@ -21,11 +21,12 @@ class TagController extends Controller
             ->limit(5)
             ->get();
 
-        $jobs = Job::paginate(10);
+        $tag = Tag::where('name', request('name'))->first();
 
-        $tag = request('name');
+        // Fetch jobs that belong to the selected tag
+        $jobs = $tag ? $tag->jobs()->paginate(10) : collect();
 
-        return view('tags.browse-by-tag', ['tags' => $tags, 'popular_tags' => $popular_tags, 'jobs' => $jobs], compact('tag'));
+        return view('tags.browse-by-tag', ['tags' => $tags, 'popular_tags' => $popular_tags, 'jobs' => $jobs, 'tag' => $tag->name ?? 'Tag not found']);
     }
 
     public function store(Request $request)

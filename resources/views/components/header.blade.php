@@ -138,10 +138,7 @@
                                     <a href="{{route('register')}}" class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50" >Register</a>
                                 </li>
                                 <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                    <a href="{{route('company.login')}}" class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50" >Login as Company</a>
-                                </li>
-                                <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                    <a href="{{route('company.register')}}" class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50" >Register as Company</a>
+                                    <a href="{{route('company.register')}}" class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50" >Company Register</a>
                                 </li>
                             @endif
                         </ul>

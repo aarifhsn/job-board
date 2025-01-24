@@ -71,13 +71,13 @@
                                     <div class="grid items-center grid-cols-12">
                                         <div class="col-span-12 lg:col-span-2">
                                             <div class="mb-4 text-center mb-md-0">
-                                                <a href="company-details.html"><img src="assets/images/featured-job/img-01.png" alt="" class="mx-auto img-fluid rounded-3"></a>
+                                                <a href="{{route('job-details', $job->id)}}"><img src="assets/images/featured-job/img-01.png" alt="" class="mx-auto img-fluid rounded-3"></a>
                                             </div>
                                         </div>
                                         <!--end col-->
                                         <div class="col-span-12 lg:col-span-3">
                                             <div class="mb-2 mb-md-0">
-                                                <h5 class="mb-1 fs-18"><a href="job-details.html" class="text-gray-900 dark:text-gray-50">{{$job->title}}</a>
+                                                <h5 class="mb-1 fs-18"><a href="{{route('job-details', $job->id)}}" class="text-gray-900 dark:text-gray-50">{{$job->title}}</a>
                                                 </h5>
                                                 <p class="mb-0 text-gray-500 fs-14 dark:text-gray-300">{{$job->company->name}}</p>
                                             </div>
