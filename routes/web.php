@@ -48,7 +48,7 @@ Route::get('/tag/{name}', [TagController::class, 'index'])->name('tags.index');
 Route::post('/tags', [TagController::class, 'store'])->name('tags.store');
 
 // Category Routes
-Route::get('/category/{name}', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/category/{slug}', [CategoryController::class, 'index'])->name('categories.index');
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 
 // Profile Route

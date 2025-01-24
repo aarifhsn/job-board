@@ -48,7 +48,7 @@
                                         <div class="h-8 w-8 text-center group-data-[theme-color=violet]:bg-violet-500/20  leading-[2.4] rounded group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 text-sm font-medium">
                                             {{ $popular_category->count() }}
                                         </div>
-                                        <a href="javascript:void(0)" class="text-gray-900 ltr:ml-2 rtl:mr-2 dark:text-gray-50">
+                                        <a href="{{ route('categories.index', ['slug' => $popular_category->slug]) }}" class="text-gray-900 ltr:ml-2 rtl:mr-2 dark:text-gray-50">
                                             <h6 class="mb-0 transition-all duration-300 fs-14 group-data-[theme-color=violet]:group-hover/joblist:text-violet-500 group-data- group-data-[theme-color=blue]:group-hover/joblist:text-blue-500">{{ $popular_category->name }}</h6>
                                         </a>
                                     </div>
@@ -58,7 +58,6 @@
                             </ul>
                         </div>
                         <div class="mt-14">
-                            {{-- lists of jobs by category name --}}
                             <h3 class="mb-8 text-gray-900 dark:text-gray-50">Jobs by category: {{ $category }}</h3>
                             
                         @foreach ($jobs as $job )
@@ -279,7 +278,7 @@
                                 <div class="block accordion-body">
                                     <div class="flex flex-wrap gap-2 p-5">
                                         @foreach ($categories as $category)
-                                        <a href="{{ route('categories.index', ['name' => $category->name]) }}" class="bg-gray-50 text-13 rounded px-2 py-0.5 font-medium text-gray-500 transition-all duration-300 ease-in-out dark:text-gray-50 dark:bg-neutral-600/40">{{ $category->name }}</a>
+                                        <a href="{{ route('categories.index', ['slug' => $category->slug]) }}" class="bg-gray-50 text-13 rounded px-2 py-0.5 font-medium text-gray-500 transition-all duration-300 ease-in-out dark:text-gray-50 dark:bg-neutral-600/40">{{ $category->name }}</a>
                                         @endforeach
                                         
                                     </div>

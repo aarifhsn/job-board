@@ -21,11 +21,17 @@ class CategoryController extends Controller
             ->limit(5)
             ->get();
 
-        $jobs = Job::paginate(10);
+        $category = Category::where('slug', request('slug'))->first();
 
-        $category = request('name');
+        // Fetch jobs that belong to the selected category
+        $jobs = $category ? $category->jobs()->paginate(10) : collect();
 
-        return view('categories.browse-by-category', ['categories' => $categories, 'popular_categories' => $popular_categories, 'jobs' => $jobs], compact('category'));
+        return view('categories.browse-by-category', [
+            'categories' => $categories,
+            'popular_categories' => $popular_categories,
+            'jobs' => $jobs,
+            'category' => $category->name ?? 'Category not found'
+        ]);
     }
 
     public function store(Request $request)

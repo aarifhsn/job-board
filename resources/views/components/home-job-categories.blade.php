@@ -17,7 +17,7 @@
                                 <i class="uim uim-layers-alt"></i>
                             </div>
                             <div class="mt-4 text-center">
-                                <a href="{{ route('categories.index', ['name' => $category->name]) }}" class="text-gray-900">
+                                <a href="{{ route('categories.index', ['slug' => $category->slug]) }}" class="text-gray-900">
                                     <h5 class="text-lg dark:text-gray-50">{{ $category->name }}</h5>
                                 </a>
                                 <p class="mt-1 font-medium text-gray-500 dark:text-gray-300">{{ $category->jobs->count() }} Jobs</p>
