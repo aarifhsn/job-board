@@ -46,7 +46,7 @@
                                 <li class="border p-[6px] border-gray-100/50 rounded group/joblist dark:border-gray-100/20">
                                     <div class="flex items-center">
                                         <div class="h-8 w-8 text-center group-data-[theme-color=violet]:bg-violet-500/20  leading-[2.4] rounded group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 text-sm font-medium">
-                                            {{ $popular_category->count() }}
+                                            {{ $popular_category->jobs->count() }}
                                         </div>
                                         <a href="{{ route('categories.index', ['slug' => $popular_category->slug]) }}" class="text-gray-900 ltr:ml-2 rtl:mr-2 dark:text-gray-50">
                                             <h6 class="mb-0 transition-all duration-300 fs-14 group-data-[theme-color=violet]:group-hover/joblist:text-violet-500 group-data- group-data-[theme-color=blue]:group-hover/joblist:text-blue-500">{{ $popular_category->name }}</h6>

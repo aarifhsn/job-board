@@ -32,7 +32,7 @@
                                 class="px-4 py-2 bg-white rounded dark:bg-neutral-600"
                             >
                                 <a
-                                    href="job-list.html"
+                                    href="{{ route('categories.index', $category->slug) }}"
                                     class="text-gray-900 dark:text-white"
                                     >{{$category->name}}
                                     <span

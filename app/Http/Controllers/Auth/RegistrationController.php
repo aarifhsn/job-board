@@ -32,9 +32,6 @@ class RegistrationController extends Controller
             'remember_token' => Str::random(10),
         ]);
 
-        // log the user in
-        auth()->attempt($request->only('email', 'password'));
-
         // redirect to home page
         return redirect()->route('login')->with('success', __('messages.registration_success'));
     }

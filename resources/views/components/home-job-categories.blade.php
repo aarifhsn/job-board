@@ -9,6 +9,7 @@
             </div>
         </div>
         <div class="grid grid-cols-12 gap-5">
+            
             @foreach ($categories as $category)
                 <div class="col-span-12 md:col-span-6 lg:col-span-3">
                     <div class="mt-4">

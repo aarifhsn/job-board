@@ -21,8 +21,6 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer(['home', 'job-categories'], function ($view) {
-            $view->with('categories', Category::active()->get());
-        });
+        //
     }
 }
