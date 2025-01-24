@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Company;
 use App\Models\Tag;
+use App\Models\Category;
 
 class JobController extends Controller
 {
@@ -16,12 +17,12 @@ class JobController extends Controller
 
         $company = Company::all();
 
-        $popular_jobs = Job::withCount('company')->orderBy('company_count', 'desc')->take(5)->get();
+        $popular_categories = Category::withCount('jobs')->orderBy('jobs_count', 'desc')->take(5)->get();
         $popular_tags = Tag::withCount('jobs')->orderBy('jobs_count', 'desc')->take(5)->get();
 
         $tags = Tag::all();
 
-        return view('job-lists', compact('jobs', 'company', 'popular_jobs', 'tags'));
+        return view('job-lists', compact('jobs', 'company', 'popular_categories', 'tags'));
     }
 
     public function search(Request $request)

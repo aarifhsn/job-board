@@ -165,7 +165,7 @@
                                         </div>
                                         <!--end col-->
                                         <div class="col-span-12 lg:col-span-6">
-                                            
+                                            <span>Tags: {{$job->tag}}</span>
                                         </div>
                                         <!--end col-->
                                         <div class="col-span-3 lg:col-span-2">

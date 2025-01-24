@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Rss;
 
 use Illuminate\Http\Request;
 use App\Services\RssFeedService;
+use App\Http\Controllers\Controller;
 
 class NewsController extends Controller
 {

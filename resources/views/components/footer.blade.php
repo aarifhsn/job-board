@@ -136,6 +136,18 @@
                                 <i class="mdi mdi-chevron-right"></i> Privacy Policy
                             </a>
                         </li>
+                        </li>
+                        <li class="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
+                            <a href="{{route('news.index')}}">
+                                <i class="mdi mdi-chevron-right"></i> Laravel News
+                            </a>
+                        </li>
+                        </li>
+                        <li class="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
+                            <a href="{{route('jobs.rss-blog')}}">
+                                <i class="mdi mdi-chevron-right"></i> Rss
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

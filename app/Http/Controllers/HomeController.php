@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Job;
+use App\Models\Tag;
 
 class HomeController extends Controller
 {
@@ -19,13 +20,14 @@ class HomeController extends Controller
         $jobsByType = [];
         foreach ($jobTypes as $type) {
             $jobsByType[$type] = Job::where('type', $type)
+                ->with('tag')
                 ->orderBy('created_at', 'desc')
                 ->take(10)
                 ->get();
         }
 
         // Fetch recent jobs
-        $recent_jobs = Job::with('company')->latest()->take(10)->get();
+        $recent_jobs = Job::with('company', 'tag')->latest()->take(10)->get();
 
         // take latest jobs number or count as the last 30 days jobs and not expired
         $total_latest_jobs = Job::where('created_at', '>=', now()->subDays(30))

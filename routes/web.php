@@ -7,9 +7,10 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Job\JobController;
-use App\Http\Controllers\NewsController;
+use App\Http\Controllers\Rss\NewsController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Rss\JobFeedController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,8 @@ Route::get('/browse-jobs', [JobController::class, 'viewJobs'])->name('job-lists'
 Route::get('/job-categories', [HomeController::class, 'jobCategories'])->name('job-categories');
 Route::get('/contact', fn() => view('contact'))->name('contact');
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+Route::get('/jobs/rss', [JobFeedController::class, 'index'])->name('jobs.rss');
+Route::get('/jobs/rss-blog', [JobFeedController::class, 'blogInfo'])->name('jobs.rss-blog');
 
 // Authentication Routes
 Route::get('/register', [RegistrationController::class, 'index'])->name('register');
