@@ -19,8 +19,8 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->company,
-            'slug' => Str::slug($this->faker->company),
+            'name' => $name = $this->faker->company,
+            'slug' => Str::slug($name . '-' . uniqid()),
             'email' => $this->faker->unique()->safeEmail,
             'contact_number' => $this->faker->phoneNumber,
             'industry' => $this->faker->word,

@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,16 +17,16 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('contact_number');
-            $table->string('industry');
+            $table->string('industry')->nullable();
             $table->string('website')->nullable();
             $table->string('logo')->nullable();
             $table->string('slug')->unique();
-            $table->string('address');
-            $table->string('city');
-            $table->string('state');
-            $table->string('country');
-            $table->string('pincode');
-            $table->text('description');
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('country')->nullable();
+            $table->string('pincode')->nullable();
+            $table->text('description')->nullable();
             $table->enum('status', ['active', 'inactive', 'pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
             $table->softDeletes();

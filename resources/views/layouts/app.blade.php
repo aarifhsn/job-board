@@ -24,6 +24,8 @@
          <!-- Swiper Css -->
         <link rel="stylesheet" href="{{asset('libs/swiper/swiper-bundle.min.css')}}">
 
+        <link rel="alternate" type="application/rss+xml" title="Job Posts RSS Feed" href="{{ route('jobs.rss') }}">
+
         <link rel="stylesheet" href=" {{asset('css/icons.css')}}" />
         <link rel="stylesheet" href="{{asset('css/tailwind.css')}}" />
     </head>
