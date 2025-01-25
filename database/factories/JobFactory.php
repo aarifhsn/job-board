@@ -26,7 +26,7 @@ class JobFactory extends Factory
             'type' => $this->faker->randomElement(['full-time', 'part-time', 'contract', 'temporary', 'internship', 'volunteer', 'freelance']),
             'slug' => Str::slug($title),
             'vacancy' => $this->faker->numberBetween(1, 10),
-            'qualification' => $this->faker->randomElement(['MBA', 'BBA', 'B.Tech', 'M.Tech', 'MCA', 'MSc', 'PhD', 'B.A', 'B.Com', 'B.Ed', 'BBA',]),
+            'qualification' => $this->faker->randomElement(['B.Tech CSE', 'B.Tech IT', 'B.Sc CS', 'BCA', 'M.Tech CSE', 'M.Tech IT', 'M.Sc CS', 'MCA', 'Diploma CS', 'B.Sc IT', 'B.Tech SE', 'B.Tech CE', 'B.Tech CS', 'M.Sc WebTech', 'M.Sc DS']),
             'location' => $this->faker->randomElement(['New York', 'London', 'Paris', 'Berlin', 'San Francisco', 'Los Angeles', 'Chicago', 'Houston', 'Dallas', 'Seattle', 'Miami', 'Toronto', 'Vancouver', 'Montreal', 'Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide', 'Auckland', 'Wellington', 'Christchurch', 'Hamilton', 'Tauranga', 'Dunedin', 'Queenstown', 'Rotorua', 'Napier', 'Hastings', 'Palmerston North', 'Nelson', 'Whangarei', 'Invercargill', 'Gisborne', 'Taranaki', 'Manawatu', 'Wanganui', 'Hawkes Bay', 'Bay of Plenty', 'Northland', 'Southland', 'West Coast', 'Canterbury', 'Otago', 'Marlborough', 'Tasman', 'Waikato']),
             'salary_range' => $this->faker->numberBetween(1000, 9000),
             'application_link' => $this->faker->url,

@@ -194,7 +194,7 @@
                                         <i class="uil uil-graduation-cap icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                         <div class="ltr:ml-4 rtl:mr-4">
                                             <h6 class="mb-2 text-sm text-gray-900 dark:text-gray-50">Qualification</h6>
-                                            <p class="text-gray-500 dark:text-gray-300">Bachelor Degree</p> 
+                                            <p class="text-gray-500 dark:text-gray-300">{{$job->qualification}}</p> 
                                         </div>
                                     </div>
                                 </li>
@@ -281,7 +281,8 @@
                     </div>
                     <div class="mt-4">
                         <h6 class="mb-3 text-16 dark:text-gray-50">Job location</h6>
-                        <iframe src="https://www.google.com/maps?q={{ urlencode($job->location) }}&output=embed"" style="width:100%" height="250" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe src="https://www.google.com/maps?q={{ urlencode($job->location) }}&output=embed"" style="width:100%" height="250" allowfullscreen="" loading="lazy">
+                        </iframe>
                     </div>
                 </div>
             </div>
