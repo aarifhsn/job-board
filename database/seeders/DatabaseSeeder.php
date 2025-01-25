@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\Subscription;
 use App\Models\Payment;
+use App\Models\Tag;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,6 +17,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Category::factory(10)->create();
+
         $admin = User::factory()->create([
             'role' => 'admin',
             'name' => 'admin',
@@ -54,5 +58,9 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         });
+
+        $this->call([
+            TagSeeder::class,
+        ]);
     }
 }

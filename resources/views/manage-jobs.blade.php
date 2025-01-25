@@ -48,7 +48,7 @@
                             </div><!--end col-->
                             <div class="col-span-12 lg:col-span-9">
                                 <div class="mt-4 lg:mt-0">
-                                    <h5 class="mb-1 text-17"><a href="{{route('job-details')}}" class="text-gray-900 dark:text-gray-50">Business Associate</a></h5>
+                                    <h5 class="mb-1 text-17"><a href="" class="text-gray-900 dark:text-gray-50">Business Associate</a></h5>
                                     <ul class="flex gap-3 mb-0">
                                         <li class="">
                                             <p class="mb-0 text-sm text-gray-500 dark:text-gray-300">Jobcy Technology Pvt.Ltd</p>

@@ -12,8 +12,10 @@ class Job extends Model
 
     protected $fillable = [
         'company_id',
+        'category_id',
         'title',
         'description',
+        'experience',
         'slug',
         'vacancy',
         'location',
@@ -30,6 +32,16 @@ class Job extends Model
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function tag()
+    {
+        return $this->belongsToMany(Tag::class, 'job_tags');
     }
 
     public function jobClicks()
@@ -55,5 +67,20 @@ class Job extends Model
     public function scopeByUser($query, $userId)
     {
         return $query->where('user_id', $userId);
+    }
+
+    public function scopeSearch($query, $term)
+    {
+        return $query->where('title', 'like', '%' . $term . '%')
+            ->orWhereHas('company', function ($q) use ($term) {
+                $q->where('name', 'like', '%' . $term . '%');
+            });
+    }
+    public function scopeFilterByCountry($query, $country)
+    {
+        if ($country) {
+            return $query->where('country', $country);
+        }
+        return $query;
     }
 }

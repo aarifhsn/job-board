@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Job>
@@ -16,10 +17,14 @@ class JobFactory extends Factory
      */
     public function definition(): array
     {
+        $ranges = ['1-2', '2-3', '3-4', '5+'];
         return [
-            'title' => $this->faker->jobTitle,
+            'category_id' => $this->faker->numberBetween(1, 10),
+            'title' => $title = $this->faker->jobTitle,
             'description' => $this->faker->paragraph,
-            'slug' => $this->faker->unique()->slug,
+            'experience' => $this->faker->randomElement($ranges),
+            'type' => $this->faker->randomElement(['full-time', 'part-time', 'contract', 'temporary', 'internship', 'volunteer', 'freelance']),
+            'slug' => Str::slug($title),
             'vacancy' => $this->faker->numberBetween(1, 10),
             'location' => $this->faker->city,
             'salary_range' => $this->faker->numberBetween(1000, 9000),
