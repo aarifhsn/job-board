@@ -26,7 +26,7 @@ class JobFactory extends Factory
             'type' => $this->faker->randomElement(['full-time', 'part-time', 'contract', 'temporary', 'internship', 'volunteer', 'freelance']),
             'slug' => Str::slug($title),
             'vacancy' => $this->faker->numberBetween(1, 10),
-            'location' => $this->faker->city,
+            'location' => $this->faker->randomElement(['New York', 'London', 'Paris', 'Berlin', 'San Francisco', 'Los Angeles', 'Chicago', 'Houston', 'Dallas', 'Seattle', 'Miami', 'Toronto', 'Vancouver', 'Montreal', 'Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide', 'Auckland', 'Wellington', 'Christchurch', 'Hamilton', 'Tauranga', 'Dunedin', 'Queenstown', 'Rotorua', 'Napier', 'Hastings', 'Palmerston North', 'Nelson', 'Whangarei', 'Invercargill', 'Gisborne', 'Taranaki', 'Manawatu', 'Wanganui', 'Hawkes Bay', 'Bay of Plenty', 'Northland', 'Southland', 'West Coast', 'Canterbury', 'Otago', 'Marlborough', 'Tasman', 'Waikato']),
             'salary_range' => $this->faker->numberBetween(1000, 9000),
             'application_link' => $this->faker->url,
             'application_email' => $this->faker->safeEmail,

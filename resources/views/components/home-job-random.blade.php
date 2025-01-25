@@ -85,8 +85,8 @@
                                                 </div>
                                             </div>
                                             <!--end col-->
-                                            <div class="col-span-12 lg:col-span-6">
-                                                
+                                            <div class="text-slate-500 col-span-12 lg:col-span-6">
+                                                Category: <span class="text-slate-600">{{$recent_job->category->name}}</span>
                                             </div>
                                             <!--end col-->
                                             <div class="col-span-3 lg:col-span-2">
@@ -164,8 +164,8 @@
                                             </div>
                                         </div>
                                         <!--end col-->
-                                        <div class="col-span-12 lg:col-span-6">
-                                            <span>Tags: {{$job->tag}}</span>
+                                        <div class="text-slate-500 col-span-12 lg:col-span-6">
+                                            Category: <span class="text-slate-600">{{$job->category->name}}</span>
                                         </div>
                                         <!--end col-->
                                         <div class="col-span-3 lg:col-span-2">

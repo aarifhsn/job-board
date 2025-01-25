@@ -68,7 +68,11 @@ class JobController extends Controller
     {
         $job = Job::with('company')->findOrFail($id);
 
-        return view('job-details', compact('job'));
+        $relatedJobs = Job::where('category_id', $job->category_id)
+            ->where('id', '!=', $job->id)
+            ->get();
+
+        return view('job-details', compact('job', 'relatedJobs'));
     }
 
     public function filterByTag($slug)
