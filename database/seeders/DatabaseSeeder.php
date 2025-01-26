@@ -18,20 +18,23 @@ class DatabaseSeeder extends Seeder
     {
         Category::factory(10)->create();
 
-        $admin = User::factory()->create([
-            'role' => 'admin',
+        $this->call([
+            UserRolePermissionSeeder::class,
+        ]);
+
+        $admin = User::factory()->withRole("admin")->create([
             'name' => 'admin',
             'email' => 'admin@email.com'
         ]);
 
-        $companies = User::factory(3)->withCompany()->create(['role' => 'company']);
+        $companies = User::factory(3)->withCompany()->withRole("company")->create();
 
         $companies->each(function ($user) {
             $company = $user->company;
             Company::factory()->withJobs(5)->create(['user_id' => $user->id]);
         });
 
-        $candidates = User::factory(10)->create(['role' => 'candidate']);
+        $candidates = User::factory(10)->withRole("candidate")->create();
 
         $candidates->each(function ($user, $index) {
             if ($index < 7) {

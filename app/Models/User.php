@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        // 'role',
     ];
 
     /**
@@ -50,11 +50,6 @@ class User extends Authenticatable
         return $this->hasOne(Company::class);
     }
 
-    public function isAdmin()
-    {
-        return $this->role === 'admin';
-    }
-
     public function payments()
     {
         return $this->hasMany(Payment::class);
@@ -63,5 +58,20 @@ class User extends Authenticatable
     public function subscription()
     {
         return $this->hasOne(Subscription::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id')->withTimestamps();
+    }
+
+    public function hasPermission(string $permission)
+    {
+        return $this->roles->permissions->contains('slug', $permission);
+    }
+
+    public function hasRole(string $role)
+    {
+        return $this->roles->slug === $role;
     }
 }
