@@ -35,10 +35,6 @@ class JobController extends Controller
         $search = $request->input('search');
         $category = $request->input('category');
         $tag = $request->input('tag');
-        $salaryRange = $request->input('salary_range');
-        $jobType = $request->input('job_type');
-        $workExperience = $request->input('work_experience');
-        $employmentType = $request->input('employment_type');
 
         $country = $request->input('country');
         $countryCode = request('country');
@@ -49,31 +45,22 @@ class JobController extends Controller
                 $query->where('title', 'like', "%$search%")
                     ->orWhereHas('company', fn($q) => $q->where('name', 'like', "%$search%"))
                     ->orWhereHas('tag', fn($q) => $q->where('name', 'like', "%$search%"))
-                    ->orWhereHas('category', fn($q) => $q->where('name', 'like', "%$search%"))
-                    ->orWhere('location', 'like', "%$search%");
+                    ->orWhereHas('category', fn($q) => $q->where('name', 'like', "%$search%"));
             })
             ->when($countryName, function ($query) use ($countryName) {
                 $query->whereHas('company', function ($q) use ($countryName) {
                     $q->where('country', $countryName);
                 });
             })
-            ->when($salaryRange, function ($query, $salaryRange) {
-                [$min, $max] = explode('-', $salaryRange);
-                $query->whereBetween('salary', [(int) $min, (int) $max]);
-            })
-            ->when($jobType, fn($query, $jobType) => $query->where('job_type', $jobType))
-            ->when($workExperience, fn($query, $workExperience) => $query->where('experience', $workExperience))
-            ->when($employmentType, fn($query, $employmentType) => $query->where('employment_type', $employmentType))
             ->paginate(10);
 
         $tags = Tag::all();
         $job_experiences = Job::select('experience')->distinct()->get()->sortBy('experience');
-        ;
 
         $job_types = Job::select('type')->distinct()->get();
 
 
-        return view('jobs.search-results', compact('jobs', 'tags', 'job_experiences', 'job_types'));
+        return view('jobs.search-results', compact('jobs', 'tags', 'job_experiences', 'job_types', ));
     }
 
     public function show($id)
@@ -86,6 +73,69 @@ class JobController extends Controller
 
         return view('job-details', compact('job', 'relatedJobs'));
     }
+
+    public function filter(Request $request)
+    {
+        $jobs = Job::query();
+
+        // Apply filters
+        $this->filterByJobType($jobs, $request);
+        $this->filterByWorkExperience($jobs, $request);
+        $this->filterByDatePosted($jobs, $request);
+
+        // Fetch data for the view
+        $jobs = $jobs->get();
+        $popular_categories = Category::withCount('jobs')
+            ->orderBy('jobs_count', 'desc')
+            ->take(5)
+            ->get();
+
+        $tags = Tag::all();
+        $job_experiences = Job::select('experience')->distinct()->get()->sortBy('experience');
+        $job_types = Job::select('type')->distinct()->get();
+
+        return view('jobs.search-results', compact(
+            'jobs',
+            'popular_categories',
+            'tags',
+            'job_experiences',
+            'job_types'
+        ));
+    }
+
+    // Private Methods for Filters
+    private function filterByJobType($query, Request $request)
+    {
+        if ($request->filled('job_type')) {
+            $query->where('type', $request->input('job_type'));
+        }
+    }
+
+    private function filterByWorkExperience($query, Request $request)
+    {
+        if ($request->filled('work_experience')) {
+            $query->whereIn('experience', $request->input('work_experience'));
+        }
+    }
+
+    private function filterByDatePosted($query, Request $request)
+    {
+        if ($request->filled('date_posted')) {
+            $datePosted = $request->input('date_posted');
+            $conditions = [
+                'last_hour' => now()->subHour(),
+                'last_24_hours' => now()->subDay(),
+                'last_7_days' => now()->subDays(7),
+            ];
+
+            foreach ($conditions as $key => $value) {
+                if (in_array($key, $datePosted)) {
+                    $query->where('created_at', '>=', $value);
+                }
+            }
+        }
+    }
+
 
     public function filterByTag($slug)
     {
