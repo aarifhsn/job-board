@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        // $categories = Category::all();
 
         // Fetch distinct job types from the jobs table
         $jobTypes = Job::select('type')->distinct()->pluck('type');
@@ -20,21 +20,21 @@ class HomeController extends Controller
         $jobsByType = [];
         foreach ($jobTypes as $type) {
             $jobsByType[$type] = Job::where('type', $type)
-                ->with('tag')
+                ->with('tag', 'category', 'company')
                 ->orderBy('created_at', 'desc')
                 ->take(10)
                 ->get();
         }
 
         // Fetch recent jobs
-        $recent_jobs = Job::with('company', 'tag')->latest()->take(10)->get();
+        $recent_jobs = Job::with('company', 'tag', 'category')->latest()->take(10)->get();
 
         // take latest jobs number or count as the last 30 days jobs and not expired
         $total_latest_jobs = Job::where('created_at', '>=', now()->subDays(30))
             ->where('expiration_date', '>=', now())
             ->count();
 
-        return view('home', compact('categories', 'recent_jobs', 'jobsByType', 'jobTypes', 'total_latest_jobs'));
+        return view('home', compact('recent_jobs', 'jobsByType', 'jobTypes', 'total_latest_jobs', ));
     }
 
     public function jobCategories()

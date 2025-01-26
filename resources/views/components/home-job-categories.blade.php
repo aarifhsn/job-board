@@ -15,11 +15,12 @@
                     <div class="mt-4">
                         <div class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
                             <div class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.4] mx-auto dark:bg-violet-900">
-                                <i class="uim uim-layers-alt"></i>
+                                <a href="{{ route('categories.index', ['slug' => $category->slug]) }}"> <i class="uim uim-layers-alt"></i>
+                                </a>
                             </div>
                             <div class="mt-4 text-center">
                                 <a href="{{ route('categories.index', ['slug' => $category->slug]) }}" class="text-gray-900">
-                                    <h5 class="text-lg dark:text-gray-50">{{ $category->name }}</h5>
+                                    <h5 class="text-lg dark:text-gray-50 font-semibold ">{{ $category->name }}</h5>
                                 </a>
                                 <p class="mt-1 font-medium text-gray-500 dark:text-gray-300">{{ $category->jobs->count() }} Jobs</p>
                             </div>

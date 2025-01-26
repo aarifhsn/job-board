@@ -70,6 +70,8 @@
     <script src="{{asset('js/pages/nav&tabs.js')}}"></script>
 
     <script src="{{asset('js/app.js')}}"></script>
+
+    <script src="{{asset('js/jobboard.js')}}"></script>
     
 </body>
 

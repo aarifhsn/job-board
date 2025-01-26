@@ -15,10 +15,12 @@ class CompanyMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user() && auth()->user()->role === 'company') {
-            return $next($request);
-        }
+        // if (auth()->user() && auth()->user()->role === 'company') {
+        //     return $next($request);
+        // }
 
-        return redirect()->route('company.login');
+        // return redirect()->route('login');
+
+        return $next($request);
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Company;
 use App\Models\Subscription;
 use App\Models\Payment;
 use App\Models\Tag;
+use App\Models\Job;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,6 +20,8 @@ class DatabaseSeeder extends Seeder
     {
         Category::factory(10)->create();
 
+        Tag::factory(10)->create();
+
         $admin = User::factory()->create([
             'role' => 'admin',
             'name' => 'admin',
@@ -28,8 +31,16 @@ class DatabaseSeeder extends Seeder
         $companies = User::factory(3)->withCompany()->create(['role' => 'company']);
 
         $companies->each(function ($user) {
-            $company = $user->company;
-            Company::factory()->withJobs(5)->create(['user_id' => $user->id]);
+
+            $jobs = Job::factory(5)->create(['company_id' => $user->company->id]);
+
+            // Assign tags to jobs
+            $tags = Tag::all(); // Fetch all tags created by TagSeeder
+            $jobs->each(function ($job) use ($tags) {
+                $job->tag()->attach(
+                    $tags->random(rand(1, 3))->pluck('id')->toArray()
+                );
+            });
         });
 
         $candidates = User::factory(10)->create(['role' => 'candidate']);

@@ -41,7 +41,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Job Routes
 Route::get('/job-details/{id}', [JobController::class, 'show'])->name('job-details');
-Route::get('/jobs/search', [JobController::class, 'search'])->name('jobs.search');
+Route::get('/jobs', [JobController::class, 'search'])->name('jobs.search');
 
 // Tag Routes
 Route::get('/tag/{name}', [TagController::class, 'index'])->name('tags.index');

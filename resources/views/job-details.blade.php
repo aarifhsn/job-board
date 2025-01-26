@@ -18,10 +18,10 @@
                             <div class="grid grid-cols-12">
                                 <div class="col-span-12 lg:col-span-8">
                                     <div class="relative">
-                                        <h5 class="mb-1 text-gray-900 dark:text-gray-50">{{$job->title}}</h5>
+                                        <h5 class="font-bold mb-1 text-gray-900 dark:text-gray-50">{{$job->title}}</h5>
                                         <ul class="flex gap-4 text-gray-500 dark:text-gray-300">
                                             <li>
-                                                <i class="mdi mdi-account"></i> {{$job->vacancy}} Vacancy
+                                                <i class="mdi mdi-account"></i> <span class="font-bold">{{$job->vacancy}}</span> Vacancy
                                             </li>
                                             <li class="bg-sky-500">
                                                 <span class="px-2 py-1 text-white rounded text-13">{{$job->status}}</span>
@@ -44,39 +44,39 @@
                             <div class="grid grid-cols-12 mt-8 gap-y-3 lg:gap-3">
                                 <div class="col-span-12 lg:col-span-3">
                                     <div class="p-4 border rounded border-gray-100/50 dark:border-neutral-600/80">
-                                        <p class="mb-1 text-gray-500 dark:text-gray-300 text-13">Company</p>
+                                        <p class="font-bold mb-1 text-gray-500 dark:text-gray-300 text-13">Company</p>
                                         <p class="font-medium text-gray-900 dark:text-gray-50">{{$job->company->name}}</p>
                                     </div>
                                 </div>
                                 <div class="col-span-12 lg:col-span-3">
                                     <div class="p-4 border rounded border-gray-100/50 dark:border-neutral-600/80">
-                                        <p class="mb-1 text-gray-500 dark:text-gray-300 text-13">Employee type</p>
+                                        <p class="font-bold mb-1 text-gray-500 dark:text-gray-300 text-13">Employee type</p>
                                         <p class="font-medium text-gray-900 dark:text-gray-50">{{ucfirst($job->type)}}</p>
                                     </div>
                                 </div>
                                 <div class="col-span-12 lg:col-span-3">
                                     <div class="p-4 border rounded border-gray-100/50 dark:border-neutral-600/80">
-                                        <p class="mb-1 text-gray-500 dark:text-gray-300 text-13">Experience</p>
+                                        <p class="font-bold mb-1 text-gray-500 dark:text-gray-300 text-13">Experience</p>
                                         <p class="font-medium text-gray-900 dark:text-gray-50">Minimum {{$job->experience}} Year</p>
                                     </div>
                                 </div>
                                 <div class="col-span-12 lg:col-span-3">
                                     <div class="p-4 border rounded border-gray-100/50 dark:border-neutral-600/80">
-                                        <p class="mb-1 text-gray-500 dark:text-gray-300 text-13">Offer Salary</p>
+                                        <p class="font-bold mb-1 text-gray-500 dark:text-gray-300 text-13">Offer Salary</p>
                                         <p class="font-medium text-gray-900 dark:text-gray-50">{{Number::currency($job->salary_range)}}/ Month</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="mt-5">
-                                <h5 class="mb-3 text-gray-900 dark:text-gray-50">Job Description</h5>
+                                <h5 class="font-bold mb-3 text-gray-900 dark:text-gray-50">Job Description</h5>
                                 <div>
                                     <p class="mb-0 text-gray-500 dark:text-gray-300">{{$job->description}}</p>
                                 </div>
                             </div>
 
                             <div class="mt-5">
-                                <h5 class="mb-3 text-gray-900 dark:text-gray-50">Responsibilities</h5>
+                                <h5 class="font-bold mb-3 text-gray-900 dark:text-gray-50">Responsibilities</h5>
                                 <div>
                                     <p class="mb-3 text-gray-500 dark:text-gray-300">As a Product Designer, you will work within a Product Delivery Team fused with UX, engineering, product and data talent.</p>
 
@@ -91,7 +91,7 @@
                             </div>
 
                             <div class="mt-5">
-                                <h5 class="mb-3 text-gray-900 dark:text-gray-50">Qualification</h5>
+                                <h5 class="font-bold mb-3 text-gray-900 dark:text-gray-50">Qualification</h5>
                                 <div>
                                     <ul class="mb-0 text-gray-500 dark:text-gray-300">
                                         <li class="mb-2 text-gray-500 dark:text-gray-300"><i class="mr-2 uil uil-circle"></i> B.C.A / M.C.A under National University course complete.</li>
@@ -103,7 +103,7 @@
                             </div>
 
                             <div class="mt-5">
-                                <h5 class="mb-3 text-gray-900 dark:text-gray-50">Skill & Experience</h5>
+                                <h5 class="font-bold mb-3 text-gray-900 dark:text-gray-50">Skill & Experience</h5>
                                 <div>
                                     <ul class="mb-0 text-gray-500 dark:text-gray-300">
                                         <li class="mb-2 text-gray-500 dark:text-gray-300"><i class="mr-2 uil uil-circle"></i> Understanding of key Design Principal</li>
@@ -150,15 +150,15 @@
                 <div class="col-span-12 space-y-6 lg:col-span-4">
                     <div class="border rounded border-gray-100/30 dark:border-neutral-600/80">
                         <div class="p-6">
-                            <h6 class="text-gray-900 text-17 dark:text-gray-50">Job Overview</h6>
+                            <h6 class="font-bold text-gray-900 text-17 dark:text-gray-50">Job Overview</h6>
 
                             <ul>
                                 <li>
                                     <div class="flex mt-6">
                                         <i class="uil uil-user icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                         <div class="ltr:ml-4 rtl:mr-4">
-                                            <h6 class="mb-2 text-sm text-gray-900 dark:text-gray-50">Job Title</h6>
-                                            <p class="text-gray-500 dark:text-gray-300">{{$job->title}}</p> 
+                                            <h6 class="font-bold mb-2 text-sm text-gray-900 dark:text-gray-50">Job Title</h6>
+                                            <p class="font-semibold text-gray-500 dark:text-gray-300">{{$job->title}}</p> 
                                         </div>
                                     </div>
                                 </li>
@@ -166,7 +166,7 @@
                                     <div class="flex mt-6">
                                         <i class="uil uil-star-half-alt icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                         <div class="ltr:ml-4 rtl:mr-4">
-                                            <h6 class="mb-2 text-sm text-gray-900 dark:text-gray-50">Experience</h6>
+                                            <h6 class="font-bold mb-2 text-sm text-gray-900 dark:text-gray-50">Experience</h6>
                                             <p class="text-gray-500 dark:text-gray-300"> {{$job->experience}} Years</p> 
                                         </div>
                                     </div>
@@ -175,7 +175,7 @@
                                     <div class="flex mt-6">
                                         <i class="uil uil-location-point icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                         <div class="ltr:ml-4 rtl:mr-4">
-                                            <h6 class="mb-2 text-sm text-gray-900 dark:text-gray-50">Location</h6>
+                                            <h6 class="font-bold mb-2 text-sm text-gray-900 dark:text-gray-50">Location</h6>
                                             <p class="text-gray-500 dark:text-gray-300">{{$job->location}} </p> 
                                         </div>
                                     </div>
@@ -184,7 +184,7 @@
                                     <div class="flex mt-6">
                                         <i class="uil uil-usd-circle icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                         <div class="ltr:ml-4 rtl:mr-4">
-                                            <h6 class="mb-2 text-sm text-gray-900 dark:text-gray-50">Offered Salary</h6>
+                                            <h6 class="font-bold mb-2 text-sm text-gray-900 dark:text-gray-50">Offered Salary</h6>
                                             <p class="text-gray-500 dark:text-gray-300">{{Number::currency($job->salary_range)}}</p> 
                                         </div>
                                     </div>
@@ -193,7 +193,7 @@
                                     <div class="flex mt-6">
                                         <i class="uil uil-graduation-cap icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                         <div class="ltr:ml-4 rtl:mr-4">
-                                            <h6 class="mb-2 text-sm text-gray-900 dark:text-gray-50">Qualification</h6>
+                                            <h6 class="font-bold mb-2 text-sm text-gray-900 dark:text-gray-50">Qualification</h6>
                                             <p class="text-gray-500 dark:text-gray-300">{{$job->qualification}}</p> 
                                         </div>
                                     </div>
@@ -202,7 +202,7 @@
                                     <div class="flex mt-6">
                                         <i class="uil uil-building icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                         <div class="ltr:ml-4 rtl:mr-4">
-                                            <h6 class="mb-2 text-sm text-gray-900 dark:text-gray-50">Industry</h6>
+                                            <h6 class="font-bold mb-2 text-sm text-gray-900 dark:text-gray-50">Industry</h6>
                                             <p class="text-gray-500 dark:text-gray-300">Private</p> 
                                         </div>
                                     </div>
@@ -211,7 +211,7 @@
                                     <div class="flex mt-6">
                                         <i class="uil uil-history icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                         <div class="ltr:ml-4 rtl:mr-4">
-                                            <h6 class="mb-2 text-sm text-gray-900 dark:text-gray-50">Date Posted</h6>
+                                            <h6 class="font-bold mb-2 text-sm text-gray-900 dark:text-gray-50">Date Posted</h6>
                                             <p class="text-gray-500 dark:text-gray-300">Posted {{$job->created_at->diffForHumans()}}</p> 
                                         </div>
                                     </div>
@@ -230,7 +230,7 @@
                                 <img src="assets/images/featured-job/img-02.png" alt="" class="mx-auto img-fluid">
 
                                 <div class="mt-4 text-center">
-                                    <h6 class="text-gray-900 text-17 dark:text-gray-50">Jobcy Technology Pvt.Ltd</h6>
+                                    <h6 class="font-bold marker:text-gray-900 text-17 dark:text-gray-50">{{$job->company->name}}</h6>
                                     <p class="text-gray-500 dark:text-gray-300">Since July 2017</p>
                                 </div>
 
@@ -239,8 +239,8 @@
                                         <div class="flex">
                                             <i class="text-xl uil uil-phone-volume group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
                                             <div class="ltr:ml-3 rtl:mr-3">
-                                                <h6 class="mb-1 text-sm text-gray-900 dark:text-gray-50">Phone</h6>
-                                                <p class="text-sm text-gray-500 dark:text-gray-300">+589 560 56555</p>
+                                                <h6 class="font-bold mb-1 text-sm text-gray-900 dark:text-gray-50">Phone</h6>
+                                                <p class="text-sm text-gray-500 dark:text-gray-300">{{$job->company->contact_number}}</p>
                                             </div>
                                         </div>
                                     </li>
@@ -248,8 +248,8 @@
                                         <div class="flex">
                                             <i class="text-xl uil uil-envelope group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
                                             <div class="ltr:ml-3 rtl:mr-3">
-                                                <h6 class="mb-1 text-sm text-gray-900 dark:text-gray-50">Email</h6>
-                                                <p class="text-sm text-gray-500 dark:text-gray-300">pixltechnology@info.com</p>
+                                                <h6 class="font-bold mb-1 text-sm text-gray-900 dark:text-gray-50">Email</h6>
+                                                <p class="text-sm text-gray-500 dark:text-gray-300">{{$job->company->email}}</p>
                                             </div>
                                         </div>
                                     </li>
@@ -257,8 +257,8 @@
                                         <div class="flex">
                                             <i class="text-xl uil uil-globe group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
                                             <div class="ltr:ml-3 rtl:mr-3">
-                                                <h6 class="mb-1 text-sm text-gray-900 dark:text-gray-50">Website</h6>
-                                                <p class="mb-0 text-gray-500 dark:text-gray-300 fs-14 text-break">www.Jobcytechnology.pvt.ltd.com</p>
+                                                <h6 class="font-bold mb-1 text-sm text-gray-900 dark:text-gray-50">Website</h6>
+                                                <p class="mb-0 text-gray-500 dark:text-gray-300 fs-14 text-break">{{$job->company->website}}</p>
                                             </div>
                                         </div>
                                     </li>
@@ -266,21 +266,21 @@
                                         <div class="flex">
                                             <i class="text-xl uil uil-map-marker group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
                                             <div class="ltr:ml-3 rtl:mr-3">
-                                                <h6 class="mb-1 text-sm text-gray-900 dark:text-gray-50">Location</h6>
-                                                <p class="text-sm text-gray-500 dark:text-gray-300">Oakridge Lane Richardson.</p>
+                                                <h6 class="font-bold mb-1 text-sm text-gray-900 dark:text-gray-50">Location</h6>
+                                                <p class="text-sm text-gray-500 dark:text-gray-300">{{$job->company->city}}, {{$job->company->country}}</p>
                                             </div>
                                         </div>
                                     </li>
                                 </ul>
 
                                 <div class="mt-6">
-                                    <a href="company-details.html" class="w-full text-white border-transparent btn group-data-[theme-color=violet]:bg-violet-500 group-data-[theme-color=sky]:bg-sky-500 group-data-[theme-color=red]:bg-red-500 group-data-[theme-color=green]:bg-green-500 group-data-[theme-color=pink]:bg-pink-500 group-data-[theme-color=blue]:bg-blue-500"><i class="mdi mdi-eye"></i> View Profile</a>
+                                    <a href="{{route('company.profile', $job->company->slug)}}" class="w-full text-white border-transparent btn group-data-[theme-color=violet]:bg-violet-500 group-data-[theme-color=sky]:bg-sky-500 group-data-[theme-color=red]:bg-red-500 group-data-[theme-color=green]:bg-green-500 group-data-[theme-color=pink]:bg-pink-500 group-data-[theme-color=blue]:bg-blue-500"><i class="mdi mdi-eye"></i> View Profile</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="mt-4">
-                        <h6 class="mb-3 text-16 dark:text-gray-50">Job location</h6>
+                        <h6 class="font-bold mb-3 text-16 dark:text-gray-50">Job location</h6>
                         <iframe src="https://www.google.com/maps?q={{ urlencode($job->location) }}&output=embed"" style="width:100%" height="250" allowfullscreen="" loading="lazy">
                         </iframe>
                     </div>

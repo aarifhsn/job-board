@@ -13,7 +13,7 @@ class JobController extends Controller
 {
     public function viewJobs()
     {
-        $jobs = Job::paginate(5);
+        $jobs = Job::paginate(10);
 
         $company = Company::all();
 
@@ -22,34 +22,34 @@ class JobController extends Controller
 
         $tags = Tag::all();
 
-        return view('job-lists', compact('jobs', 'company', 'popular_categories', 'tags'));
+        $job_experiences = Job::select('experience')->distinct()->get()->sortBy('experience');
+
+        $job_types = Job::select('type')->distinct()->get();
+
+        return view('job-lists', compact('jobs', 'company', 'popular_categories', 'tags', 'popular_tags', 'job_experiences', 'job_types'));
+
     }
 
     public function search(Request $request)
     {
         $search = $request->input('search');
-        $country = $request->input('country');
         $category = $request->input('category');
         $tag = $request->input('tag');
+        $salaryRange = $request->input('salary_range');
+        $jobType = $request->input('job_type');
+        $workExperience = $request->input('work_experience');
+        $employmentType = $request->input('employment_type');
 
-        // Retrieve the country code from the request
+        $country = $request->input('country');
         $countryCode = request('country');
-
-        // Get the country name from the configuration file
         $countryName = config('countries.' . $countryCode);
 
         $jobs = Job::query()
             ->where(function ($query) use ($search) {
                 $query->where('title', 'like', "%$search%")
-                    ->orWhereHas('company', function ($q) use ($search) {
-                        $q->where('name', 'like', "%$search%");
-                    })
-                    ->orWhereHas('tag', function ($q) use ($search) {
-                        $q->where('name', 'like', "%$search%");
-                    })
-                    ->orWhereHas('category', function ($q) use ($search) {
-                        $q->where('name', 'like', "%$search%");
-                    })
+                    ->orWhereHas('company', fn($q) => $q->where('name', 'like', "%$search%"))
+                    ->orWhereHas('tag', fn($q) => $q->where('name', 'like', "%$search%"))
+                    ->orWhereHas('category', fn($q) => $q->where('name', 'like', "%$search%"))
                     ->orWhere('location', 'like', "%$search%");
             })
             ->when($countryName, function ($query) use ($countryName) {
@@ -57,11 +57,23 @@ class JobController extends Controller
                     $q->where('country', $countryName);
                 });
             })
-            ->get();
+            ->when($salaryRange, function ($query, $salaryRange) {
+                [$min, $max] = explode('-', $salaryRange);
+                $query->whereBetween('salary', [(int) $min, (int) $max]);
+            })
+            ->when($jobType, fn($query, $jobType) => $query->where('job_type', $jobType))
+            ->when($workExperience, fn($query, $workExperience) => $query->where('experience', $workExperience))
+            ->when($employmentType, fn($query, $employmentType) => $query->where('employment_type', $employmentType))
+            ->paginate(10);
 
         $tags = Tag::all();
+        $job_experiences = Job::select('experience')->distinct()->get()->sortBy('experience');
+        ;
 
-        return view('jobs.search-results', compact('jobs', 'tags'));
+        $job_types = Job::select('type')->distinct()->get();
+
+
+        return view('jobs.search-results', compact('jobs', 'tags', 'job_experiences', 'job_types'));
     }
 
     public function show($id)

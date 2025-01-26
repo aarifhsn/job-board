@@ -26,7 +26,18 @@ class TagController extends Controller
         // Fetch jobs that belong to the selected tag
         $jobs = $tag ? $tag->jobs()->paginate(10) : collect();
 
-        return view('tags.browse-by-tag', ['tags' => $tags, 'popular_tags' => $popular_tags, 'jobs' => $jobs, 'tag' => $tag->name ?? 'Tag not found']);
+        $job_experiences = Job::select('experience')->distinct()->get()->sortBy('experience');
+
+        $job_types = Job::select('type')->distinct()->get();
+
+        return view('tags.browse-by-tag', [
+            'tags' => $tags,
+            'popular_tags' => $popular_tags,
+            'jobs' => $jobs,
+            'tag' => $tag->name ?? 'Tag not found',
+            'job_experiences' => $job_experiences,
+            'job_types' => $job_types,
+        ]);
     }
 
     public function store(Request $request)
