@@ -161,8 +161,14 @@
                         <button type="button" class="flex items-center px-4 py-5 dropdown-toggle"
                             id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="true">
-                            <img class="w-8 h-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2"
-                                src="{{asset('images/user/img-02.jpg')}}" alt="Header Avatar')}}">
+
+                            @if (auth()->check())
+                                <span
+                                    class="text-gray-600 border-2  px-2 py-1.5 rounded-full mr-1">{{auth()->user()?->name_initials}}</span>
+                            @else
+                                <span class="mr-4 rounded-full"><i
+                                        class="text-2xl text-gray-800 uil uil-user-check"></i></span>
+                            @endif
                             <span class="hidden fw-medium xl:block dark:text-gray-50 capitalize">Hi,
                                 {{ Auth::check() ? Auth::user()->first_name : 'Guest' }}</span>
                         </button>
