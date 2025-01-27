@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Rss;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Job;
 use Illuminate\Support\Facades\Cache;
@@ -15,6 +14,7 @@ class JobFeedController extends Controller
         // Cache the RSS feed for 30 minutes
         $rss = Cache::remember('rss_jobs_feed', now()->addMinutes(30), function () {
             $jobs = Job::latest()->take(20)->get();
+
             return view('rss.job-feed', compact('jobs'))->render();
         });
 

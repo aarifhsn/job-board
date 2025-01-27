@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Tag;
-use Illuminate\Support\Str;
 use App\Models\Job;
+use App\Models\Tag;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TagController extends Controller
 {
@@ -26,7 +26,22 @@ class TagController extends Controller
         // Fetch jobs that belong to the selected tag
         $jobs = $tag ? $tag->jobs()->paginate(10) : collect();
 
-        return view('tags.browse-by-tag', ['tags' => $tags, 'popular_tags' => $popular_tags, 'jobs' => $jobs, 'tag' => $tag->name ?? 'Tag not found']);
+        $job_experiences = Job::select('experience')->distinct()->get()->sortBy('experience');
+
+        $job_types = Job::select('type')->distinct()->get();
+        $minSalary = Job::min('salary_range');
+        $maxSalary = Job::max('salary_range');
+
+        return view('tags.browse-by-tag', [
+            'tags' => $tags,
+            'popular_tags' => $popular_tags,
+            'jobs' => $jobs,
+            'tag' => $tag->name ?? 'Tag not found',
+            'job_experiences' => $job_experiences,
+            'job_types' => $job_types,
+            'minSalary' => $minSalary,
+            'maxSalary' => $maxSalary,
+        ]);
     }
 
     public function store(Request $request)
@@ -39,9 +54,5 @@ class TagController extends Controller
         Tag::create(['name' => $request->name, 'slug' => $slug]);
 
         return back()->with('success', 'Tag created successfully.');
-
-        // when creating or editing a tag, save its tag
-        // Pass an array of tag IDs to the sync method
-        // $job->tags()->sync($tagIds);
     }
 }

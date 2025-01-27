@@ -1,5 +1,5 @@
-<nav class="navbar fixed right-0 left-0 top-0 px-5 lg:px-24 transition-all duration-500 ease shadow-lg shadow-gray-200/20 bg-white border-gray-200 dark:bg-neutral-800 z-40 dark:shadow-neutral-900" id="navbar">
-    <div class="mx-auto container-fluid">
+<nav class="navbar fixed right-0 left-0 top-0 transition-all duration-500 ease shadow-lg shadow-gray-200/20 bg-white border-gray-200 dark:bg-neutral-800 z-40 dark:shadow-neutral-900" id="navbar">
+    <div class="mx-auto container">
         <div class="flex flex-wrap items-center justify-between mx-auto">
             <a href="{{route('home')}}" class="flex items-center">
                 <img src="{{asset('images/logo-dark.png')}}" alt="" class="logo-dark h-[22px] block dark:hidden">

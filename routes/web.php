@@ -7,10 +7,10 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Job\JobController;
+use App\Http\Controllers\Rss\JobFeedController;
 use App\Http\Controllers\Rss\NewsController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Rss\JobFeedController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +27,7 @@ use App\Http\Controllers\Rss\JobFeedController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/browse-jobs', [JobController::class, 'viewJobs'])->name('job-lists');
 Route::get('/job-categories', [HomeController::class, 'jobCategories'])->name('job-categories');
-Route::get('/contact', fn() => view('contact'))->name('contact');
+Route::get('/contact', fn () => view('contact'))->name('contact');
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');
 Route::get('/jobs/rss', [JobFeedController::class, 'index'])->name('jobs.rss');
 Route::get('/jobs/rss-blog', [JobFeedController::class, 'blogInfo'])->name('jobs.rss-blog');
@@ -41,7 +41,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Job Routes
 Route::get('/job-details/{id}', [JobController::class, 'show'])->name('job-details');
-Route::get('/jobs/search', [JobController::class, 'search'])->name('jobs.search');
+Route::get('/jobs', [JobController::class, 'search'])->name('jobs.search');
+Route::get('/jobs/filter', [JobController::class, 'filter'])->name('jobs.filter');
 
 // Tag Routes
 Route::get('/tag/{name}', [TagController::class, 'index'])->name('tags.index');
@@ -52,7 +53,7 @@ Route::get('/category/{slug}', [CategoryController::class, 'index'])->name('cate
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 
 // Profile Route
-Route::get('/profile', fn() => view('profile'))->name('profile');
+Route::get('/profile', fn () => view('profile'))->name('profile');
 
 // Company Routes
 // Route::get('/company/login', [CompanyController::class, 'showLoginForm'])->name('company.login');
@@ -62,7 +63,7 @@ Route::post('/company/register', [CompanyController::class, 'register']);
 
 // Routes for Authenticated Companies
 Route::middleware(['auth', 'company'])->group(function () {
-    Route::get('/company/dashboard', fn() => view('company.dashboard'))->name('company.dashboard');
+    Route::get('/company/dashboard', fn () => view('company.dashboard'))->name('company.dashboard');
     Route::get('/company/{slug}', [CompanyController::class, 'profile'])->name('company.profile');
 });
 
@@ -75,5 +76,5 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 // Placeholder Routes
-Route::get('/manage-jobs', fn() => view('manage-jobs'))->name('manage-jobs');
-Route::get('/manage-jobs-post', fn() => view('manage-jobs-post'))->name('manage-jobs-post');
+Route::get('/manage-jobs', fn () => view('manage-jobs'))->name('manage-jobs');
+Route::get('/manage-jobs-post', fn () => view('manage-jobs-post'))->name('manage-jobs-post');

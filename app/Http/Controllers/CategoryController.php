@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Category;
-use Illuminate\Support\Str;
 use App\Models\Job;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -26,11 +26,22 @@ class CategoryController extends Controller
         // Fetch jobs that belong to the selected category
         $jobs = $category ? $category->jobs()->paginate(10) : collect();
 
+        $job_experiences = Job::select('experience')->distinct()->get()->sortBy('experience');
+
+        $job_types = Job::select('type')->distinct()->get();
+
+        $minSalary = Job::min('salary_range');
+        $maxSalary = Job::max('salary_range');
+
         return view('categories.browse-by-category', [
             'categories' => $categories,
             'popular_categories' => $popular_categories,
             'jobs' => $jobs,
-            'category' => $category->name ?? 'Category not found'
+            'category' => $category->name ?? 'Category not found',
+            'job_experiences' => $job_experiences,
+            'job_types' => $job_types,
+            'minSalary' => $minSalary,
+            'maxSalary' => $maxSalary,
         ]);
     }
 

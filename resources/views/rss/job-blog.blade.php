@@ -11,7 +11,7 @@
         <div class="job-list">
             @foreach($jobs as $job)
                 <div class="my-8">
-                    <h2>{{ $job->title }}</h2>
+                    <h2 class="font-bold ">{{ $job->title }}</h2>
                     <p>{{ \Illuminate\Support\Str::limit($job->description, 150) }}</p>
                     <p><strong>Posted at:</strong> {{ $job->created_at->format('M d, Y') }}</p>
                     <a href="{{ route('job-details', $job->id) }}" class="btn btn-primary mt-4">Read More</a>
