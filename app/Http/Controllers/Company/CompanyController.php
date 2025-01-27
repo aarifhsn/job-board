@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Company;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CompanyRegistrationRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Company;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -16,36 +17,27 @@ class CompanyController extends Controller
         return view('company.auth.register-company');
     }
 
-    public function register(Request $request)
+    public function register(CompanyRegistrationRequest $request)
     {
-        // Validate only the required fields for registration
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'contact_number' => 'required|string|max:15',
-            'website' => 'nullable|url',
-            'password' => 'required|confirmed|min:8',
-        ]);
-
         // Create the user record with 'company' role
         $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
             'role' => 'company', // Set the role to 'company'
         ]);
 
         // Generate a unique slug for the company
-        $slug = Str::slug($validated['name'] . '-' . uniqid(), '-');
+        $slug = Str::slug($request->name.'-'.uniqid(), '-');
 
         // Create the company record with minimal information (for registration)
         Company::create([
             'user_id' => $user->id,
-            'name' => $validated['name'],
+            'name' => $request->name,
             'slug' => $slug,
-            'email' => $validated['email'],
-            'contact_number' => $validated['contact_number'],
-            'website' => $validated['website'],
+            'email' => $request->email,
+            'contact_number' => $request->contact_number,
+            'website' => $request->website,
             'status' => 'pending', // Set the status to 'pending'
         ]);
 
@@ -70,26 +62,11 @@ class CompanyController extends Controller
         return view('company.edit-profile', compact('company'));
     }
 
-    public function updateProfile(Request $request)
+    public function updateProfile(UpdateProfileRequest $request)
     {
-        $validated = $request->validate([
-            'contact_number' => 'string|max:15',
-            'industry' => 'nullable|string|max:255',
-            'website' => 'nullable|url',
-            'address' => 'nullable|string',
-            'city' => 'nullable|string',
-            'state' => 'nullable|string',
-            'country' => 'nullable|string',
-            'pincode' => 'nullable|string|max:10',
-            'description' => 'nullable|string',
-
-        ]);
-
-        // Update the company's profile data
         $company = auth()->user()->company;
-        $company->update($validated);
+        $company->update($request->validated());
 
         return redirect()->route('company.profile')->with('success', 'Profile updated successfully.');
     }
-
 }

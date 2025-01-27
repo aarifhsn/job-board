@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Job extends Model
 {
@@ -26,7 +26,7 @@ class Job extends Model
         'start_date',
         'expiration_date',
         'status',
-        'duration'
+        'duration',
     ];
 
     public function company()
@@ -71,16 +71,18 @@ class Job extends Model
 
     public function scopeSearch($query, $term)
     {
-        return $query->where('title', 'like', '%' . $term . '%')
+        return $query->where('title', 'like', '%'.$term.'%')
             ->orWhereHas('company', function ($q) use ($term) {
-                $q->where('name', 'like', '%' . $term . '%');
+                $q->where('name', 'like', '%'.$term.'%');
             });
     }
+
     public function scopeFilterByCountry($query, $country)
     {
         if ($country) {
             return $query->where('country', $country);
         }
+
         return $query;
     }
 }

@@ -65,9 +65,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Subscription::class);
     }
+
     public function getFirstNameAttribute()
     {
         return explode(' ', $this->name)[0] ?? $this->name;
     }
-
 }

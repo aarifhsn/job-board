@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class JobView extends Model
 {
@@ -17,7 +17,7 @@ class JobView extends Model
         'ip_address',
         'user_agent',
         'details',
-        'view_count'
+        'view_count',
     ];
 
     public function job()

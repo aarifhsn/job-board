@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Tag;
-use Illuminate\Support\Str;
 use App\Models\Job;
+use App\Models\Tag;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TagController extends Controller
 {
@@ -54,9 +54,5 @@ class TagController extends Controller
         Tag::create(['name' => $request->name, 'slug' => $slug]);
 
         return back()->with('success', 'Tag created successfully.');
-
-        // when creating or editing a tag, save its tag
-        // Pass an array of tag IDs to the sync method
-        // $job->tags()->sync($tagIds);
     }
 }

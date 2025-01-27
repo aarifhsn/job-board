@@ -18,6 +18,7 @@ class JobFactory extends Factory
     public function definition(): array
     {
         $ranges = ['0', '1-2', '3-5', '6+'];
+
         return [
             'category_id' => $this->faker->numberBetween(1, 10),
             'title' => $title = $this->faker->jobTitle,

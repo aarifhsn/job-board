@@ -20,8 +20,10 @@ class RssFeedService
                     'description' => (string) $item->description,
                 ];
             }
+
             return $articles;
         }
+
         return [];
     }
 }

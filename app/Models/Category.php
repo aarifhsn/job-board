@@ -34,8 +34,8 @@ class Category extends Model
 
     public function scopeSearch($query, $search)
     {
-        return $query->where('name', 'like', '%' . $search . '%')
-            ->orWhere('description', 'like', '%' . $search . '%');
+        return $query->where('name', 'like', '%'.$search.'%')
+            ->orWhere('description', 'like', '%'.$search.'%');
     }
 
     public function scopeSlug($query, $slug)
