@@ -25,7 +25,8 @@
                                         class="text-gray-900 ltr:ml-2 rtl:mr-2 dark:text-gray-50">
                                         <h6
                                             class="mb-0 transition-all duration-300 fs-14 group-data-[theme-color=violet]:group-hover/joblist:text-violet-500 group-data- group-data-[theme-color=blue]:group-hover/joblist:text-blue-500">
-                                            {{ $popular_tag->name }}</h6>
+                                            {{ $popular_tag->name }}
+                                        </h6>
                                     </a>
                                 </div>
                             </li>
@@ -40,9 +41,7 @@
                         <h2 class="font-bold text-gray-900 dark:text-gray-50">No jobs found for tag: {{ $tag }}</h2>
 
                     @else
-
-                        {{-- lists of jobs by tag name --}}
-                        <h3 class="mb-8 text-gray-900 dark:text-gray-50">Jobs by tag: {{ $tag }}</h3>
+                        <h3 class="font-bold text-lg mb-8 text-gray-900 dark:text-gray-50">Jobs by tag: {{ $tag }}</h3>
 
                         @foreach ($jobs as $job)
 

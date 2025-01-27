@@ -30,6 +30,9 @@ class CategoryController extends Controller
 
         $job_types = Job::select('type')->distinct()->get();
 
+        $minSalary = Job::min('salary_range');
+        $maxSalary = Job::max('salary_range');
+
         return view('categories.browse-by-category', [
             'categories' => $categories,
             'popular_categories' => $popular_categories,
@@ -37,6 +40,8 @@ class CategoryController extends Controller
             'category' => $category->name ?? 'Category not found',
             'job_experiences' => $job_experiences,
             'job_types' => $job_types,
+            'minSalary' => $minSalary,
+            'maxSalary' => $maxSalary,
         ]);
     }
 

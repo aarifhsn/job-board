@@ -13,28 +13,12 @@ class JobController extends Controller
 {
     public function viewJobs()
     {
-        $jobs = Job::paginate(10);
-
-        $company = Company::all();
-
-        $popular_categories = Category::withCount('jobs')->orderBy('jobs_count', 'desc')->take(5)->get();
-        $popular_tags = Tag::withCount('jobs')->orderBy('jobs_count', 'desc')->take(5)->get();
-
-        $tags = Tag::all();
-
-        $job_experiences = Job::select('experience')->distinct()->get()->sortBy('experience');
-
-        $job_types = Job::select('type')->distinct()->get();
-
-        return view('job-lists', compact('jobs', 'company', 'popular_categories', 'tags', 'popular_tags', 'job_experiences', 'job_types'));
-
+        return $this->getJobsViewData('job-lists');
     }
 
     public function search(Request $request)
     {
         $search = $request->input('search');
-        $category = $request->input('category');
-        $tag = $request->input('tag');
 
         $country = $request->input('country');
         $countryCode = request('country');
@@ -54,13 +38,7 @@ class JobController extends Controller
             })
             ->paginate(10);
 
-        $tags = Tag::all();
-        $job_experiences = Job::select('experience')->distinct()->get()->sortBy('experience');
-
-        $job_types = Job::select('type')->distinct()->get();
-
-
-        return view('jobs.search-results', compact('jobs', 'tags', 'job_experiences', 'job_types', ));
+        return $this->getJobsViewData('jobs.search-results', compact('jobs'));
     }
 
     public function show($id)
@@ -79,42 +57,24 @@ class JobController extends Controller
         $jobs = Job::query();
 
         // Apply filters
-        $this->filterByJobType($jobs, $request);
-        $this->filterByWorkExperience($jobs, $request);
-        $this->filterByDatePosted($jobs, $request);
+        $this->applyFilters($jobs, $request);
 
-        // Fetch data for the view
-        $jobs = $jobs->get();
-        $popular_categories = Category::withCount('jobs')
-            ->orderBy('jobs_count', 'desc')
-            ->take(5)
-            ->get();
-
-        $tags = Tag::all();
-        $job_experiences = Job::select('experience')->distinct()->get()->sortBy('experience');
-        $job_types = Job::select('type')->distinct()->get();
-
-        return view('jobs.search-results', compact(
-            'jobs',
-            'popular_categories',
-            'tags',
-            'job_experiences',
-            'job_types'
-        ));
+        return $this->getJobsViewData('jobs.search-results', ['jobs' => $jobs->get()]);
     }
 
-    // Private Methods for Filters
-    private function filterByJobType($query, Request $request)
+    private function applyFilters($query, Request $request)
     {
-        if ($request->filled('job_type')) {
-            $query->where('type', $request->input('job_type'));
-        }
-    }
+        $filters = [
+            'salary_range' => fn($q) => $q->where('salary_range', '>=', $request->input('salary_range')),
+            'job_type' => fn($q) => $q->where('type', $request->input('job_type')),
+            'experience' => fn($q) => $q->whereIn('experience', $request->input('experience')),
+            'date_posted' => fn($q) => $this->filterByDatePosted($q, $request->input('date_posted')),
+        ];
 
-    private function filterByWorkExperience($query, Request $request)
-    {
-        if ($request->filled('work_experience')) {
-            $query->whereIn('experience', $request->input('work_experience'));
+        foreach ($filters as $key => $filter) {
+            if ($request->filled($key)) {
+                $filter($query);
+            }
         }
     }
 
@@ -126,6 +86,8 @@ class JobController extends Controller
                 'last_hour' => now()->subHour(),
                 'last_24_hours' => now()->subDay(),
                 'last_7_days' => now()->subDays(7),
+                'last_14_days' => now()->subDays(14),
+                'last_30_days' => now()->subDays(30),
             ];
 
             foreach ($conditions as $key => $value) {
@@ -135,8 +97,6 @@ class JobController extends Controller
             }
         }
     }
-
-
     public function filterByTag($slug)
     {
         $tag = Tag::where('slug', $slug)->firstOrFail();
@@ -144,6 +104,23 @@ class JobController extends Controller
         $jobs = $tag->jobs()->with('company')->paginate(10);
 
         return view('job-lists', compact('jobs', 'tag'));
+    }
+
+    private function getJobsViewData($view, array $data = [])
+    {
+        $defaultData = [
+            'jobs' => Job::paginate(10),
+            'company' => Company::all(),
+            'popular_categories' => Category::withCount('jobs')->orderBy('jobs_count', 'desc')->take(5)->get(),
+            'tags' => Tag::all(),
+            'popular_tags' => Tag::withCount('jobs')->orderBy('jobs_count', 'desc')->take(5)->get(),
+            'job_experiences' => Job::select('experience')->distinct()->get()->sortBy('experience'),
+            'job_types' => Job::select('type')->distinct()->get(),
+            'minSalary' => Job::min('salary_range'),
+            'maxSalary' => Job::max('salary_range'),
+        ];
+
+        return view($view, array_merge($defaultData, $data));
     }
 
 }

@@ -29,6 +29,8 @@ class TagController extends Controller
         $job_experiences = Job::select('experience')->distinct()->get()->sortBy('experience');
 
         $job_types = Job::select('type')->distinct()->get();
+        $minSalary = Job::min('salary_range');
+        $maxSalary = Job::max('salary_range');
 
         return view('tags.browse-by-tag', [
             'tags' => $tags,
@@ -37,6 +39,8 @@ class TagController extends Controller
             'tag' => $tag->name ?? 'Tag not found',
             'job_experiences' => $job_experiences,
             'job_types' => $job_types,
+            'minSalary' => $minSalary,
+            'maxSalary' => $maxSalary,
         ]);
     }
 
