@@ -17,7 +17,8 @@ class JobFactory extends Factory
      */
     public function definition(): array
     {
-        $ranges = ['1-2', '2-3', '3-4', '5+'];
+        $ranges = ['0', '1-2', '3-5', '6+'];
+
         return [
             'category_id' => $this->faker->numberBetween(1, 10),
             // 'title' => $this->faker->jobTitle,
@@ -28,7 +29,8 @@ class JobFactory extends Factory
             'type' => $this->faker->randomElement(['full-time', 'part-time', 'contract', 'temporary', 'internship', 'volunteer', 'freelance']),
             'slug' => Str::slug($title),
             'vacancy' => $this->faker->numberBetween(1, 10),
-            'location' => $this->faker->city,
+            'qualification' => $this->faker->randomElement(['B.Tech CSE', 'B.Tech IT', 'B.Sc CS', 'BCA', 'M.Tech CSE', 'M.Tech IT', 'M.Sc CS', 'MCA', 'Diploma CS', 'B.Sc IT', 'B.Tech SE', 'B.Tech CE', 'B.Tech CS', 'M.Sc WebTech', 'M.Sc DS']),
+            'location' => $this->faker->randomElement(['New York', 'London', 'Paris', 'Berlin', 'San Francisco', 'Los Angeles', 'Chicago', 'Houston', 'Dallas', 'Seattle', 'Miami', 'Toronto', 'Vancouver', 'Montreal', 'Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide', 'Auckland', 'Wellington', 'Christchurch', 'Hamilton', 'Tauranga', 'Dunedin', 'Queenstown', 'Rotorua', 'Napier', 'Hastings', 'Palmerston North', 'Nelson', 'Whangarei', 'Invercargill', 'Gisborne', 'Taranaki', 'Manawatu', 'Wanganui', 'Hawkes Bay', 'Bay of Plenty', 'Northland', 'Southland', 'West Coast', 'Canterbury', 'Otago', 'Marlborough', 'Tasman', 'Waikato']),
             'salary_range' => $this->faker->numberBetween(1000, 9000),
             'application_link' => $this->faker->url,
             'application_email' => $this->faker->safeEmail,

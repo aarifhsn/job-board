@@ -20,14 +20,14 @@
                                     class="w-20 h-20 mx-auto rounded-full"
                                 />
                                 <h6
-                                    class="mt-4 mb-0 text-lg text-gray-900 dark:text-gray-50"
+                                    class="font-bold mt-4 mb-0 text-lg text-gray-900 dark:text-gray-50"
                                 >
                                     {{$company->name}}
                                 </h6>
                                 <p
                                     class="mb-4 text-gray-500 dark:text-gray-300"
                                 >
-                                    {{$company->industry}}
+                                    {{ $company->city}}, {{$company->country}}
                                 </p>
                                 <ul
                                     class="flex flex-wrap justify-center gap-4"
@@ -253,13 +253,8 @@
                             >
                                 Company Location
                             </h6>
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.119763973046!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1628067715234!5m2!1sen!2sin"
-                                style="width: 100%"
-                                height="250"
-                                allowfullscreen=""
-                                loading="lazy"
-                            ></iframe>
+                            <iframe src="https://www.google.com/maps?q={{ urlencode($company->city) }}&output=embed"" style="width:100%" height="250" allowfullscreen="" loading="lazy">
+                            </iframe>
                         </div>
                     </div>
                 </div>
@@ -269,7 +264,7 @@
                     >
                         <div>
                             <h6
-                                class="mb-3 text-gray-900 text-17 dark:text-gray-50"
+                                class="font-bold mb-3 text-gray-900 text-17 dark:text-gray-50"
                             >
                                 About Company
                             </h6>
@@ -304,7 +299,7 @@
                                             class="absolute top-[50%] left-[50%] -translate-x-5 -translate-y-5 group-hover/gallery:block hidden transition-all duration-300 ease-in-out text-2xl"
                                         >
                                             <a
-                                                href="assets/images/blog/img-01.jpg"
+                                                href="#"
                                                 class="text-white image-popup"
                                                 data-title="Project Leader"
                                                 data-description="There are many variations of passages of available, but the majority alteration in some form."
@@ -332,7 +327,7 @@
                                             class="absolute top-[50%] left-[50%] -translate-x-5 -translate-y-5 group-hover/gallery:block hidden transition-all duration-300 ease-in-out text-2xl"
                                         >
                                             <a
-                                                href="assets/images/blog/img-03.jpg"
+                                                href="#"
                                                 class="text-white image-popup"
                                                 data-title="Project Leader"
                                                 data-description="There are many variations of passages of available, but the majority alteration in some form."
@@ -360,7 +355,7 @@
                                             class="absolute top-[50%] left-[50%] -translate-x-5 -translate-y-5 group-hover/gallery:block hidden transition-all duration-300 ease-in-out text-2xl"
                                         >
                                             <a
-                                                href="assets/images/blog/img-12.jpg"
+                                                href="#"
                                                 class="text-white image-popup"
                                                 data-title="Project Leader"
                                                 data-description="There are many variations of passages of available, but the majority alteration in some form."
@@ -376,164 +371,15 @@
                         </div>
                         <div class="pt-10">
                             <h6
-                                class="mb-0 text-gray-900 text-17 fw-bold dark:text-gray-50"
+                                class="font-bold mb-0 text-gray-900 text-17 fw-bold dark:text-gray-50"
                             >
                                 Current Opening
                             </h6>
                             <div class="mt-5 space-y-5">
                                 @foreach ($company_jobs as $job)
-                                <div
-                                    class="relative overflow-hidden transition-all duration-500 ease-in-out bg-white border rounded-md border-gray-100/50 group group-data-[theme-color=violet]:hover:border-violet-500 group-data-[theme-color=sky]:hover:border-sky-500 group-data-[theme-color=red]:hover:border-red-500 group-data-[theme-color=green]:hover:border-green-500 group-data-[theme-color=pink]:hover:border-pink-500 group-data-[theme-color=blue]:hover:border-blue-500 hover:-translate-y-2 dark:bg-neutral-900 dark:border-neutral-600"
-                                >
-                                    <div class="p-6">
-                                        <div
-                                            class="grid grid-cols-12 gap-y-5 lg:gap-5"
-                                        >
-                                            <div
-                                                class="col-span-12 lg:col-span-2"
-                                            >
-                                                <div
-                                                    class="text-center"
-                                                >
-                                                    <a
-                                                        href="company-details.html"
-                                                        ><img
-                                                            src="{{asset('images/featured-job/img-01.png')}}"
-                                                            alt=""
-                                                            class="md:mx-auto img-fluid rounded-3"
-                                                    /></a>
-                                                </div>
-                                            </div>
-                                            <!--end col-->
-                                            <div
-                                                class="col-span-10"
-                                            >
-                                                <h5
-                                                    class="mb-1 fs-17"
-                                                >
-                                                    <a
-                                                        href="job-details.html"
-                                                        class="text-gray-900 dark:text-gray-50"
-                                                        >{{$job->title}}</a
-                                                    >
-                                                    <small
-                                                        class="font-normal text-gray-500 dark:text-gray-300"
-                                                        >({{$job->experience}} Yrs
-                                                        Exp.)</small
-                                                    >
-                                                </h5>
-                                                <ul
-                                                    class="flex flex-wrap gap-3 mb-0"
-                                                >
-                                                    <li>
-                                                        <p
-                                                            class="mb-0 text-sm text-gray-500 dark:text-gray-300"
-                                                        >
-                                                            {{$job->company->name}}
-                                                        </p>
-                                                    </li>
-                                                    <li>
-                                                        <p
-                                                            class="mb-0 text-sm text-gray-500 dark:text-gray-300"
-                                                        >
-                                                            <i
-                                                                class="mdi mdi-map-marker"
-                                                            ></i>
-                                                            {{$job->city}}, {{$job->Country}}
-                                                        </p>
-                                                    </li>
-                                                    <li>
-                                                        <p
-                                                            class="mb-0 text-sm text-gray-500 dark:text-gray-300"
-                                                        >
-                                                            <i
-                                                                class="uil uil-wallet ltr:mr-2 rtl:ml-2"
-                                                            ></i>
-                                                            {{Number::currency($job->salary_range)}} /
-                                                            month
-                                                        </p>
-                                                    </li>
-                                                </ul>
-                                                <div class="mt-4">
-                                                    <div
-                                                        class="flex flex-wrap gap-1.5"
-                                                    >
-                                                        <span
-                                                            class="badge bg-green-500/20 text-green-500 text-11 px-2 py-0.5 font-medium rounded"
-                                                            >{{$job->type}}</span
-                                                        >
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--end row-->
-                                    </div>
-                                    <div
-                                        class="px-4 py-3 bg-gray-50 dark:bg-neutral-700"
-                                    >
-                                        <div
-                                            class="grid grid-cols-12"
-                                        >
-                                            <div
-                                                class="col-span-12 lg:col-span-6"
-                                            >
-                                                <ul
-                                                    class="flex flex-wrap gap-2 text-gray-700 dark:text-gray-50"
-                                                >
-                                                    <li>
-                                                        <i
-                                                            class="uil uil-tag"
-                                                        ></i>
-                                                        Keywords :
-                                                    </li>
-                                                    @foreach ($job->tag as $each_tag)
-                                                    <li>
-                                                        <a
-                                                            href="javascript:void(0)"
-                                                            class="primary-link text-muted"
-                                                            >{{$each_tag->name}}</a
-                                                        >
-                                                    </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                            <!--end col-->
-                                            <div
-                                                class="col-span-12 mt-2 lg:col-span-6 lg:mt-0"
-                                            >
-                                                <div
-                                                    class="ltr:lg:text-right rtl:lg:text-left dark:text-gray-50"
-                                                >
-                                                    <a
-                                                        href="#applyNow"
-                                                        data-bs-toggle="modal"
-                                                        >Apply Now
-                                                        <i
-                                                            class="mdi mdi-chevron-double-right"
-                                                        ></i
-                                                    ></a>
-                                                </div>
-                                            </div>
-                                            <!--end col-->
-                                        </div>
-                                        <!--end row-->
-                                    </div>
-                                    <div
-                                        class="absolute top-4 ltr:right-4 rtl:left-4"
-                                    >
-                                        <div
-                                            class="w-8 h-8 text-center text-white bg-red-600 rounded"
-                                        >
-                                            <a
-                                                href="javascript:void(0)"
-                                                ><i
-                                                    class="uil uil-heart-alt text-lg leading-[1.9]"
-                                                ></i
-                                            ></a>
-                                        </div>
-                                    </div>
-                                </div>
+                                
+                                    @include('jobs.partials.job-card')
+
                                 @endforeach
                             </div>
                         </div>

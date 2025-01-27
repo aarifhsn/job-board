@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Company;
-
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -18,12 +16,14 @@ class AdminController extends Controller
     public function candidates()
     {
         $candidates = User::where('role', 'candidate')->get();
+
         return view('admin.candidates', compact('candidates'));
     }
 
     public function companies()
     {
         $companies = Company::all();
+
         return view('admin.companies', compact('companies'));
     }
 
@@ -35,5 +35,4 @@ class AdminController extends Controller
 
         return redirect()->route('admin.companies')->with('success', 'Company approved successfully.');
     }
-
 }

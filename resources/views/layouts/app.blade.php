@@ -28,6 +28,8 @@
 
         <link rel="stylesheet" href=" {{asset('css/icons.css')}}" />
         <link rel="stylesheet" href="{{asset('css/tailwind.css')}}" />
+
+        @vite(['resources/css/app.css', 'resources/js/app.js']))
     </head>
     
     <body class="bg-white dark:bg-neutral-800">
@@ -55,19 +57,21 @@
 
     <script src="{{asset('js/pages/switcher.js')}}"></script>
     
-        <script src="{{asset('libs/choices.js/assets/scripts/choices.min.js')}}"></script>
+    <script src="{{asset('libs/choices.js/assets/scripts/choices.min.js')}}"></script>
 
-        <script src="{{asset('js/pages/job-list.init.js')}}"></script>
-    
-        <script src="{{asset('js/pages/dropdown&modal.init.js')}}"></script>
+    <script src="{{asset('js/pages/job-list.init.js')}}"></script>
 
-        <!-- Swiper Js -->
-            <script src="{{asset('libs/swiper/swiper-bundle.min.js')}}"></script>
-            <script src="{{asset('js/pages/swiper.init.js')}}"></script>
+    <script src="{{asset('js/pages/dropdown&modal.init.js')}}"></script>
 
-        <script src="{{asset('js/pages/nav&tabs.js')}}"></script>
+    <!-- Swiper Js -->
+    <script src="{{asset('libs/swiper/swiper-bundle.min.js')}}"></script>
+    <script src="{{asset('js/pages/swiper.init.js')}}"></script>
 
-        <script src="{{asset('js/app.js')}}"></script>
+    <script src="{{asset('js/pages/nav&tabs.js')}}"></script>
+
+    <script src="{{asset('js/app.js')}}"></script>
+
+    <script src="{{asset('js/jobboard.js')}}"></script>
     
 </body>
 

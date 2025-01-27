@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Notifications\SendEmailOtpNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -64,10 +65,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Subscription::class);
     }
-
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id')->withTimestamps();
+    }
+
+    public function getFirstNameAttribute()
+    {
+        return explode(' ', $this->name)[0] ?? $this->name;
     }
 
     /**
@@ -102,6 +107,7 @@ class User extends Authenticatable
         return $this->permissions()->contains('name', $permission->name) || $this->permissions()->contains('slug', $permission->slug);
     }
 
+
     protected static function booted()
     {
 
@@ -125,5 +131,19 @@ class User extends Authenticatable
                 Log::alert("Error sending OTP to user: {$record->email}, Error: {$th->getMessage()}");
             }
         });
+    }
+
+    public function getNameInitialsAttribute()
+    {
+        $nameParts = explode(' ', $this->name);
+        $initials = '';
+
+        foreach ($nameParts as $part) {
+            if (!empty($part)) {
+                $initials .= strtoupper(substr($part, 0, 1));
+            }
+        }
+
+        return $initials ?: strtoupper(substr($this->name, 0, 2));
     }
 }
