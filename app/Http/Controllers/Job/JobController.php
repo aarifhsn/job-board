@@ -22,14 +22,14 @@ class JobController extends Controller
 
         $country = $request->input('country');
         $countryCode = request('country');
-        $countryName = config('countries.'.$countryCode);
+        $countryName = config('countries.' . $countryCode);
 
         $jobs = Job::query()
             ->where(function ($query) use ($search) {
                 $query->where('title', 'like', "%$search%")
-                    ->orWhereHas('company', fn ($q) => $q->where('name', 'like', "%$search%"))
-                    ->orWhereHas('tag', fn ($q) => $q->where('name', 'like', "%$search%"))
-                    ->orWhereHas('category', fn ($q) => $q->where('name', 'like', "%$search%"));
+                    ->orWhereHas('company', fn($q) => $q->where('name', 'like', "%$search%"))
+                    ->orWhereHas('tag', fn($q) => $q->where('name', 'like', "%$search%"))
+                    ->orWhereHas('category', fn($q) => $q->where('name', 'like', "%$search%"));
             })
             ->when($countryName, function ($query) use ($countryName) {
                 $query->whereHas('company', function ($q) use ($countryName) {
@@ -59,16 +59,16 @@ class JobController extends Controller
         // Apply filters
         $this->applyFilters($jobs, $request);
 
-        return $this->getJobsViewData('jobs.search-results', ['jobs' => $jobs->get()]);
+        return $this->getJobsViewData('jobs.search-results', ['jobs' => $jobs->paginate(10)]);
     }
 
     private function applyFilters($query, Request $request)
     {
         $filters = [
-            'salary_range' => fn ($q) => $q->where('salary_range', '>=', $request->input('salary_range')),
-            'job_type' => fn ($q) => $q->where('type', $request->input('job_type')),
-            'experience' => fn ($q) => $q->whereIn('experience', $request->input('experience')),
-            'date_posted' => fn ($q) => $this->filterByDatePosted($q, $request->input('date_posted')),
+            'salary_range' => fn($q) => $q->where('salary_range', '>=', $request->input('salary_range')),
+            'job_type' => fn($q) => $q->where('type', $request->input('job_type')),
+            'experience' => fn($q) => $q->whereIn('experience', $request->input('experience')),
+            'date_posted' => fn($q) => $this->filterByDatePosted($q, $request->input('date_posted')),
         ];
 
         foreach ($filters as $key => $filter) {
