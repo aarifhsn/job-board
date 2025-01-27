@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Tag extends Model
 {
@@ -14,7 +14,7 @@ class Tag extends Model
 
     public function jobs()
     {
-        return $this->belongsToMany(Job::class);
+        return $this->belongsToMany(Job::class, 'job_tags');
     }
 
     public function getRouteKeyName()
@@ -24,7 +24,7 @@ class Tag extends Model
 
     public function scopeSearch($query, $search)
     {
-        return $query->where('name', 'like', '%' . $search . '%');
+        return $query->where('name', 'like', '%'.$search.'%');
     }
 
     public function scopePopular($query)

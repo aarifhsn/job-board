@@ -1,19 +1,18 @@
-
 /********************* Area Range Value **********************/
 
-var slider1 = document.getElementById('slider1');
+var salary_range = document.getElementById("salary_range");
 
-noUiSlider.create(slider1, {
+noUiSlider.create(salary_range, {
     start: [9],
     step: 1,
     range: {
-        'min': [1],
-        'max': [15]
-    }
+        min: [1],
+        max: [15],
+    },
 });
 
-var slider1Value = document.getElementById('slider1-span');
+var salary_rangeValue = document.getElementById("salary_range_span");
 
-slider1.noUiSlider.on('update', function (values, handle) {
-    slider1Value.innerHTML = values[handle];
+salary_range.noUiSlider.on("update", function (values, handle) {
+    salary_rangeValue.innerHTML = values[handle];
 });

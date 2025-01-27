@@ -19,9 +19,11 @@ return new class extends Migration
             $table->foreignIdFor(Category::class)->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('description');
+            $table->string('experience')->nullable();
             $table->enum('type', ['full-time', 'part-time', 'contract', 'temporary', 'internship', 'volunteer', 'freelance'])->default('full-time');
             $table->string('slug')->unique();
             $table->integer('vacancy')->default(1);
+            $table->string('qualification')->nullable();
             $table->string('duration')->nullable();
             $table->string('location');
             $table->string('salary_range');

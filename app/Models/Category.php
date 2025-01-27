@@ -22,10 +22,20 @@ class Category extends Model
         return $query->where('status', 'active');
     }
 
+    public function scopeInactive($query)
+    {
+        return $query->where('status', 'inactive');
+    }
+
+    public function scopeExpired($query)
+    {
+        return $query->where('end_date', '<', now());
+    }
+
     public function scopeSearch($query, $search)
     {
-        return $query->where('name', 'like', '%' . $search . '%')
-            ->orWhere('description', 'like', '%' . $search . '%');
+        return $query->where('name', 'like', '%'.$search.'%')
+            ->orWhere('description', 'like', '%'.$search.'%');
     }
 
     public function scopeSlug($query, $slug)

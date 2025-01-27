@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Job extends Model
 {
@@ -15,6 +15,7 @@ class Job extends Model
         'category_id',
         'title',
         'description',
+        'experience',
         'slug',
         'vacancy',
         'location',
@@ -25,7 +26,7 @@ class Job extends Model
         'start_date',
         'expiration_date',
         'status',
-        'duration'
+        'duration',
     ];
 
     public function company()
@@ -36,6 +37,11 @@ class Job extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function tag()
+    {
+        return $this->belongsToMany(Tag::class, 'job_tags');
     }
 
     public function jobClicks()
@@ -61,5 +67,22 @@ class Job extends Model
     public function scopeByUser($query, $userId)
     {
         return $query->where('user_id', $userId);
+    }
+
+    public function scopeSearch($query, $term)
+    {
+        return $query->where('title', 'like', '%'.$term.'%')
+            ->orWhereHas('company', function ($q) use ($term) {
+                $q->where('name', 'like', '%'.$term.'%');
+            });
+    }
+
+    public function scopeFilterByCountry($query, $country)
+    {
+        if ($country) {
+            return $query->where('country', $country);
+        }
+
+        return $query;
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Job;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Company>
@@ -19,8 +19,8 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->company,
-            'slug' => Str::slug($this->faker->company),
+            'name' => $name = $this->faker->company,
+            'slug' => Str::slug($name.'-'.uniqid()),
             'email' => $this->faker->unique()->safeEmail,
             'contact_number' => $this->faker->phoneNumber,
             'industry' => $this->faker->word,

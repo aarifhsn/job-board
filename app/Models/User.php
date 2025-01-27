@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -23,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'remember_token',
     ];
 
     /**
@@ -63,5 +65,24 @@ class User extends Authenticatable
     public function subscription()
     {
         return $this->hasOne(Subscription::class);
+    }
+
+    public function getFirstNameAttribute()
+    {
+        return explode(' ', $this->name)[0] ?? $this->name;
+    }
+
+    public function getNameInitialsAttribute()
+    {
+        $nameParts = explode(' ', $this->name);
+        $initials = '';
+
+        foreach ($nameParts as $part) {
+            if (!empty($part)) {
+                $initials .= strtoupper(substr($part, 0, 1));
+            }
+        }
+
+        return $initials ?: strtoupper(substr($this->name, 0, 2));
     }
 }
