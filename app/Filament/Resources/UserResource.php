@@ -9,10 +9,15 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use BladeUI\Icons\Components\Icon;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\UserResource\Pages;
+use App\Notifications\SendEmailOtpNotification;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers\RolesRelationManager;
 
@@ -20,7 +25,7 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
     protected static ?string $navigationGroup = 'Adminstration';
-
+    protected static ?int $navigationSort = 1;
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
     public static function form(Form $form): Form
@@ -33,6 +38,7 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
+                    ->unique('users', 'email')
                     ->maxLength(255),
                 Forms\Components\DateTimePicker::make('email_verified_at'),
                 Forms\Components\TextInput::make('password')
@@ -52,8 +58,10 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->label('Verified')
+                Tables\Columns\IconColumn::make('email_verified_at')
+                    ->label('Email Verified')
+                    ->getStateUsing(fn(Model $record): string => $record->email_verified_at ? 'Verified' : 'Not Verified')
+                    ->color(fn(Model $record): string => $record->email_verified_at ? 'success' : 'danger')
                     ->icon(fn(Model $record): ?string => $record->email_verified_at ? 'heroicon-o-check-badge' : 'heroicon-o-x-mark'),
                 Tables\Columns\TextColumn::make('role')
                     ->getStateUsing(fn(Model $record) => $record->roles()->pluck('name')->join(', '))
@@ -78,6 +86,32 @@ class UserResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
+                Tables\Actions\Action::make('resend_verification')
+                    ->label('Resend Mail')
+                    ->icon('heroicon-m-paper-airplane')
+                    ->action(function (Model $record) {
+                        if (!$record->email_verified_at) {
+                            $otp = rand(100000, 999999);
+
+                            if (Cache::has('otp_' . $record->email)) {
+                                Cache::forget('otp_' . $record->email);
+                            }
+
+                            Cache::put('otp_' . $record->email, $otp, now()->addMinutes(10));
+                            $record->notify(new SendEmailOtpNotification($otp));
+                            Notification::make()
+                                ->title('Verification email sent')
+                                ->success()
+                                ->send();
+                        } else {
+                            Notification::make()
+                                ->title('User already verified')
+                                ->warning()
+                                ->send();
+                        }
+                    })
+                    ->requiresConfirmation()
+                    ->visible(fn(Model $record) => !$record->email_verified_at),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -105,15 +139,14 @@ class UserResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
+            ->where('id', '!=', Auth::id())
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
     }
 
-    public static function afterCreate($record): void
+    public static function getNavigationLabel(): string
     {
-        if ($record instanceof \Illuminate\Contracts\Auth\MustVerifyEmail) {
-            event(new Registered($record)); // Sends the email verification link
-        }
+        return 'Manage Users';
     }
 }

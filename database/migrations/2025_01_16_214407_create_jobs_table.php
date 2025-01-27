@@ -6,8 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -19,6 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(Category::class)->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('description');
+            $table->string('experience')->nullable();
             $table->enum('type', ['full-time', 'part-time', 'contract', 'temporary', 'internship', 'volunteer', 'freelance'])->default('full-time');
             $table->string('slug')->unique();
             $table->integer('vacancy')->default(1);
@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('location');
             $table->string('salary_range');
             $table->string('application_link')->nullable();
+            $table->string('circular_link')->nullable();
             $table->string('application_email');
             $table->string('application_phone');
             $table->dateTime('start_date')->nullable();

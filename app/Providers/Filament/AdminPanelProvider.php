@@ -11,8 +11,6 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
-use Illuminate\Auth\Events\Verified;
-use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -34,8 +32,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->brandLogo(asset('images/logo-dark.png'))
             ->darkModeBrandLogo(asset('images/logo-light.png'))
-            ->brandName('Jobcy')
-            ->font('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
+            ->brandName('jobBoard')
+            ->font('Poppins', 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap')
             ->favicon(asset('images/favicon.ico'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

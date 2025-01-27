@@ -22,7 +22,6 @@ class EditUser extends EditRecord
         return [
             Actions\ForceDeleteAction::make(),
             Actions\RestoreAction::make(),
-            // ...
         ];
     }
 }

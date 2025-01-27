@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Company;
 use App\Models\Subscription;
 use App\Models\Payment;
+use App\Models\Tag;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,6 +34,18 @@ class DatabaseSeeder extends Seeder
             $company = $user->company;
             Company::factory()->withJobs(5)->create(['user_id' => $user->id]);
         });
+
+        $candidate = User::factory()->withRole("candidate")->create([
+            'name' => 'candidate',
+            'email' => 'candidate@email.com'
+        ]);
+
+        $subscription = Subscription::factory()->create([
+            'user_id' => $candidate->id,
+            'plan' => 'free',
+            'category' => 'basic',
+            'price' => 0
+        ]);
 
         $candidates = User::factory(10)->withRole("candidate")->create();
 
@@ -60,5 +73,9 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         });
+
+        $this->call([
+            TagSeeder::class,
+        ]);
     }
 }
