@@ -5,12 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['name', 'slug', 'description', 'status', 'icon'];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($category) {
+            if (empty($category->slug)) {
+                $category->slug = Str::slug($category->name);
+            }
+        });
+    }
 
     public function jobs()
     {
@@ -34,8 +46,8 @@ class Category extends Model
 
     public function scopeSearch($query, $search)
     {
-        return $query->where('name', 'like', '%'.$search.'%')
-            ->orWhere('description', 'like', '%'.$search.'%');
+        return $query->where('name', 'like', '%' . $search . '%')
+            ->orWhere('description', 'like', '%' . $search . '%');
     }
 
     public function scopeSlug($query, $slug)

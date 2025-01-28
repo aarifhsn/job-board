@@ -92,9 +92,9 @@ class User extends Authenticatable
     {
         return
             $this->roles()->with('permissions')->get()
-            ->pluck('permissions')
-            ->flatten()
-            ->unique('id');
+                ->pluck('permissions')
+                ->flatten()
+                ->unique('id');
     }
 
     public function hasPermission(string|Permission $permission): mixed
@@ -114,7 +114,7 @@ class User extends Authenticatable
         static::created(function ($record) {
 
             try {
-                $otp = rand(100000, 999999);
+                $otp = random_int(100000, 999999);
 
                 if (Cache::has('otp_' . $record->email)) {
                     Cache::forget('otp_' . $record->email);

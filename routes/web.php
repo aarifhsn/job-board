@@ -43,7 +43,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Job Routes
 Route::get('/job-details/{id}', [JobController::class, 'show'])->name('job-details');
-Route::get('/jobs/search', [JobController::class, 'search'])->name('jobs.search');
+Route::get('/jobs', [JobController::class, 'search'])->name('jobs.search');
+Route::get('/jobs/filter', [JobController::class, 'filter'])->name('jobs.filter');
 
 // Tag Routes
 Route::get('/tag/{name}', [TagController::class, 'index'])->name('tags.index');
@@ -66,16 +67,13 @@ Route::post('/company/register', [CompanyController::class, 'register']);
 Route::middleware(['auth', 'hasRole:company'])->group(function () {
     Route::get('/company/dashboard', fn() => view('company.dashboard'))->name('company.dashboard');
     Route::get('/company/{slug}', [CompanyController::class, 'profile'])->name('company.profile');
-    Route::get('test/company', function () {
-        return 'You are a company';
-    });
 });
 
 // Admin Routes
 Route::middleware(['auth', 'hasRole:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/candidates', [AdminController::class, 'candidates'])->name('admin.candidates');
-    Route::get('/admin/companies', [AdminController::class, 'companies'])->name('admin.companies');
+    // Route::get('/admin/companies', [AdminController::class, 'companies'])->name('admin.companies');
     Route::post('/admin/companies/{id}/approve', [AdminController::class, 'approveCompany'])->name('admin.companies.approve');
 });
 
@@ -85,4 +83,4 @@ Route::get('/manage-jobs', fn() => view('manage-jobs'))->name('manage-jobs');
 Route::get('/manage-jobs-post', fn() => view('manage-jobs-post'))->name('manage-jobs-post');
 
 Route::get('/verify-otp', [VerificationController::class, 'verifyOtp'])
-    ->name('verify.otp');
+    ->name('verify.otp')->middleware('throttle:otp_requests');
