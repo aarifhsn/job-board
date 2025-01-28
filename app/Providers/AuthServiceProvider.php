@@ -26,8 +26,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         try {
             Permission::all()->each(function ($permission) {
-                Gate::define($permission->name, function ($user) use ($permission) {
-                    return $user->hasPermission($permission);
+                Gate::define($permission->slug, function ($user) use ($permission) {
+                    return $user->permissions()->contains('slug', $permission->slug);
                 });
             });
         } catch (\Throwable $th) {
