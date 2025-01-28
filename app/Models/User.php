@@ -9,11 +9,13 @@ use Filament\Notifications\Notification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Notifications\SendEmailOtpNotification;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -79,16 +81,21 @@ class User extends Authenticatable
      * Check if the user has that particular role.
      *
      * @param string $role
-     * @return void
+     * @return bool
      */
-    public function hasRole(string $role)
+    public function hasRole(string $role): bool
     {
         return $this->roles->contains(function ($r) use ($role) {
             return $r->slug === $role || $r->name === $role;
         });
     }
 
-    public function permissions()
+    /**
+     * Get all the permissions the user has through its roles.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function permissions(): \Illuminate\Support\Collection
     {
         return
             $this->roles()->with('permissions')->get()
@@ -96,17 +103,6 @@ class User extends Authenticatable
             ->flatten()
             ->unique('id');
     }
-
-    public function hasPermission(string|Permission $permission): mixed
-    {
-
-        if (is_string($permission)) {
-            return $this->permissions()->contains('name', $permission) || $this->permissions()->contains('slug', $permission);
-        }
-
-        return $this->permissions()->contains('name', $permission->name) || $this->permissions()->contains('slug', $permission->slug);
-    }
-
 
     protected static function booted()
     {
@@ -145,5 +141,15 @@ class User extends Authenticatable
         }
 
         return $initials ?: strtoupper(substr($this->name, 0, 2));
+    }
+
+    // public function getAvatarAttribute()
+    // {
+    //     return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF';
+    // }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->hasRole('admin') || $this->hasRole('company');
     }
 }
