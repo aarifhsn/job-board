@@ -99,9 +99,9 @@ class User extends Authenticatable implements FilamentUser
     {
         return
             $this->roles()->with('permissions')->get()
-            ->pluck('permissions')
-            ->flatten()
-            ->unique('id');
+                ->pluck('permissions')
+                ->flatten()
+                ->unique('id');
     }
 
     protected static function booted()
@@ -110,7 +110,7 @@ class User extends Authenticatable implements FilamentUser
         static::created(function ($record) {
 
             try {
-                $otp = rand(100000, 999999);
+                $otp = random_int(100000, 999999);
 
                 if (Cache::has('otp_' . $record->email)) {
                     Cache::forget('otp_' . $record->email);
