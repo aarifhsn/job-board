@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\JobResource\Pages;
 use App\Filament\Resources\JobResource\RelationManagers;
+use App\Filament\Resources\JobResource\Widgets\JobPostsChart;
 use App\Models\Job;
 use Doctrine\DBAL\Query\Limit;
 use Filament\Forms;
@@ -244,6 +245,7 @@ class JobResource extends Resource
     {
         return [
             StatsOverview::class,
+            JobPostsChart::class
         ];
     }
 
