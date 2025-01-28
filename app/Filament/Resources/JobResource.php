@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use App\Filament\Resources\JobResource\Widgets\StatsOverview;
 
 class JobResource extends Resource
 {
@@ -239,4 +240,12 @@ class JobResource extends Resource
     {
         return 'Manage Jobs';
     }
+    public static function getWidgets(): array
+    {
+        return [
+            StatsOverview::class,
+        ];
+    }
+
+
 }
