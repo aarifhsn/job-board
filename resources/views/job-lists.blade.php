@@ -18,13 +18,13 @@
                             <li class="border p-[6px] border-gray-100/50 rounded group/joblist dark:border-gray-100/20">
                                 <div class="flex items-center">
                                     <div
-                                        class="h-8 w-8 text-center group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 leading-[2.4] rounded group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 text-sm font-medium">
+                                        class="h-8 w-8 text-center group-data-[theme-color=violet]:bg-violet-500/20  text-sm font-medium">
                                         {{ $popular_category->jobs->count() }}
                                     </div>
                                     <a href="{{ route('categories.index', ['slug' => $popular_category->slug]) }}"
                                         class="text-gray-900 ltr:ml-2 rtl:mr-2 dark:text-gray-50">
                                         <h6
-                                            class="mb-0 transition-all duration-300 fs-14 group-data-[theme-color=violet]:group-hover/joblist:text-violet-500 group-data-[theme-color=sky]:group-hover/joblist:text-sky-500 group-data-[theme-color=red]:group-hover/joblist:text-red-500 group-data-[theme-color=green]:group-hover/joblist:text-green-500 group-data-[theme-color=pink]:group-hover/joblist:text-pink-500 group-data-[theme-color=blue]:group-hover/joblist:text-blue-500">
+                                            class="mb-0 transition-all duration-300 fs-14 group-data-[theme-color=violet]:group-hover/joblist:text-violet-500 ">
                                             {{ $popular_category->name }}
                                         </h6>
                                     </a>
@@ -64,7 +64,7 @@
                     <div class="text-gray-700 accordion-item dark:text-gray-300">
                         <h6>
                             <button type="button"
-                                class="flex items-center justify-between w-full px-4 py-2 font-medium text-left accordion-header group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 group active">
+                                class="flex items-center justify-between w-full px-4 py-2 font-medium text-left accordion-header group-data-[theme-color=violet]:bg-violet-500/20  group active">
                                 <span class="text-gray-900 text-15 dark:text-gray-50">Tags Cloud</span>
                                 <i
                                     class="mdi mdi-chevron-down text-xl group-[.active]:rotate-180 text-gray-900 dark:text-gray-50"></i>

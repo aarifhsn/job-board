@@ -67,16 +67,13 @@ Route::post('/company/register', [CompanyController::class, 'register']);
 Route::middleware(['auth', 'hasRole:company'])->group(function () {
     Route::get('/company/dashboard', fn() => view('company.dashboard'))->name('company.dashboard');
     Route::get('/company/{slug}', [CompanyController::class, 'profile'])->name('company.profile');
-    Route::get('test/company', function () {
-        return 'You are a company';
-    });
 });
 
 // Admin Routes
 Route::middleware(['auth', 'hasRole:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/candidates', [AdminController::class, 'candidates'])->name('admin.candidates');
-    Route::get('/admin/companies', [AdminController::class, 'companies'])->name('admin.companies');
+    // Route::get('/admin/companies', [AdminController::class, 'companies'])->name('admin.companies');
     Route::post('/admin/companies/{id}/approve', [AdminController::class, 'approveCompany'])->name('admin.companies.approve');
 });
 
