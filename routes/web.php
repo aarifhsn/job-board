@@ -43,7 +43,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Job Routes
 Route::get('/job-details/{id}', [JobController::class, 'show'])->name('job-details');
-Route::get('/jobs/search', [JobController::class, 'search'])->name('jobs.search');
+Route::get('/jobs', [JobController::class, 'search'])->name('jobs.search');
+Route::get('/jobs/filter', [JobController::class, 'filter'])->name('jobs.filter');
 
 // Tag Routes
 Route::get('/tag/{name}', [TagController::class, 'index'])->name('tags.index');
@@ -85,4 +86,4 @@ Route::get('/manage-jobs', fn() => view('manage-jobs'))->name('manage-jobs');
 Route::get('/manage-jobs-post', fn() => view('manage-jobs-post'))->name('manage-jobs-post');
 
 Route::get('/verify-otp', [VerificationController::class, 'verifyOtp'])
-    ->name('verify.otp');
+    ->name('verify.otp')->middleware('throttle:otp_requests');
