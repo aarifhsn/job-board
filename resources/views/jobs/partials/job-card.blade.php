@@ -84,7 +84,7 @@
             <!--end col-->
             <div class="col-span-3 lg:col-span-2">
                 <div class="text-start text-md-end dark:text-gray-50">
-                    <a href="#applyNow" data-bs-toggle="modal">Apply Now <i
+                    <a href="{{route('jobs.apply', $job->id)}}" data-bs-toggle="modal">Apply Now <i
                             class="mdi mdi-chevron-double-right"></i></a>
                 </div>
             </div>

@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\Job;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class JobCreatedNotification extends Notification
 {
@@ -29,7 +30,7 @@ class JobCreatedNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail', 'database'];
+        return ['mail', 'database', 'broadcast'];
     }
 
     /**
@@ -42,7 +43,8 @@ class JobCreatedNotification extends Notification
             ->greeting("Hello {$notifiable->name},")
             ->line("A new job '{$this->job->title}' has been posted in your subscribed category.")
             ->action('View Job', url("/job-details/{$this->job->id}"))
-            ->line('Thank you for using our job portal!');
+            ->line('Thank you for using our job portal!')
+            ->action('Unsubscribe', url("/unsubscribe/{$notifiable->id}"));
     }
 
     /**
@@ -53,7 +55,16 @@ class JobCreatedNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'message' => "A new job ({$this->job->title}) has been posted in your subscribed category.",
+            'job_id' => $this->job->id,
         ];
+    }
+
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'message' => "A new job ({$this->job->title}) has been posted!",
+            'job_id' => $this->job->id,
+        ]);
     }
 }
