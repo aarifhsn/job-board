@@ -21,13 +21,18 @@ class DatabaseSeeder extends Seeder
 
         Tag::factory(10)->create();
 
-        $admin = User::factory()->create([
-            'role' => 'admin',
+        $this->call([
+            UserRolePermissionSeeder::class,
+        ]);
+
+        $admin = User::factory()->withRole("admin")->create([
             'name' => 'admin',
             'email' => 'admin@email.com',
         ]);
 
-        $companies = User::factory(3)->withCompany()->create(['role' => 'company']);
+        $companies = User::factory(3)->withCompany()->withRole("company")->create();
+
+
 
         $companies->each(function ($user) {
 
@@ -42,7 +47,19 @@ class DatabaseSeeder extends Seeder
             });
         });
 
-        $candidates = User::factory(10)->create(['role' => 'candidate']);
+        $candidate = User::factory()->withRole("candidate")->create([
+            'name' => 'candidate',
+            'email' => 'candidate@email.com'
+        ]);
+
+        $subscription = Subscription::factory()->create([
+            'user_id' => $candidate->id,
+            'plan' => 'free',
+            'category' => 'basic',
+            'price' => 0
+        ]);
+
+        $candidates = User::factory(10)->withRole("candidate")->create();
 
         $candidates->each(function ($user, $index) {
             if ($index < 7) {

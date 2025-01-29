@@ -21,6 +21,8 @@ class JobFactory extends Factory
 
         return [
             'category_id' => $this->faker->numberBetween(1, 10),
+            // 'title' => $this->faker->jobTitle,
+            // 'category_id' => $this->faker->numberBetween(1, 10),
             'title' => $title = $this->faker->jobTitle,
             'description' => $this->faker->paragraph,
             'experience' => $this->faker->randomElement($ranges),

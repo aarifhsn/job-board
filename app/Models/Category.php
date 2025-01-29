@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
@@ -12,9 +13,30 @@ class Category extends Model
 
     protected $fillable = ['name', 'slug', 'description', 'status', 'icon'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($category) {
+            if (empty($category->slug)) {
+                $category->slug = Str::slug($category->name);
+            }
+        });
+    }
+
     public function jobs()
     {
         return $this->hasMany(Job::class);
+    }
+
+    public function subscribers()
+    {
+        return $this->hasManyThrough(User::class, Subscription::class, 'category_id', 'id', 'id', 'user_id');
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
     }
 
     public function scopeActive($query)
@@ -34,8 +56,8 @@ class Category extends Model
 
     public function scopeSearch($query, $search)
     {
-        return $query->where('name', 'like', '%'.$search.'%')
-            ->orWhere('description', 'like', '%'.$search.'%');
+        return $query->where('name', 'like', '%' . $search . '%')
+            ->orWhere('description', 'like', '%' . $search . '%');
     }
 
     public function scopeSlug($query, $slug)

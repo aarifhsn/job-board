@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Category;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscription>
@@ -18,7 +19,7 @@ class SubscriptionFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
-            'category' => $this->faker->word,
+            'category_id' => Category::inRandomOrder()->first()->id ?? 1,
             'plan' => $this->faker->word,
             'description' => $this->faker->sentence,
             'status' => $this->faker->randomElement(['active', 'inactive']),

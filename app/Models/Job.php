@@ -71,9 +71,9 @@ class Job extends Model
 
     public function scopeSearch($query, $term)
     {
-        return $query->where('title', 'like', '%'.$term.'%')
+        return $query->where('title', 'like', '%' . $term . '%')
             ->orWhereHas('company', function ($q) use ($term) {
-                $q->where('name', 'like', '%'.$term.'%');
+                $q->where('name', 'like', '%' . $term . '%');
             });
     }
 
