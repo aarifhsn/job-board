@@ -49,10 +49,13 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 JobResource\Widgets\StatsOverview::class,
-                JobResource\Widgets\JobPostsChart::class
+                JobResource\Widgets\JobPostsChart::class,
+                CompanyResource\Widgets\CompanyStats::class
             ])
             ->resources([
                 BlogPostResource::class,
+                CompanyResource::class,
+                JobResource::class
             ])
             ->middleware([
                 EncryptCookies::class,

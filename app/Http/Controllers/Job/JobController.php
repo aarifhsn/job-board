@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Job;
+use App\Models\JobClick;
+use App\Models\JobView;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -48,6 +50,18 @@ class JobController extends Controller
         $relatedJobs = Job::where('category_id', $job->category_id)
             ->where('id', '!=', $job->id)
             ->get();
+
+        JobView::create([
+            'job_id' => $job->id,
+            'user_id' => auth()->id() ?? null,
+            'ip' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+            'viewed_at' => now(),
+            'details' => json_encode([
+                'device' => request()->header('User-Agent'),
+            ]),
+            'view_count' => 1,
+        ]);
 
         return view('job-details', compact('job', 'relatedJobs'));
     }
@@ -122,5 +136,24 @@ class JobController extends Controller
         ];
 
         return view($view, array_merge($defaultData, $data));
+    }
+
+    public function apply(Job $job, Request $request)
+    {
+        // Capture user info
+        JobClick::create([
+            'job_id' => $job->id,
+            'user_id' => auth()->id(),
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'details' => json_encode([
+                'device' => $request->header('User-Agent'),
+            ]),
+            'referer' => $request->headers->get('referer'),
+            'clicked_at' => now(),
+            'click_count' => 1,
+        ]);
+
+        return redirect()->to($job->application_link);
     }
 }

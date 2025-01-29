@@ -164,7 +164,6 @@ class JobResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->label('Job Title'),
-
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Category')
                     ->sortable()
@@ -197,6 +196,13 @@ class JobResource extends Resource
                 Tables\Columns\TextColumn::make('expiration_date')
                     ->label('Expiration Date')
                     ->date(),
+                Tables\Columns\TextColumn::make('view_count')
+                    ->label('Total Views')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('click_count')
+                    ->label(
+                        'Total Apply Clicks'
+                    )->sortable(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
@@ -211,6 +217,8 @@ class JobResource extends Resource
                     ->query(fn($query) => $query->where('expiration_date', '<', now()))
                     ->label('Expired Jobs'),
                 Tables\Filters\TrashedFilter::make(),
+                Tables\Filters\Filter::make('view_count'),
+                Tables\Filters\Filter::make('click_count'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

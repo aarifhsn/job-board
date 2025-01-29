@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CompanyResource\Pages;
 use App\Filament\Resources\CompanyResource\RelationManagers;
+use App\Filament\Resources\CompanyResource\Widgets\CompanyStats;
 use App\Models\Company;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -161,5 +162,12 @@ class CompanyResource extends Resource
     public static function getNavigationLabel(): string
     {
         return 'Manage Companies';
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            CompanyStats::class,
+        ];
     }
 }
