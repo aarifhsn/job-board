@@ -2,6 +2,13 @@
 
 @section('content')
 
+<!-- success message  -->
+@if (session('success'))
+    <div
+        class="alert alert-success absolute left-1/2 top-[20%] transform -translate-x-1/2 -translate-y-1/2 text-green font-bold ">
+        {{ session('success') }}
+    </div>
+@endif
 <!-- Start grid -->
 <section class="pt-44 pb-16">
     <div class="container mx-auto">
@@ -38,7 +45,7 @@
                                             @csrf
                                             <input type="hidden" name="category_id" value="{{ $job->category->id }}">
                                             <button type="submit" title="Subscribe"
-                                                class="w-8 h-8 text-center text-gray-100 transition-all duration-300 bg-transparent border rounded cursor-pointer border-gray-100/50 hover:bg-red-600 hover:text-white hover:border-transparent dark:border-zinc-700">
+                                                class="w-8 h-8 text-center text-gray-50 transition-all duration-300 bg-violet-500 border rounded cursor-pointer border-gray-100/50 hover:bg-red-800 hover:text-white hover:border-transparent dark:border-zinc-700">
                                                 <i class="uil uil-envelope-open text-lg leading-[1.8]"></i>
                                             </button>
                                         </form>
