@@ -23,6 +23,7 @@ class UserRolePermissionSeeder extends Seeder
         $admin = Role::where('slug', 'admin')->first();
         $company = Role::where('slug', 'company')->first();
         $candidate = Role::where('slug', 'candidate')->first();
+        $custom = Role::where('slug', 'custom-role')->first();
 
         $assign_admins = User::whereIn('id', [1, 2, 3, 4, 5])->get();
         foreach ($assign_admins as $user) {

@@ -32,6 +32,12 @@ class RoleSeeder extends Seeder
                 'description' => 'Candidate',
                 'is_default' => true,
             ],
+            [
+                'name' => 'Custom Role',
+                'slug' => 'custom-role',
+                'description' => 'Custom Role',
+                'is_default' => false,
+            ]
         ];
 
         foreach ($roles as $role) {
