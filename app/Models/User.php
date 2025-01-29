@@ -26,9 +26,21 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        // 'role',
+        'role',
+        'phone',
+        'address',
+        'company_id',
+        'skills',
+        'about',
+        'language',
+        'designation',
+        'profile_image',
         'remember_token',
         'email_verified_at',
+        'facebook_url',
+        'twitter_url',
+        'linkedin_url',
+        'whatsapp_url',
     ];
 
     /**
@@ -146,4 +158,6 @@ class User extends Authenticatable
 
         return $initials ?: strtoupper(substr($this->name, 0, 2));
     }
+
+
 }

@@ -49,8 +49,9 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 JobResource\Widgets\StatsOverview::class,
+                CompanyResource\Widgets\CompanyStats::class,
                 JobResource\Widgets\JobPostsChart::class,
-                CompanyResource\Widgets\CompanyStats::class
+
             ])
             ->resources([
                 BlogPostResource::class,

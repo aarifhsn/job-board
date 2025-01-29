@@ -13,6 +13,7 @@ use App\Http\Controllers\Rss\JobFeedController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Candidates\CandidateController;
 use App\Http\Controllers\PostController;
 
 /*
@@ -59,8 +60,8 @@ Route::post('/tags', [TagController::class, 'store'])->name('tags.store');
 Route::get('/category/{slug}', [CategoryController::class, 'index'])->name('categories.index');
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 
-// Profile Route
-Route::get('/profile', fn() => view('profile'))->name('profile');
+// Candidates Route
+Route::get('/profile/{id}', [CandidateController::class, 'show'])->name('profiles.show');
 
 // Company Routes
 // Route::get('/company/login', [CompanyController::class, 'showLoginForm'])->name('company.login');
