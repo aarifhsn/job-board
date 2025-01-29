@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\JobResource\Pages;
 use App\Filament\Resources\JobResource\RelationManagers;
+use App\Filament\Resources\JobResource\Widgets\JobPostsChart;
 use App\Models\Job;
 use Doctrine\DBAL\Query\Limit;
 use Filament\Forms;
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use App\Filament\Resources\JobResource\Widgets\StatsOverview;
 
 class JobResource extends Resource
 {
@@ -162,7 +164,6 @@ class JobResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->label('Job Title'),
-
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Category')
                     ->sortable()
@@ -195,6 +196,13 @@ class JobResource extends Resource
                 Tables\Columns\TextColumn::make('expiration_date')
                     ->label('Expiration Date')
                     ->date(),
+                Tables\Columns\TextColumn::make('view_count')
+                    ->label('Total Views')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('click_count')
+                    ->label(
+                        'Total Apply Clicks'
+                    )->sortable(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
@@ -209,6 +217,8 @@ class JobResource extends Resource
                     ->query(fn($query) => $query->where('expiration_date', '<', now()))
                     ->label('Expired Jobs'),
                 Tables\Filters\TrashedFilter::make(),
+                Tables\Filters\Filter::make('view_count'),
+                Tables\Filters\Filter::make('click_count'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -239,4 +249,13 @@ class JobResource extends Resource
     {
         return 'Manage Jobs';
     }
+    public static function getWidgets(): array
+    {
+        return [
+            StatsOverview::class,
+            JobPostsChart::class
+        ];
+    }
+
+
 }

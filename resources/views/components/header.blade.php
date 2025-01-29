@@ -169,7 +169,7 @@
                                 <span class="mr-4 rounded-full"><i
                                         class="text-2xl text-gray-800 uil uil-user-check"></i></span>
                             @endif
-                            <span class="hidden fw-medium xl:block dark:text-gray-50 capitalize">Hi,
+                            <span class="hidden fw-medium xl:block dark:text-gray-50 capitalize">
                                 {{ Auth::check() ? Auth::user()->first_name : 'Guest' }}</span>
                         </button>
                         <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
@@ -183,7 +183,7 @@
                                 </li>
 
                                 <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                    <a href="{{route('profile')}}"
+                                    <a href="{{route('profiles.show', auth()->user())}}"
                                         class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50">Profile</a>
                                 </li>
                                 <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">

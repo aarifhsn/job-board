@@ -28,9 +28,21 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
-        // 'role',
+        'role',
+        'phone',
+        'address',
+        'company_id',
+        'skills',
+        'about',
+        'language',
+        'designation',
+        'profile_image',
         'remember_token',
         'email_verified_at',
+        'facebook_url',
+        'twitter_url',
+        'linkedin_url',
+        'whatsapp_url',
     ];
 
     /**
@@ -65,7 +77,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function subscription()
     {
-        return $this->hasOne(Subscription::class);
+        return $this->hasMany(Subscription::class);
     }
     public function roles()
     {
@@ -143,10 +155,6 @@ class User extends Authenticatable implements FilamentUser
         return $initials ?: strtoupper(substr($this->name, 0, 2));
     }
 
-    // public function getAvatarAttribute()
-    // {
-    //     return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF';
-    // }
 
     public function canAccessPanel(Panel $panel): bool
     {

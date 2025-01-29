@@ -13,6 +13,9 @@ use App\Http\Controllers\Rss\JobFeedController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Candidates\CandidateController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\Subscription\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +48,10 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/job-details/{id}', [JobController::class, 'show'])->name('job-details');
 Route::get('/jobs', [JobController::class, 'search'])->name('jobs.search');
 Route::get('/jobs/filter', [JobController::class, 'filter'])->name('jobs.filter');
+Route::post('/jobs/{job}/apply', [JobController::class, 'trackApply'])->name('jobs.apply');
+
+//Posts Routes
+Route::get('/post/{slug}', [PostController::class, 'show'])->name('post.show');
 
 // Tag Routes
 Route::get('/tag/{name}', [TagController::class, 'index'])->name('tags.index');
@@ -54,8 +61,8 @@ Route::post('/tags', [TagController::class, 'store'])->name('tags.store');
 Route::get('/category/{slug}', [CategoryController::class, 'index'])->name('categories.index');
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 
-// Profile Route
-Route::get('/profile', fn() => view('profile'))->name('profile');
+// Candidates Route
+Route::get('/profile/{id}', [CandidateController::class, 'show'])->name('profiles.show');
 
 // Company Routes
 // Route::get('/company/login', [CompanyController::class, 'showLoginForm'])->name('company.login');
@@ -84,3 +91,10 @@ Route::get('/manage-jobs-post', fn() => view('manage-jobs-post'))->name('manage-
 
 Route::get('/verify-otp', [VerificationController::class, 'verifyOtp'])
     ->name('verify.otp')->middleware('throttle:otp_requests');
+
+
+// Subscriptions
+Route::middleware(['auth'])->group(function () {
+    Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
+    Route::delete('/unsubscribe/{category}', [SubscriptionController::class, 'unsubscribe'])->name('unsubscribe');
+});

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Job;
+use App\Models\BlogPost;
 
 class HomeController extends Controller
 {
@@ -30,7 +31,9 @@ class HomeController extends Controller
             ->where('expiration_date', '>=', now())
             ->count();
 
-        return view('home', compact('recent_jobs', 'jobsByType', 'jobTypes', 'total_latest_jobs'));
+        $posts = BlogPost::where('status', 'published')->latest()->take(3)->get();
+
+        return view('home', compact('recent_jobs', 'jobsByType', 'jobTypes', 'total_latest_jobs', 'posts'));
     }
 
     public function jobCategories()

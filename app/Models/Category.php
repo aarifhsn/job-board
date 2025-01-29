@@ -29,6 +29,16 @@ class Category extends Model
         return $this->hasMany(Job::class);
     }
 
+    public function subscribers()
+    {
+        return $this->hasManyThrough(User::class, Subscription::class, 'category_id', 'id', 'id', 'user_id');
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', 'active');
