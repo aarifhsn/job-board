@@ -38,11 +38,15 @@ Route::get('/jobs/rss', [JobFeedController::class, 'index'])->name('jobs.rss');
 Route::get('/jobs/rss-blog', [JobFeedController::class, 'blogInfo'])->name('jobs.rss-blog');
 
 // Authentication Routes
-Route::get('/register', [RegistrationController::class, 'index'])->name('register');
-Route::post('/register', [RegistrationController::class, 'store']);
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+// if not logged in 
+
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [RegistrationController::class, 'index'])->name('register');
+    Route::post('/register', [RegistrationController::class, 'store']);
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
+});
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 // Job Routes
 Route::get('/job-details/{id}', [JobController::class, 'show'])->name('job-details');
