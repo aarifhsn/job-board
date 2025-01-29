@@ -155,6 +155,13 @@ class User extends Authenticatable implements FilamentUser
         return $initials ?: strtoupper(substr($this->name, 0, 2));
     }
 
+    public function isSubscribed($categoryId)
+    {
+        return Subscription::where('user_id', $this->id)
+            ->where('category_id', $categoryId)
+            ->exists();
+    }
+
 
     public function canAccessPanel(Panel $panel): bool
     {

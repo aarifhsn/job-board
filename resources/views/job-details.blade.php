@@ -2,6 +2,12 @@
 
 @section('content')
 
+@if (session('success'))
+    <div
+        class="alert alert-success absolute left-1/2 top-[20%] transform -translate-x-1/2 -translate-y-1/2 text-green font-bold ">
+        {{ session('success') }}
+    </div>
+@endif
 <!-- Start grid -->
 <section class="pt-44 pb-16">
     <div class="container mx-auto">
@@ -34,15 +40,23 @@
                                 <div class="flex gap-3 md:justify-end">
                                     <div
                                         class="w-8 h-8 text-center text-gray-100 transition-all duration-300 bg-transparent border rounded cursor-pointer border-gray-100/50 hover:bg-red-600 hover:text-white hover:border-transparent dark:border-zinc-700">
+
                                         <form action="{{ route('subscribe') }}" method="POST" class="inline">
                                             @csrf
                                             <input type="hidden" name="category_id" value="{{ $job->category->id }}">
-                                            <button type="submit" title="Subscribe"
-                                                class="w-8 h-8 text-center text-gray-100 transition-all duration-300 bg-transparent border rounded cursor-pointer border-gray-100/50 hover:bg-red-600 hover:text-white hover:border-transparent dark:border-zinc-700">
+
+                                            <button type="submit"
+                                                title="{{ Auth::user()->isSubscribed($job->category->id) ? 'Already Subscribed' : 'Subscribe for ' . $job->category->name . ' Jobs' }}"
+                                                class="w-8 h-8 text-center text-gray-50 transition-all duration-300 border rounded cursor-pointer 
+                dark:border-zinc-700
+                {{ Auth::user()->isSubscribed($job->category->id) ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-violet-500 hover:bg-red-800 hover:text-white hover:border-transparent' }}"
+                                                {{ Auth::user()->isSubscribed($job->category->id) ? 'disabled' : '' }}>
+
                                                 <i class="uil uil-envelope-open text-lg leading-[1.8]"></i>
                                             </button>
                                         </form>
                                     </div>
+
 
                                 </div>
                             </div>
@@ -203,7 +217,7 @@
                             <li>
                                 <div class="flex mt-6">
                                     <i
-                                        class="uil uil-user icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
+                                        class="uil uil-user icon group-data-[theme-color=violet]:bg-violet-500/20  h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500  group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                     <div class="ltr:ml-4 rtl:mr-4">
                                         <h6 class="font-bold mb-2 text-sm text-gray-900 dark:text-gray-50">Job Title
                                         </h6>
@@ -214,7 +228,7 @@
                             <li>
                                 <div class="flex mt-6">
                                     <i
-                                        class="uil uil-star-half-alt icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
+                                        class="uil uil-star-half-alt icon group-data-[theme-color=violet]:bg-violet-500/20  h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500  group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                     <div class="ltr:ml-4 rtl:mr-4">
                                         <h6 class="font-bold mb-2 text-sm text-gray-900 dark:text-gray-50">Experience
                                         </h6>
@@ -225,7 +239,7 @@
                             <li>
                                 <div class="flex mt-6">
                                     <i
-                                        class="uil uil-location-point icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
+                                        class="uil uil-location-point icon group-data-[theme-color=violet]:bg-violet-500/20  h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500  group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                     <div class="ltr:ml-4 rtl:mr-4">
                                         <h6 class="font-bold mb-2 text-sm text-gray-900 dark:text-gray-50">Location</h6>
                                         <p class="text-gray-500 dark:text-gray-300">{{$job->location}} </p>
@@ -235,7 +249,7 @@
                             <li>
                                 <div class="flex mt-6">
                                     <i
-                                        class="uil uil-usd-circle icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
+                                        class="uil uil-usd-circle icon group-data-[theme-color=violet]:bg-violet-500/20  h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500  group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                     <div class="ltr:ml-4 rtl:mr-4">
                                         <h6 class="font-bold mb-2 text-sm text-gray-900 dark:text-gray-50">Offered
                                             Salary</h6>
@@ -248,7 +262,7 @@
                             <li>
                                 <div class="flex mt-6">
                                     <i
-                                        class="uil uil-graduation-cap icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
+                                        class="uil uil-graduation-cap icon group-data-[theme-color=violet]:bg-violet-500/20  h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500  group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                     <div class="ltr:ml-4 rtl:mr-4">
                                         <h6 class="font-bold mb-2 text-sm text-gray-900 dark:text-gray-50">Qualification
                                         </h6>
@@ -259,7 +273,7 @@
                             <li>
                                 <div class="flex mt-6">
                                     <i
-                                        class="uil uil-building icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
+                                        class="uil uil-building icon group-data-[theme-color=violet]:bg-violet-500/20  h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500  group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                     <div class="ltr:ml-4 rtl:mr-4">
                                         <h6 class="font-bold mb-2 text-sm text-gray-900 dark:text-gray-50">Industry</h6>
                                         <p class="text-gray-500 dark:text-gray-300">Private</p>
@@ -269,7 +283,7 @@
                             <li>
                                 <div class="flex mt-6">
                                     <i
-                                        class="uil uil-history icon group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
+                                        class="uil uil-history icon group-data-[theme-color=violet]:bg-violet-500/20  h-12 w-12 text-center leading-[2.4] text-xl group-data-[theme-color=violet]:text-violet-500  group-data-[theme-color=blue]:text-blue-500 rounded-full"></i>
                                     <div class="ltr:ml-4 rtl:mr-4">
                                         <h6 class="font-bold mb-2 text-sm text-gray-900 dark:text-gray-50">Date Posted
                                         </h6>
@@ -307,7 +321,7 @@
                                 <li>
                                     <div class="flex">
                                         <i
-                                            class="text-xl uil uil-phone-volume group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
+                                            class="text-xl uil uil-phone-volume group-data-[theme-color=violet]:text-violet-500  group-data-[theme-color=blue]:text-blue-500"></i>
                                         <div class="ltr:ml-3 rtl:mr-3">
                                             <h6 class="font-bold mb-1 text-sm text-gray-900 dark:text-gray-50">Phone
                                             </h6>
@@ -320,7 +334,7 @@
                                 <li class="mt-3">
                                     <div class="flex">
                                         <i
-                                            class="text-xl uil uil-envelope group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
+                                            class="text-xl uil uil-envelope group-data-[theme-color=violet]:text-violet-500  group-data-[theme-color=blue]:text-blue-500"></i>
                                         <div class="ltr:ml-3 rtl:mr-3">
                                             <h6 class="font-bold mb-1 text-sm text-gray-900 dark:text-gray-50">Email
                                             </h6>
@@ -332,7 +346,7 @@
                                 <li class="mt-3">
                                     <div class="flex">
                                         <i
-                                            class="text-xl uil uil-globe group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
+                                            class="text-xl uil uil-globe group-data-[theme-color=violet]:text-violet-500  group-data-[theme-color=blue]:text-blue-500"></i>
                                         <div class="ltr:ml-3 rtl:mr-3">
                                             <h6 class="font-bold mb-1 text-sm text-gray-900 dark:text-gray-50">Website
                                             </h6>
@@ -345,7 +359,7 @@
                                 <li class="mt-3">
                                     <div class="flex">
                                         <i
-                                            class="text-xl uil uil-map-marker group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"></i>
+                                            class="text-xl uil uil-map-marker group-data-[theme-color=violet]:text-violet-500  group-data-[theme-color=blue]:text-blue-500"></i>
                                         <div class="ltr:ml-3 rtl:mr-3">
                                             <h6 class="font-bold mb-1 text-sm text-gray-900 dark:text-gray-50">Location
                                             </h6>
