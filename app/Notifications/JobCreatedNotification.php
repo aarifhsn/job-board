@@ -42,7 +42,8 @@ class JobCreatedNotification extends Notification
             ->greeting("Hello {$notifiable->name},")
             ->line("A new job '{$this->job->title}' has been posted in your subscribed category.")
             ->action('View Job', url("/job-details/{$this->job->id}"))
-            ->line('Thank you for using our job portal!');
+            ->line('Thank you for using our job portal!')
+            ->action('Unsubscribe', url("/unsubscribe/{$notifiable->id}"));
     }
 
     /**
