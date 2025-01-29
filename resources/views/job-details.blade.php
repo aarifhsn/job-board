@@ -2,7 +2,6 @@
 
 @section('content')
 
-<!-- success message  -->
 @if (session('success'))
     <div
         class="alert alert-success absolute left-1/2 top-[20%] transform -translate-x-1/2 -translate-y-1/2 text-green font-bold ">
@@ -41,15 +40,23 @@
                                 <div class="flex gap-3 md:justify-end">
                                     <div
                                         class="w-8 h-8 text-center text-gray-100 transition-all duration-300 bg-transparent border rounded cursor-pointer border-gray-100/50 hover:bg-red-600 hover:text-white hover:border-transparent dark:border-zinc-700">
+
                                         <form action="{{ route('subscribe') }}" method="POST" class="inline">
                                             @csrf
                                             <input type="hidden" name="category_id" value="{{ $job->category->id }}">
-                                            <button type="submit" title="Subscribe"
-                                                class="w-8 h-8 text-center text-gray-50 transition-all duration-300 bg-violet-500 border rounded cursor-pointer border-gray-100/50 hover:bg-red-800 hover:text-white hover:border-transparent dark:border-zinc-700">
+
+                                            <button type="submit"
+                                                title="{{ Auth::user()->isSubscribed($job->category->id) ? 'Already Subscribed' : 'Subscribe for ' . $job->category->name . ' Jobs' }}"
+                                                class="w-8 h-8 text-center text-gray-50 transition-all duration-300 border rounded cursor-pointer 
+                dark:border-zinc-700
+                {{ Auth::user()->isSubscribed($job->category->id) ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-violet-500 hover:bg-red-800 hover:text-white hover:border-transparent' }}"
+                                                {{ Auth::user()->isSubscribed($job->category->id) ? 'disabled' : '' }}>
+
                                                 <i class="uil uil-envelope-open text-lg leading-[1.8]"></i>
                                             </button>
                                         </form>
                                     </div>
+
 
                                 </div>
                             </div>

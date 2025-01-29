@@ -51,6 +51,12 @@
                                         class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50">Profile</a>
                                 </li>
                                 <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                    <a href=""
+                                        class="w-full text-left px-2 py-1 text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50 hover:bg-gray-100 dark:hover:bg-gray-700 rounded flex items-center gap-2">
+                                        Job Alerts
+                                    </a>
+                                </li>
+                                <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
                                     <form action="{{route('logout')}}" method="POST">
                                         @csrf
                                         <button type="submit"

@@ -52,7 +52,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->midd
 Route::get('/job-details/{id}', [JobController::class, 'show'])->name('job-details');
 Route::get('/jobs', [JobController::class, 'search'])->name('jobs.search');
 Route::get('/jobs/filter', [JobController::class, 'filter'])->name('jobs.filter');
-Route::post('/jobs/{job}/apply', [JobController::class, 'trackApply'])->name('jobs.apply');
+Route::post('/jobs/{job}/apply', [JobController::class, 'apply'])->name('jobs.apply');
 
 //Posts Routes
 Route::get('/post/{slug}', [PostController::class, 'show'])->name('post.show');
