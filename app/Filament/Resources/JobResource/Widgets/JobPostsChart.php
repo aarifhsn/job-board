@@ -18,7 +18,7 @@ class JobPostsChart extends ChartWidget
                 start: now()->startOfYear(),
                 end: now()->endOfYear(),
             )
-            ->perMonth()
+            ->perWeek()
             ->count();
 
         return [

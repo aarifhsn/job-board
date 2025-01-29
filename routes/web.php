@@ -13,6 +13,7 @@ use App\Http\Controllers\Rss\JobFeedController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,9 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/job-details/{id}', [JobController::class, 'show'])->name('job-details');
 Route::get('/jobs', [JobController::class, 'search'])->name('jobs.search');
 Route::get('/jobs/filter', [JobController::class, 'filter'])->name('jobs.filter');
+
+//Posts Routes
+Route::get('/post/{slug}', [PostController::class, 'show'])->name('post.show');
 
 // Tag Routes
 Route::get('/tag/{name}', [TagController::class, 'index'])->name('tags.index');
