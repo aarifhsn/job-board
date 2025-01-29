@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Candidates\CandidateController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\Subscription\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,3 +91,10 @@ Route::get('/manage-jobs-post', fn() => view('manage-jobs-post'))->name('manage-
 
 Route::get('/verify-otp', [VerificationController::class, 'verifyOtp'])
     ->name('verify.otp')->middleware('throttle:otp_requests');
+
+
+// Subscriptions
+Route::middleware(['auth'])->group(function () {
+    Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
+    Route::delete('/unsubscribe/{category}', [SubscriptionController::class, 'unsubscribe'])->name('unsubscribe');
+});
