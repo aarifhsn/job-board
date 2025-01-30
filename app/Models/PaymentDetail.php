@@ -17,7 +17,7 @@ class PaymentDetail extends Model
         'payment_response',
         'payer_email',
         'tax_amount',
-        'additional_info'
+        'additional_info',
     ];
 
     public function payment()

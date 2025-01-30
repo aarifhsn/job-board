@@ -1,13 +1,13 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,16 +16,17 @@ return new class extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class, 'user_id')->onDelete('cascade');
+            $table->foreignIdFor(Category::class, 'category_id')->onDelete('cascade');
             $table->foreignIdFor(Payment::class, 'payment_id')->nullable()->onDelete('cascade');
-            $table->string('name');
-            $table->string('category');
-            $table->string('plan');
+            $table->string('name')->nullable();
+            $table->string('category')->nullable();
+            $table->string('plan')->nullable();
             $table->string('description')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
             $table->string('duration')->nullable();
-            $table->double('price');
+            $table->double('price')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

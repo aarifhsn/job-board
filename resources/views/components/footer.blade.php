@@ -6,7 +6,7 @@
             <div class="grid grid-cols-12 lg:gap-10">
                 <div class="col-span-12 xl:col-span-4">
                     <div class="mr-12">
-                        <h4 class="text-white mb-6 text-[23px]">Jobcy</h4>
+                        <h4 class="text-white mb-6 text-[23px]">{{config('app.name')}}</h4>
                         <p class="text-white/50 dark:text-gray-300">
                             It is a long established fact that a reader will be of a page reader
                             will be of at its layout.
@@ -134,6 +134,18 @@
                         <li class="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
                             <a href="privacy-policy.html">
                                 <i class="mdi mdi-chevron-right"></i> Privacy Policy
+                            </a>
+                        </li>
+                        </li>
+                        <li class="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
+                            <a href="{{route('news.index')}}">
+                                <i class="mdi mdi-chevron-right"></i> Laravel News
+                            </a>
+                        </li>
+                        </li>
+                        <li class="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
+                            <a href="{{route('jobs.rss-blog')}}">
+                                <i class="mdi mdi-chevron-right"></i> Rss
                             </a>
                         </li>
                     </ul>

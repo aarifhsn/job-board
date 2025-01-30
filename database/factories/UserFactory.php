@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use App\Models\Company;
-use App\Models\Subscription;
 use App\Models\Job;
+use App\Models\Role;
+use App\Models\Company;
+use Illuminate\Support\Str;
+use App\Models\Subscription;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -31,7 +32,6 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
-            'role' => $this->faker->randomElement(['admin', 'company', 'candidate']),
             'remember_token' => Str::random(10),
         ];
     }
@@ -60,5 +60,16 @@ class UserFactory extends Factory
     public function withSubscription(string $tier = 'free', string $plan = 'basic'): static
     {
         return $this->has(Subscription::factory()->state(['plan' => $plan]), 'subscription');
+    }
+
+    /**
+     * Assign roles to the user.
+     */
+    public function withRole(string $role): static
+    {
+        return $this->afterCreating(function ($user) use ($role) {
+            $roleIds = Role::where('name', $role)->pluck('id')->toArray();
+            $user->roles()->attach($roleIds);
+        });
     }
 }
