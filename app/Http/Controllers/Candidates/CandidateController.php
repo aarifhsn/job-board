@@ -46,7 +46,9 @@ class CandidateController extends Controller
             'category_id' => 'required|exists:categories,id'
         ]);
 
-        Candidate::find(auth()->id())->update([
+        Candidate::updateOrCreate([
+            'user_id' => auth()->id()
+        ], [
             'category_id' => $request->category_id
         ]);
 

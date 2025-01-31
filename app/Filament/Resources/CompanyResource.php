@@ -54,7 +54,7 @@ class CompanyResource extends Resource
                 Forms\Components\TextInput::make('website')
                     ->maxLength(255)
                     ->default(null),
-                Forms\Components\Select::make('location')
+                Forms\Components\Select::make('location_id')
                     ->relationship('location', 'name')
                     ->required()
                     ->createOptionForm([

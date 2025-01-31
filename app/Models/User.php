@@ -153,9 +153,9 @@ class User extends Authenticatable implements FilamentUser
         if ($panel->getId() === 'admin') {
             return $this->hasRole('admin') || Gate::allows('access-admin-panel');
         }
-        if ($panel->getId() === 'company') {
-            return $this->hasRole('company') || Gate::allows('access-company-panel');
-        }
+        // if ($panel->getId() === 'company') {
+        //     return $this->hasRole('recruiter') || Gate::allows('access-company-panel');
+        // }
 
         return false;
     }

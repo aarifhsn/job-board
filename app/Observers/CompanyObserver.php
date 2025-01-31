@@ -21,12 +21,6 @@ class CompanyObserver
             throw new \Exception('A company must have either a recruiter or a user.');
         }
 
-        if ($company->user_id) {
-            $company->recruiter_id = Recruiter::find($company->user_id)?->id;
-            if ($company->recruiter_id) {
-                $company->user_id = null;
-            }
-        }
         $auth_user_is_admin = auth()->user()?->hasRole('admin') ?? false;
         if (!$auth_user_is_admin) {
             $company->status = CompanyConstant::STATUS_PENDING;

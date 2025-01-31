@@ -11,6 +11,12 @@ use App\Notifications\JobCreatedNotification;
 
 class JobObserver
 {
+
+    public function creating(Job $job): void
+    {
+        $job->created_by = auth()->id() ?? null;
+    }
+
     /**
      * Handle the Job "created" event.
      */

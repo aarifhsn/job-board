@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SubscriptionResource\Pages;
-use App\Filament\Resources\SubscriptionResource\RelationManagers;
 use App\Models\Subscription;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -16,34 +15,68 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class SubscriptionResource extends Resource
 {
     protected static ?string $model = Subscription::class;
-
     protected static ?string $navigationGroup = 'Subscription';
-    // protected static ?int $navigationSort = 3;
-
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('company_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('company_id')
+                    ->relationship('company', 'name')
+                    ->required(),
+
                 Forms\Components\TextInput::make('name')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('plan'),
-                Forms\Components\TextInput::make('status')
+
+                Forms\Components\Select::make('plan')
+                    ->options([
+                        'free' => 'Free',
+                        'basic' => 'Basic',
+                        'pro' => 'Pro',
+                    ])
                     ->required(),
-                Forms\Components\DateTimePicker::make('start_date'),
+
+                Forms\Components\Select::make('status')
+                    ->options([
+                        'active' => 'Active',
+                        'inactive' => 'Inactive'
+                    ])
+                    ->required(),
+
+                Forms\Components\DateTimePicker::make('start_date')->required(),
                 Forms\Components\DateTimePicker::make('end_date'),
+
                 Forms\Components\TextInput::make('price')
                     ->numeric()
                     ->prefix('$'),
+
                 Forms\Components\TextInput::make('job_limit')
                     ->required()
                     ->numeric()
                     ->default(3),
+
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
+
+                // Payments Section
+                Forms\Components\Repeater::make('payments')
+                    ->relationship('payments')
+                    ->schema([
+                        Forms\Components\TextInput::make('method')->required(),
+                        Forms\Components\TextInput::make('gateway'),
+                        Forms\Components\TextInput::make('reference'),
+                        Forms\Components\TextInput::make('transaction_code'),
+                        Forms\Components\TextInput::make('amount')->required(),
+                        Forms\Components\Select::make('status')->required()->options([
+                            'pending' => 'Pending',
+                            'paid' => 'Paid',
+                            'failed' => 'Failed',
+                            'cancelled' => 'Cancelled',
+                        ]),
+                        Forms\Components\DateTimePicker::make('paid_at')->required(),
+                    ])
+                    ->collapsible()
+                    ->grid(0),
             ]);
     }
 
@@ -51,33 +84,29 @@ class SubscriptionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('company_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('company.name')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('name')->searchable(),
                 Tables\Columns\TextColumn::make('plan'),
                 Tables\Columns\TextColumn::make('status'),
-                Tables\Columns\TextColumn::make('start_date')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('end_date')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('price')
-                    ->money()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('job_limit')
-                    ->numeric()
-                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('start_date')->dateTime()->sortable(),
+                Tables\Columns\TextColumn::make('end_date')->dateTime()->sortable(),
+
+                Tables\Columns\TextColumn::make('price')->money()->sortable(),
+                Tables\Columns\TextColumn::make('job_limit')->numeric()->sortable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
@@ -100,9 +129,7 @@ class SubscriptionResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
@@ -117,8 +144,6 @@ class SubscriptionResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
+            ->withoutGlobalScopes([SoftDeletingScope::class]);
     }
 }
