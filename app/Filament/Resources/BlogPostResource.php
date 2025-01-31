@@ -55,10 +55,8 @@ class BlogPostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('user.name')->label('Author')->sortable(),
-                Tables\Columns\TextColumn::make('slug')->sortable()->searchable(),
                 Tables\Columns\ImageColumn::make('image')->circular(),
+                Tables\Columns\TextColumn::make('title')->sortable()->searchable(),
                 Tables\Columns\SelectColumn::make('status')
                     ->options([
                         'draft' => 'Draft',
@@ -67,6 +65,8 @@ class BlogPostResource extends Resource
                     ->getStateUsing(function (BlogPost $record) {
                         return $record->status;
                     }),
+                Tables\Columns\TextColumn::make('user.name')->label('Author')->sortable(),
+                Tables\Columns\TextColumn::make('slug')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
             ])
             ->filters([
