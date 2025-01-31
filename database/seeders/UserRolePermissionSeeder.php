@@ -21,7 +21,7 @@ class UserRolePermissionSeeder extends Seeder
         ]);
 
         $admin = Role::where('slug', 'admin')->first();
-        $company = Role::where('slug', 'company')->first();
+        $recruiter = Role::where('slug', 'recruiter')->first();
         $candidate = Role::where('slug', 'candidate')->first();
         $custom = Role::where('slug', 'custom-role')->first();
 
@@ -31,38 +31,39 @@ class UserRolePermissionSeeder extends Seeder
         }
         $assign_companies = User::whereIn('id', [6, 7, 8])->get();
         foreach ($assign_companies as $user) {
-            $user->roles()->attach($company);
+            $user->roles()->attach($recruiter);
         }
         $assign_candidates = User::whereIn('id', [9, 10, 11, 12, 13, 14, 15, 16, 17, 18])->get();
         foreach ($assign_candidates as $user) {
             $user->roles()->attach($candidate);
         }
 
-        $company_permissions = Permission::whereIn('slug', [
+        $recruiter_permissions = Permission::whereIn('slug', [
             'create-job',
             'update-job',
             'delete-job',
-            'read-job',
+            'view-job',
             'create-tag',
             'update-tag',
             'delete-tag',
-            'read-tag',
+            'view-tag',
             'create-category',
             'update-category',
             'delete-category',
-            'read-category',
+            'view-category',
+            'view-widgets'
         ])->get();
 
         $candidate_permissions = Permission::whereIn('slug', [
-            'read-job',
-            'read-tag',
-            'read-category',
+            'view-job',
+            'view-tag',
+            'view-category',
         ])->get();
 
         $admin_permissions = Permission::all()->pluck('id')->toArray();
 
         $admin->permissions()->attach($admin_permissions);
-        $company->permissions()->attach($company_permissions);
+        $recruiter->permissions()->attach($recruiter_permissions);
         $candidate->permissions()->attach($candidate_permissions);
     }
 }

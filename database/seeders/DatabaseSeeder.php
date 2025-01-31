@@ -2,12 +2,16 @@
 
 namespace Database\Seeders;
 
+use App\Models\Candidate;
 use App\Models\Category;
+use App\Models\Company;
 use App\Models\Job;
 use App\Models\Payment;
+use App\Models\Recruiter;
 use App\Models\Subscription;
 use App\Models\Tag;
 use App\Models\User;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,71 +27,27 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserRolePermissionSeeder::class,
+            LocationSeeder::class,
         ]);
 
-        $admin = User::factory()->withRole("admin")->create([
-            'name' => 'admin',
-            'email' => 'admin@email.com',
-        ]);
+        User::factory()
+            ->withRole("admin")
+            ->create([
+                'name' => 'admin',
+                'email' => 'admin@gmail.com'
+            ]);
 
-        $companies = User::factory(3)->withCompany()->withRole("company")->create();
-
-
-
-        $companies->each(function ($user) {
-
-            $jobs = Job::factory(5)->create(['company_id' => $user->company->id]);
-
-            // Assign tags to jobs
-            $tags = Tag::all(); // Fetch all tags created by TagSeeder
-            $jobs->each(function ($job) use ($tags) {
-                $job->tag()->attach(
-                    $tags->random(rand(1, 3))->pluck('id')->toArray()
-                );
-            });
+        User::factory(5)->withRole("custom-role")->create();
+        Recruiter::factory(5)->withRole("recruiter")->create();
+        Candidate::factory(5)->withRole("candidate")->create();
+        Company::factory(10)
+            ->hasJobs(5)->create();
+        $tags = Tag::all();
+        $jobs = Job::all();
+        $jobs->each(function ($job) use ($tags) {
+            $job->tag()->attach(
+                $tags->random(rand(1, 3))->pluck('id')->toArray()
+            );
         });
-
-        $candidate = User::factory()->withRole("candidate")->create([
-            'name' => 'candidate',
-            'email' => 'candidate@email.com'
-        ]);
-
-        $subscription = Subscription::factory()->create([
-            'user_id' => $candidate->id,
-            'plan' => 'free',
-            'category' => 'basic',
-            'price' => 0
-        ]);
-
-        $candidates = User::factory(10)->withRole("candidate")->create();
-
-        $candidates->each(function ($user, $index) {
-            if ($index < 7) {
-                // Most candidates under free plan
-                $subscription = Subscription::factory()->create([
-                    'user_id' => $user->id,
-                    'plan' => 'free',
-                    'category' => 'basic',
-                    'price' => 0,
-                ]);
-            } else {
-                // 2 to 3 candidates under silver tier
-                $payment = Payment::factory()->create([
-                    'user_id' => $user->id,
-                    'status' => $index % 2 == 0 ? 'pending' : 'paid',
-                ]);
-
-                $subscription = Subscription::factory()->create([
-                    'user_id' => $user->id,
-                    'plan' => 'silver',
-                    'category' => 'premium',
-                    'payment_id' => $payment->id,
-                ]);
-            }
-        });
-
-        $this->call([
-            TagSeeder::class,
-        ]);
     }
 }

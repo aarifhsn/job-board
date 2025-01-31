@@ -17,7 +17,7 @@ use App\Filament\Resources\RoleResource\RelationManagers\PermissionsRelationMana
 class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
-    protected static ?string $navigationGroup = 'Adminstration';
+    protected static ?string $navigationGroup = 'Administration';
     protected static ?string $navigationIcon = 'heroicon-o-shield-check';
     protected static ?int $navigationSort = 2;
 

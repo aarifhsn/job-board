@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Candidates;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Candidate;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CandidateController extends Controller
 {
@@ -19,8 +20,7 @@ class CandidateController extends Controller
 
     public function show($id)
     {
-        $candidate = User::where('role', 'candidate')
-            ->findOrFail($id);
+        $candidate = Candidate::findOrFail($id);
 
         return view('candidates.profile', compact('candidate'));
     }
@@ -38,5 +38,29 @@ class CandidateController extends Controller
         ]);
 
         return back()->with('success', 'Profile visibility updated successfully');
+    }
+
+    public function subscribeToCategory(Request $request)
+    {
+        $request->validate([
+            'category_id' => 'required|exists:categories,id'
+        ]);
+
+        Candidate::find(auth()->id())->update([
+            'category_id' => $request->category_id
+        ]);
+
+        return back()->with('success', 'Subscribed successfully!');
+    }
+
+    public function unsubscribeToCategory($categoryId)
+    {
+        Candidate::where('user_id', auth()->id())
+            ->where('category_id', $categoryId)
+            ->update([
+                'category_id' => null
+            ]);
+
+        return back()->with('success', 'Unsubscribed successfully!');
     }
 }

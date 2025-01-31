@@ -2,24 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CompanyResource\Pages;
-use App\Filament\Resources\CompanyResource\RelationManagers;
-use App\Filament\Resources\CompanyResource\Widgets\CompanyStats;
-use App\Models\Company;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Company;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Storage;
+use Filament\Resources\Resource;
+use App\Constant\CompanyConstant;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\SelectColumn;
+use App\Filament\Resources\CompanyResource\Pages;
+use App\Filament\Resources\CompanyResource\Widgets\CompanyStats;
 
 class CompanyResource extends Resource
 {
     protected static ?string $model = Company::class;
 
-    protected static ?string $navigationGroup = 'Adminstration';
+    protected static ?string $navigationGroup = 'Business';
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
@@ -27,12 +27,18 @@ class CompanyResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\FileUpload::make('logo')
+                    ->avatar()
+                    ->label('Logo')
+                    ->disk('public'),
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->preload()
-                    ->required()
-                    ->hint('Select a User or Create a User from User Column'),
+                    ->label('Choose a user'),
                 Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
@@ -48,37 +54,46 @@ class CompanyResource extends Resource
                 Forms\Components\TextInput::make('website')
                     ->maxLength(255)
                     ->default(null),
-                Forms\Components\FileUpload::make('logo')
-                    ->avatar()
-                    ->label('Logo')
-                    ->disk('public'),
-                Forms\Components\TextInput::make('slug')
+                Forms\Components\Select::make('location')
+                    ->relationship('location', 'name')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('address')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('city')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('state')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('country')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('pincode')
-                    ->maxLength(255)
-                    ->default(null),
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->required()
+                            ->label('Location name'),
+                        TextInput::make('slug')
+                            ->required()
+                            ->label('Slug'),
+                        TextInput::make('address')
+                            ->required()
+                            ->label('Address'),
+                        TextInput::make('city')
+                            ->required()
+                            ->label('City'),
+                        TextInput::make('state')
+                            ->required()
+                            ->label('State'),
+                        TextInput::make('country')
+                            ->required()
+                            ->label('Country'),
+                        TextInput::make('zip')
+                            ->label('Zip Code'),
+                        TextInput::make('latitude')
+                            ->label('Latitude'),
+                        TextInput::make('longitude')
+                            ->label('Longitude'),
+                    ])
+                    ->searchable()
+                    ->label('Location'),
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
                 Forms\Components\Select::make('status')
                     ->options([
-                        'active' => 'Active',
-                        'inactive' => 'Inactive',
-                        'pending' => 'Pending',
-                        'approved' => 'Approved',
-                        'rejected' => 'Rejected',
+                        'active' => CompanyConstant::STATUS_ACTIVE,
+                        'inactive' => CompanyConstant::STATUS_INACTIVE,
+                        'pending' => CompanyConstant::STATUS_PENDING,
+                        'approved' => CompanyConstant::STATUS_APPROVED,
+                        'rejected' => CompanyConstant::STATUS_REJECTED,
                     ])
                     ->required()
                     ->preload()
@@ -90,33 +105,26 @@ class CompanyResource extends Resource
     {
         return $table
             ->columns([
+                SelectColumn::make('status')
+                    ->options([
+                        'active' => CompanyConstant::STATUS_ACTIVE,
+                        'inactive' => CompanyConstant::STATUS_INACTIVE,
+                        'pending' => CompanyConstant::STATUS_PENDING,
+                        'approved' => CompanyConstant::STATUS_APPROVED,
+                        'rejected' => CompanyConstant::STATUS_REJECTED,
+                    ])
+                    ->label('Status'),
                 Tables\Columns\ImageColumn::make('logo')
                     ->size(40),
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('user.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('contact_number')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('industry')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('website')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('address')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('city')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('state')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('country')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('pincode')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\TextColumn::make('location.address')
+                    ->searchable()
+                    ->label('Address'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -135,10 +143,13 @@ class CompanyResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\RestoreBulkAction::make(),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -161,7 +172,7 @@ class CompanyResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return 'Manage Companies';
+        return "Manage Companies";
     }
 
     public static function getWidgets(): array

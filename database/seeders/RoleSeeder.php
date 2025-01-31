@@ -21,9 +21,9 @@ class RoleSeeder extends Seeder
                 'is_default' => false,
             ],
             [
-                'name' => 'Company',
-                'slug' => 'company',
-                'description' => 'Company',
+                'name' => 'Recruiter',
+                'slug' => 'recruiter',
+                'description' => 'Recruiter from Company',
                 'is_default' => false,
             ],
             [

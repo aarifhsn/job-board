@@ -20,8 +20,6 @@ return new class extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
-            //Profile info
-            $table->enum('role', ['admin', 'company', 'candidate'])->default('candidate');
             $table->string('about')->nullable();
             $table->string('language')->nullable();
             $table->string('designation')->nullable();

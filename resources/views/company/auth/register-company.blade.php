@@ -5,22 +5,22 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>{{config('app.name')}}</title>
+    <title>{{ config('app.name') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta content="Jobboard - Complete Job and Recruitment System" name="description" />
     <meta content="" name="Themesbrand" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{(asset('images/favicon.ico'))}}" />
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
 
-    <link rel="stylesheet" href="{{(asset('libs/choices.js/assets/styles/choices.min.css'))}}">
+    <link rel="stylesheet" href="{{ asset('libs/choices.js/assets/styles/choices.min.css') }}">
 
     <!-- Swiper Css -->
-    <link rel="stylesheet" href="{{asset('libs/swiper/swiper-bundle.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('libs/swiper/swiper-bundle.min.css') }}">
 
-    <link rel="stylesheet" href=" {{asset('css/icons.css')}}" />
-    <link rel="stylesheet" href="{{asset('css/tailwind.css')}}" />
+    <link rel="stylesheet" href=" {{ asset('css/icons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}" />
 </head>
 
 <body class="bg-white dark:bg-neutral-800">
@@ -37,14 +37,14 @@
                                 <div class="grid flex-col grid-cols-12">
                                     <div class="col-span-6 ltr:rounded-l-lg rtl:rounded-r-lg">
                                         <div class="p-10">
-                                            <a href="{{route('home')}}">
-                                                <img src="{{asset('images/logo-light.png')}}" alt=""
+                                            <a href="{{ route('home') }}">
+                                                <img src="{{ asset('images/logo-light.png') }}" alt=""
                                                     class="hidden mx-auto dark:block">
-                                                <img src="{{asset('images/logo-dark.png')}}" alt=""
+                                                <img src="{{ asset('images/logo-dark.png') }}" alt=""
                                                     class="block mx-auto dark:hidden">
                                             </a>
                                             <div class="mt-5">
-                                                <img src="{{asset('images/auth/sign-up.png')}}" alt="">
+                                                <img src="{{ asset('images/auth/sign-up.png') }}" alt="">
                                             </div>
                                         </div>
                                     </div>
@@ -54,9 +54,9 @@
                                             <div class="text-center">
                                                 <h5 class="text-[18.5px] text-white">Let's Get Started</h5>
                                                 <p class="my-3 text-gray-50">Sign Up and get access to all the features
-                                                    of {{config('app.name')}}</p>
+                                                    of {{ config('app.name') }}</p>
                                             </div>
-                                            <form action="{{ route('company.register') }}" method="POST">
+                                            {{-- <form action="{{ route('company.register') }}" method="POST">
                                                 @csrf
                                                 <div class="my-5">
                                                     <label for="name" class="text-white">Company Name</label>
@@ -125,7 +125,7 @@
                                                         Up
                                                     </button>
                                                 </div>
-                                            </form>
+                                            </form> --}}
 
                                             <div class="text-center">
                                                 <p class="text-white">Already a member ? <a href=""
@@ -143,26 +143,26 @@
         </div>
     </div>
 
-    <script src="{{asset('unicons.iconscout.com/release/v4.0.0/script/monochrome/bundle.js')}}"></script>
-    <script src="{{asset('libs/@popperjs/core/umd/popper.min.js')}}"></script>
-    <script src="{{asset('libs/simplebar/simplebar.min.js')}}"></script>
+    <script src="{{ asset('unicons.iconscout.com/release/v4.0.0/script/monochrome/bundle.js') }}"></script>
+    <script src="{{ asset('libs/@popperjs/core/umd/popper.min.js') }}"></script>
+    <script src="{{ asset('libs/simplebar/simplebar.min.js') }}"></script>
 
 
-    <script src="{{asset('js/pages/switcher.js')}}"></script>
+    <script src="{{ asset('js/pages/switcher.js') }}"></script>
 
-    <script src="{{asset('libs/choices.js/assets/scripts/choices.min.js')}}"></script>
+    <script src="{{ asset('libs/choices.js/assets/scripts/choices.min.js') }}"></script>
 
-    <script src="{{asset('js/pages/job-list.init.js')}}"></script>
+    <script src="{{ asset('js/pages/job-list.init.js') }}"></script>
 
-    <script src="{{asset('js/pages/dropdown&modal.init.js')}}"></script>
+    <script src="{{ asset('js/pages/dropdown&modal.init.js') }}"></script>
 
     <!-- Swiper Js -->
-    <script src="{{asset('libs/swiper/swiper-bundle.min.js')}}"></script>
-    <script src="{{asset('js/pages/swiper.init.js')}}"></script>
+    <script src="{{ asset('libs/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('js/pages/swiper.init.js') }}"></script>
 
-    <script src="{{asset('js/pages/nav&tabs.js')}}"></script>
+    <script src="{{ asset('js/pages/nav&tabs.js') }}"></script>
 
-    <script src="{{asset('js/app.js')}}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
 </body>
 

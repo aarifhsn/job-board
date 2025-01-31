@@ -10,10 +10,10 @@ class SocialLink extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['company_id', 'platform', 'url'];
+    protected $fillable = ['platform', 'url'];
 
-    public function company()
+    public function socialable()
     {
-        return $this->belongsTo(Company::class);
+        return $this->morphTo();
     }
 }

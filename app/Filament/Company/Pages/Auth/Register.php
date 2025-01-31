@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\Pages\Auth;
+namespace App\Filament\Company\Pages\Auth;
 
 use Filament\Pages\Auth\Register as BaseRegister;
-use Filament\Forms\Components\Select;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -24,11 +23,6 @@ class Register extends BaseRegister
                         $this->getEmailFormComponent(),
                         $this->getPasswordFormComponent(),
                         $this->getPasswordConfirmationFormComponent(),
-                        Select::make('role_id')
-                            ->label('Applying for')
-                            ->options(Role::whereIn('slug', ['company', 'custom-role'])->get()->pluck('name', 'id'))
-                            ->default(fn() => Role::where('name', 'company')->first()?->id)
-                            ->required(),
                     ])
                     ->statePath('data'),
             ),
@@ -42,12 +36,8 @@ class Register extends BaseRegister
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-
-        // Attach the selected role (many-to-many relation)
-        if (isset($data['role_id'])) {
-            $user->roles()->attach($data['role_id']);
-        }
-
+        $role = Role::where('name', 'recruiter')->first();
+        $user->roles()->attach($role->id);
         return $user;
     }
 }
