@@ -81,7 +81,6 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-s-pencil')
                     ->collapsed(),
             ])
-            ->databaseNotifications()
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

@@ -37,9 +37,10 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin@gmail.com'
             ]);
 
-        User::factory(5)->withRole("custom-role")->create();
-        Recruiter::factory(5)->withRole("recruiter")->create();
-        Candidate::factory(5)->withRole("candidate")->create();
+        User::factory(20)->withRole("custom-role")->create();
+        Recruiter::factory(10)->withRole("recruiter")->create();
+        Candidate::factory(12)->withRole("candidate")->create();
+
         Company::factory(10)
             ->hasJobs(5)->create();
         $tags = Tag::all();
