@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Constant\CompanyConstant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Storage;
+use App\Notifications\CompanyCreatedNotification;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Company extends Model
 {
@@ -19,20 +21,19 @@ class Company extends Model
         'industry',
         'website',
         'logo',
-        'address',
-        'city',
-        'state',
-        'country',
-        'pincode',
         'description',
         'status',
+        'user_id',
+        'location_id',
+        'recruiter_id',
         'user_id',
     ];
 
     public function socialLinks()
     {
-        return $this->hasMany(SocialLink::class);
+        return $this->morphMany(SocialLink::class, 'socialable');
     }
+
 
     public function jobs()
     {
@@ -44,10 +45,33 @@ class Company extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
+
+    public function experiences()
+    {
+        return $this->hasMany(ExperienceDetails::class);
+    }
+
+    public function recruiter()
+    {
+        return $this->belongsTo(Recruiter::class);
+    }
+
+    public function subscription()
+    {
+        return $this->hasOne(Subscription::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', 'active');
     }
-
-
 }

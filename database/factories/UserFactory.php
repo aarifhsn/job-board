@@ -47,17 +47,9 @@ class UserFactory extends Factory
     }
 
     /**
-     * Indicate that the user is a company and create a related company.
-     */
-    public function withCompany(): static
-    {
-        return $this->has(Company::factory(), 'company');
-    }
-
-    /**
      * Indicate that the user has a subscription.
      */
-    public function withSubscription(string $tier = 'free', string $plan = 'basic'): static
+    public function withSubscription(string $plan = 'basic'): static
     {
         return $this->has(Subscription::factory()->state(['plan' => $plan]), 'subscription');
     }

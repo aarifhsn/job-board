@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('social_links', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->string('platform');
             $table->string('url');
+            $table->morphs('socialable');
             $table->timestamps();
             $table->softDeletes();
         });

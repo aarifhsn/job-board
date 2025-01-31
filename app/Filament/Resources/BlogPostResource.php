@@ -24,7 +24,7 @@ class BlogPostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'Content Management';
+    protected static ?string $navigationGroup = 'CMS';
 
     public static function form(Form $form): Form
     {
@@ -48,7 +48,6 @@ class BlogPostResource extends Resource
                     'published' => 'Published',
                 ])->default('draft'),
             ]);
-
     }
 
     public static function table(Table $table): Table

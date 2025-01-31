@@ -13,17 +13,6 @@ class Category extends Model
 
     protected $fillable = ['name', 'slug', 'description', 'status', 'icon'];
 
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($category) {
-            if (empty($category->slug)) {
-                $category->slug = Str::slug($category->name);
-            }
-        });
-    }
-
     public function jobs()
     {
         return $this->hasMany(Job::class);
@@ -31,27 +20,12 @@ class Category extends Model
 
     public function subscribers()
     {
-        return $this->hasManyThrough(User::class, Subscription::class, 'category_id', 'id', 'id', 'user_id');
-    }
-
-    public function subscriptions()
-    {
-        return $this->hasMany(Subscription::class);
+        return $this->hasMany(Candidate::class);
     }
 
     public function scopeActive($query)
     {
         return $query->where('status', 'active');
-    }
-
-    public function scopeInactive($query)
-    {
-        return $query->where('status', 'inactive');
-    }
-
-    public function scopeExpired($query)
-    {
-        return $query->where('end_date', '<', now());
     }
 
     public function scopeSearch($query, $search)
@@ -63,5 +37,16 @@ class Category extends Model
     public function scopeSlug($query, $slug)
     {
         return $query->where('slug', $slug);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($category) {
+            if (empty($category->slug)) {
+                $category->slug = Str::slug($category->name);
+            }
+        });
     }
 }

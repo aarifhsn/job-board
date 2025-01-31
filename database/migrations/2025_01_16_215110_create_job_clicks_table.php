@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create('job_clicks', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Job::class, 'job_id')->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Job::class, 'job_id')->constrained("company_jobs")->onDelete('cascade');
             $table->foreignIdFor(User::class, 'user_id')->nullable()->constrained()->onDelete('set null');
             $table->ipAddress('ip_address')->nullable();
             $table->text('user_agent');

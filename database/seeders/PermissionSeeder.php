@@ -20,9 +20,9 @@ class PermissionSeeder extends Seeder
                 "description" => "Create Role",
             ],
             [
-                "name" => "Read Role",
-                "slug" => "read-role",
-                "description" => "Read Role",
+                "name" => "View Role",
+                "slug" => "view-role",
+                "description" => "View Role",
             ],
             [
                 "name" => "Update Role",
@@ -40,9 +40,9 @@ class PermissionSeeder extends Seeder
                 "description" => "Create Permission",
             ],
             [
-                "name" => "Read Permission",
-                "slug" => "read-permission",
-                "description" => "Read Permission",
+                "name" => "View Permission",
+                "slug" => "view-permission",
+                "description" => "View Permission",
             ],
             [
                 "name" => "Update Permission",
@@ -61,9 +61,9 @@ class PermissionSeeder extends Seeder
                 "description" => "Create User",
             ],
             [
-                "name" => "Read User",
-                "slug" => "read-user",
-                "description" => "Read User",
+                "name" => "View User",
+                "slug" => "view-user",
+                "description" => "View User",
             ],
             [
                 "name" => "Update User",
@@ -82,9 +82,9 @@ class PermissionSeeder extends Seeder
                 "description" => "Create Company",
             ],
             [
-                "name" => "Read Company",
-                "slug" => "read-company",
-                "description" => "Read Company",
+                "name" => "View Company",
+                "slug" => "view-company",
+                "description" => "View Company",
             ],
             [
                 "name" => "Update Company",
@@ -103,9 +103,9 @@ class PermissionSeeder extends Seeder
                 "description" => "Create Job",
             ],
             [
-                "name" => "Read Job",
-                "slug" => "read-job",
-                "description" => "Read Job",
+                "name" => "View Job",
+                "slug" => "view-job",
+                "description" => "View Job",
             ],
             [
                 "name" => "Update Job",
@@ -124,9 +124,9 @@ class PermissionSeeder extends Seeder
                 "description" => "Create Payment",
             ],
             [
-                "name" => "Read Payment",
-                "slug" => "read-payment",
-                "description" => "Read Payment",
+                "name" => "View Payment",
+                "slug" => "view-payment",
+                "description" => "View Payment",
             ],
             [
                 "name" => "Update Payment",
@@ -145,9 +145,9 @@ class PermissionSeeder extends Seeder
                 "description" => "Create Subscription",
             ],
             [
-                "name" => "Read Subscription",
-                "slug" => "read-subscription",
-                "description" => "Read Subscription",
+                "name" => "View Subscription",
+                "slug" => "view-subscription",
+                "description" => "View Subscription",
             ],
             [
                 "name" => "Update Subscription",
@@ -166,9 +166,9 @@ class PermissionSeeder extends Seeder
                 "description" => "Create Tag",
             ],
             [
-                "name" => "Read Tag",
-                "slug" => "read-tag",
-                "description" => "Read Tag",
+                "name" => "View Tag",
+                "slug" => "view-tag",
+                "description" => "View Tag",
             ],
             [
                 "name" => "Update Tag",
@@ -180,6 +180,42 @@ class PermissionSeeder extends Seeder
                 "slug" => "delete-tag",
                 "description" => "Delete Tag",
             ],
+            // Category
+            [
+                "name" => "Create Category",
+                "slug" => "create-category",
+                "description" => "Create Category",
+            ],
+            [
+                "name" => "View Category",
+                "slug" => "view-category",
+                "description" => "View Category",
+            ],
+            [
+                "name" => "Update Category",
+                "slug" => "update-category",
+                "description" => "Update Category",
+            ],
+            [
+                "name" => "Delete Category",
+                "slug" => "delete-category",
+                "description" => "Delete Category",
+            ],
+            [
+                "name" => 'Access The Admin Panel',
+                "slug" => 'access-admin-panel',
+                "description" => 'Access The Admin Panel',
+            ],
+            [
+                "name" => 'Access The Company Panel',
+                "slug" => 'access-company-panel',
+                "description" => 'Access The Company Panel',
+            ],
+            [
+                "name" => 'View Widgets',
+                "slug" => 'view-widgets',
+                "description" => 'View Widgets',
+            ]
         ];
 
         foreach ($permissions as $permission) {

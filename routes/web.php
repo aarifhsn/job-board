@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\Job\JobController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Rss\NewsController;
@@ -14,8 +15,6 @@ use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Candidates\CandidateController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\Subscription\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,14 +70,14 @@ Route::get('/profile/{id}', [CandidateController::class, 'show'])->name('profile
 // Company Routes
 // Route::get('/company/login', [CompanyController::class, 'showLoginForm'])->name('company.login');
 // Route::post('/company/login', [CompanyController::class, 'login']);
-Route::get('/company/register', [CompanyController::class, 'showRegistrationForm'])->name('company.register');
-Route::post('/company/register', [CompanyController::class, 'register']);
+// Route::get('/company/register', [CompanyController::class, 'showRegistrationForm'])->name('company.register');
+// Route::post('/company/register', [CompanyController::class, 'register']);
 
-// Routes for Authenticated Companies
-Route::middleware(['auth', 'hasRole:company'])->group(function () {
-    Route::get('/company/dashboard', fn() => view('company.dashboard'))->name('company.dashboard');
-    Route::get('/company/{slug}', [CompanyController::class, 'profile'])->name('company.profile');
-});
+// // Routes for Authenticated Companies
+// Route::middleware(['auth', 'hasRole:recruiter'])->group(function () {
+//     Route::get('/company/dashboard', fn() => view('company.dashboard'))->name('company.dashboard');
+//     Route::get('/company/{slug}', [CompanyController::class, 'profile'])->name('company.profile');
+// });
 
 // Admin Routes
 Route::middleware(['auth', 'hasRole:admin'])->group(function () {
@@ -97,8 +96,10 @@ Route::get('/verify-otp', [VerificationController::class, 'verifyOtp'])
     ->name('verify.otp')->middleware('throttle:otp_requests');
 
 
-// Subscriptions
+// Subscribe to categories
 Route::middleware(['auth'])->group(function () {
-    Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
-    Route::delete('/unsubscribe/{category}', [SubscriptionController::class, 'unsubscribe'])->name('unsubscribe');
+    Route::post('/subscribe', [CandidateController::class, 'subscribeToCategory'])->name('subscribe');
+    Route::delete('/unsubscribe/{category}', [CandidateController::class, 'unsubscribeToCategory'])->name('unsubscribe');
 });
+
+Route::get('test', function () {});

@@ -1,9 +1,11 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Company;
+use App\Models\Subscription;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -14,7 +16,8 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class, 'user_id')->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Company::class, 'company_id')->onDelete('cascade');
+            $table->foreignIdFor(Subscription::class, 'subscription_id')->constrained()->onDelete('cascade');
             $table->string('method');
             $table->string('gateway')->nullable();
             $table->string('reference')->nullable();
@@ -32,6 +35,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('payments', function (Blueprint $table) {
+            $table->dropForeign(['comapny_id']);
+            $table->dropForeign(['subscription_id']);
+        });
         Schema::dropIfExists('payments');
     }
 };
