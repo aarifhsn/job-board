@@ -2,68 +2,35 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Subscription extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'price', 'duration', 'start_date', 'end_date', 'status', 'user_id', 'payment_id', 'category_id', 'plan', 'price', 'description'];
+    protected $fillable = ['name', 'start_date', 'end_date', 'status', 'plan', 'price', 'company_id', 'job_limit', 'description'];
 
-    public function user()
+    public function payments()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Payment::class);
     }
 
-    public function category()
+    public function company()
     {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function payment()
-    {
-        return $this->belongsTo(Payment::class);
+        return $this->belongsTo(Company::class);
     }
 
     public function scopeActive($query)
     {
-        return $query->where('status', 'active');
+        return $query->where('status', 'active')
+            ->where('end_date', '>', Carbon::now());
     }
 
-    public function scopeExpired($query)
+    public function isExpired()
     {
-        return $query->where('end_date', '<', now());
-    }
-
-    public function scopeCategory($query, $category)
-    {
-        return $query->where('category', $category);
-    }
-
-    public function scopePrice($query, $price)
-    {
-        return $query->where('price', $price);
-    }
-
-    public function scopeDuration($query, $duration)
-    {
-        return $query->where('duration', $duration);
-    }
-
-    public function scopeStartDate($query, $startDate)
-    {
-        return $query->where('start_date', $startDate);
-    }
-
-    public function scopeEndDate($query, $endDate)
-    {
-        return $query->where('end_date', $endDate);
-    }
-
-    public function scopeSearch($query, $search)
-    {
-        return $query->where('name', 'like', '%' . $search . '%');
+        return $this->end_date < now();
     }
 }

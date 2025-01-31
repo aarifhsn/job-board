@@ -7,8 +7,10 @@ use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use App\Filament\Pages\Auth\Register;
 use App\Filament\Resources\JobResource;
+use App\Filament\Widgets\StatsOverview;
+use App\Filament\Resources\UserResource;
+use Filament\Navigation\NavigationGroup;
 use Filament\Http\Middleware\Authenticate;
 use App\Filament\Resources\CompanyResource;
 use App\Filament\Resources\BlogPostResource;
@@ -29,9 +31,9 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path('/dashboard/admin')
+            ->profile()
             ->login()
-            ->registration(Register::class)
             ->colors([
                 'primary' => Color::Indigo,
             ])
@@ -47,19 +49,39 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->sidebarCollapsibleOnDesktop()
             ->sidebarWidth('16rem')
+            ->collapsibleNavigationGroups(true)
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                JobResource\Widgets\StatsOverview::class,
+                StatsOverview::class,
                 CompanyResource\Widgets\CompanyStats::class,
                 JobResource\Widgets\JobPostsChart::class,
-
             ])
             ->resources([
                 BlogPostResource::class,
                 CompanyResource::class,
-                JobResource::class
+                JobResource::class,
+                UserResource::class,
             ])
+            ->navigationGroups([
+                NavigationGroup::make()
+                    ->label('Administration')
+                    ->icon('heroicon-o-cog')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Business')
+                    ->icon('heroicon-o-briefcase')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Subscription')
+                    ->icon('heroicon-o-credit-card')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('CMS')
+                    ->icon('heroicon-s-pencil')
+                    ->collapsed(),
+            ])
+            ->databaseNotifications()
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

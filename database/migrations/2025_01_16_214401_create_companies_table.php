@@ -1,5 +1,8 @@
 <?php
 
+use App\Constant\CompanyConstant;
+use App\Models\Location;
+use App\Models\Recruiter;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,7 +17,10 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Location::class, 'location_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete()->comment('Create company by user');
+            $table->foreignId('recruiter_id')->nullable()->constrained()->cascadeOnDelete();
+
             $table->string('name');
             $table->string('email')->unique();
             $table->string('contact_number');
@@ -22,13 +28,14 @@ return new class extends Migration
             $table->string('website')->nullable();
             $table->string('logo')->nullable();
             $table->string('slug')->unique();
-            $table->string('address')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('country')->nullable();
-            $table->string('pincode')->nullable();
             $table->text('description')->nullable();
-            $table->enum('status', ['active', 'inactive', 'pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', [
+                CompanyConstant::STATUS_ACTIVE,
+                CompanyConstant::STATUS_INACTIVE,
+                CompanyConstant::STATUS_PENDING,
+                CompanyConstant::STATUS_APPROVED,
+                CompanyConstant::STATUS_REJECTED
+            ])->default(CompanyConstant::STATUS_PENDING);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -40,6 +47,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('companies', function (Blueprint $table) {
+            $table->dropForeign(['location_id']);
+            $table->dropForeign(['recruiter_id']);
             $table->dropForeign(['user_id']);
         });
         Schema::dropIfExists('companies');

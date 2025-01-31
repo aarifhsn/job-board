@@ -28,7 +28,7 @@ class CompanyController extends Controller
         ]);
 
         // Generate a unique slug for the company
-        $slug = Str::slug($request->name.'-'.uniqid(), '-');
+        $slug = Str::slug($request->name . '-' . uniqid(), '-');
 
         // Create the company record with minimal information (for registration)
         Company::create([
@@ -57,7 +57,7 @@ class CompanyController extends Controller
 
     public function editProfile()
     {
-        $company = auth()->user()->company;  // Get the company related to the logged-in user
+        $company = auth()->user()->recruiter->company;  // Get the company related to the logged-in user
 
         return view('company.edit-profile', compact('company'));
     }

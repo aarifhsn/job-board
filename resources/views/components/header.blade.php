@@ -2,9 +2,10 @@
     id="navbar">
     <div class="mx-auto container">
         <div class="flex flex-wrap items-center justify-between mx-auto">
-            <a href="{{route('home')}}" class="flex items-center">
-                <img src="{{asset('images/logo-dark.png')}}" alt="" class="logo-dark h-[22px] block dark:hidden">
-                <img src="{{asset('images/logo-light.png')}}" alt="" class="logo-dark h-[22px] hidden dark:block">
+            <a href="{{ route('home') }}" class="flex items-center">
+                <img src="{{ asset('images/logo-dark.png') }}" alt="" class="logo-dark h-[22px] block dark:hidden">
+                <img src="{{ asset('images/logo-light.png') }}" alt=""
+                    class="logo-dark h-[22px] hidden dark:block">
             </a>
             <button data-collapse-toggle="navbar-collapse" type="button"
                 class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg navbar-toggler group lg:hidden hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -39,7 +40,7 @@
 
                                 @if (auth()->user()->is_admin)
                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                        <a href="{{route('manage-jobs')}}"
+                                        <a href="{{ route('manage-jobs') }}"
                                             class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50">Manage
                                             Jobs</a>
                                     </li>
@@ -47,7 +48,7 @@
 
 
                                 <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                    <a href="{{route('profiles.show', auth()->user())}}"
+                                    <a href="{{ route('profiles.show', auth()->user()) }}"
                                         class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50">Profile</a>
                                 </li>
                                 <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
@@ -57,7 +58,7 @@
                                     </a>
                                 </li>
                                 <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                    <form action="{{route('logout')}}" method="POST">
+                                    <form action="{{ route('logout') }}" method="POST">
                                         @csrf
                                         <button type="submit"
                                             class="w-full text-left font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50">Logout</button>
@@ -65,18 +66,18 @@
                                 </li>
                             @else
                                 <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                    <a href="{{route('login')}}"
+                                    <a href="{{ route('login') }}"
                                         class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50">Login</a>
                                 </li>
                                 <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                    <a href="{{route('register')}}"
+                                    <a href="{{ route('register') }}"
                                         class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50">Register</a>
                                 </li>
-                                <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                {{-- <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
                                     <a href="{{route('company.register')}}"
                                         class="text-15 font-medium text-gray-800 transition-all duration-300 ease-in dark:text-gray-50">Company
                                         Register</a>
-                                </li>
+                                </li> --}}
                             @endif
                         </ul>
                     </div>
@@ -88,25 +89,25 @@
                 <ul class="flex flex-col items-start mt-5 mb-10 font-medium lg:mt-0 lg:mb-0 lg:items-center lg:flex-row"
                     id="navigation-menu">
                     <li class="relative dropdown">
-                        <a href="{{route('home')}}"
-                            class="py-5 text-gray-800 lg:px-4 dropdown-toggle dark:text-gray-50 lg:h-[70px]" id="home"
-                            data-bs-toggle="dropdown">Home</a>
+                        <a href="{{ route('home') }}"
+                            class="py-5 text-gray-800 lg:px-4 dropdown-toggle dark:text-gray-50 lg:h-[70px]"
+                            id="home" data-bs-toggle="dropdown">Home</a>
                     </li>
                     <li class="relative dropdown lg:mt-0">
-                        <a href="{{route('job-lists')}}"
+                        <a href="{{ route('job-lists') }}"
                             class="py-5 text-gray-800 lg:px-4 dropdown-toggle dark:text-gray-50 lg:h-[70px]"
                             id="company" data-bs-toggle="dropdown">Browse Jobs</a>
 
                     </li>
                     <li class="relative dropdown lg:mt-0">
-                        <a href="{{route('job-categories')}}"
-                            class="py-5 text-gray-800 lg:px-4 dropdown-toggle dark:text-gray-50 lg:h-[70px]" id="job"
-                            data-bs-toggle="dropdown">Categories</a>
+                        <a href="{{ route('job-categories') }}"
+                            class="py-5 text-gray-800 lg:px-4 dropdown-toggle dark:text-gray-50 lg:h-[70px]"
+                            id="job" data-bs-toggle="dropdown">Categories</a>
                     </li>
                     <li class="relative dropdown lg:mt-0">
-                        <a href="{{route('contact')}}"
-                            class="py-5 text-gray-800 lg:px-4 dropdown-toggle dark:text-gray-50 lg:h-[70px]" id="blog"
-                            data-bs-toggle="dropdown">Contact</a>
+                        <a href="{{ route('contact') }}"
+                            class="py-5 text-gray-800 lg:px-4 dropdown-toggle dark:text-gray-50 lg:h-[70px]"
+                            id="blog" data-bs-toggle="dropdown">Contact</a>
                     </li>
                 </ul>
             </div>

@@ -24,9 +24,8 @@ use App\Filament\Resources\UserResource\RelationManagers\RolesRelationManager;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
-    protected static ?string $navigationGroup = 'Adminstration';
+    protected static ?string $navigationGroup = 'Administration';
     protected static ?int $navigationSort = 1;
-    protected static ?string $navigationIcon = 'heroicon-o-user';
 
     public static function form(Form $form): Form
     {
@@ -130,9 +129,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => Pages\ListUsers::route("/users"),
+            'create' => Pages\CreateUser::route("/users/create"),
+            'edit' => Pages\EditUser::route("/users/{record}/edit"),
         ];
     }
 

@@ -13,7 +13,7 @@ use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Gate;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -28,10 +28,8 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
-        'role',
         'phone',
         'address',
-        'company_id',
         'skills',
         'about',
         'language',
@@ -65,9 +63,9 @@ class User extends Authenticatable implements FilamentUser
         'password' => 'hashed',
     ];
 
-    public function company()
+    public function companies()
     {
-        return $this->hasOne(Company::class);
+        return $this->hasMany(Company::class);
     }
 
     public function payments()
@@ -82,6 +80,21 @@ class User extends Authenticatable implements FilamentUser
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id')->withTimestamps();
+    }
+
+    public function candidate()
+    {
+        return $this->hasOne(Candidate::class);
+    }
+
+    public function recruiter()
+    {
+        return $this->hasOne(Recruiter::class);
+    }
+
+    public function job()
+    {
+        return $this->hasMany(Job::class);
     }
 
     public function getFirstNameAttribute()
@@ -111,34 +124,9 @@ class User extends Authenticatable implements FilamentUser
     {
         return
             $this->roles()->with('permissions')->get()
-                ->pluck('permissions')
-                ->flatten()
-                ->unique('id');
-    }
-
-    protected static function booted()
-    {
-
-        static::created(function ($record) {
-
-            try {
-                $otp = random_int(100000, 999999);
-
-                if (Cache::has('otp_' . $record->email)) {
-                    Cache::forget('otp_' . $record->email);
-                }
-
-                Cache::put('otp_' . $record->email, $otp, now()->addMinutes(10));
-
-                $record->notify(new SendEmailOtpNotification($otp));
-                Notification::make()
-                    ->title('Check your email for verification')
-                    ->success()
-                    ->send();
-            } catch (\Throwable $th) {
-                Log::alert("Error sending OTP to user: {$record->email}, Error: {$th->getMessage()}");
-            }
-        });
+            ->pluck('permissions')
+            ->flatten()
+            ->unique('id');
     }
 
     public function getNameInitialsAttribute()
@@ -157,14 +145,18 @@ class User extends Authenticatable implements FilamentUser
 
     public function isSubscribed($categoryId)
     {
-        return Subscription::where('user_id', $this->id)
-            ->where('category_id', $categoryId)
-            ->exists();
+        return $this->candidate()->where('category_id', $categoryId)->exists();
     }
-
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->hasRole('admin') || $this->hasRole('company');
+        if ($panel->getId() === 'admin') {
+            return $this->hasRole('admin') || Gate::allows('access-admin-panel');
+        }
+        if ($panel->getId() === 'company') {
+            return $this->hasRole('company') || Gate::allows('access-company-panel');
+        }
+
+        return false;
     }
 }

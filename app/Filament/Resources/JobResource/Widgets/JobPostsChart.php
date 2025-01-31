@@ -24,7 +24,7 @@ class JobPostsChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Blog posts',
+                    'label' => 'Jobs',
                     'data' => $data->map(fn(TrendValue $value) => $value->aggregate),
                 ],
             ],
@@ -34,6 +34,6 @@ class JobPostsChart extends ChartWidget
 
     protected function getType(): string
     {
-        return 'bar';
+        return 'line';
     }
 }
