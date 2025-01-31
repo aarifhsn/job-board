@@ -24,7 +24,7 @@ class UserObserver
 
             Cache::put('otp_' . $user->email, $otp, now()->addMinutes(10));
 
-            $user->notify(new SendEmailOtpNotification($otp));
+            // $user->notify(new SendEmailOtpNotification($otp));
             Notification::make()
                 ->title('Check your email for verification')
                 ->success()

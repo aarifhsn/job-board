@@ -74,10 +74,10 @@ Route::get('/profile/{id}', [CandidateController::class, 'show'])->name('profile
 // Route::post('/company/register', [CompanyController::class, 'register']);
 
 // // Routes for Authenticated Companies
-// Route::middleware(['auth', 'hasRole:recruiter'])->group(function () {
-//     Route::get('/company/dashboard', fn() => view('company.dashboard'))->name('company.dashboard');
-//     Route::get('/company/{slug}', [CompanyController::class, 'profile'])->name('company.profile');
-// });
+Route::middleware(['auth', 'hasRole:recruiter'])->group(function () {
+    //     Route::get('/company/dashboard', fn() => view('company.dashboard'))->name('company.dashboard');
+    Route::get('/web/company/{slug}', [CompanyController::class, 'profile'])->name('company.profile');
+});
 
 // Admin Routes
 Route::middleware(['auth', 'hasRole:admin'])->group(function () {
@@ -102,4 +102,4 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/unsubscribe/{category}', [CandidateController::class, 'unsubscribeToCategory'])->name('unsubscribe');
 });
 
-Route::get('test', function () {});
+Route::get('test', function () { });

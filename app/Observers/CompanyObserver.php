@@ -56,7 +56,7 @@ class CompanyObserver
             ]
         );
         if ($admin && !$auth_user_is_admin) {
-            $admin->notify(new CompanyCreatedNotification($company));
+            // $admin->notify(new CompanyCreatedNotification($company));
         }
     }
 }

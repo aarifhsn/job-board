@@ -42,7 +42,7 @@ class JobObserver
 
         // Notify each subscriber
         foreach ($subscribers as $subscriber) {
-            $subscriber->notify(new JobCreatedNotification($job));
+            // $subscriber->notify(new JobCreatedNotification($job));
         }
     }
 
