@@ -47,14 +47,6 @@ class UserFactory extends Factory
     }
 
     /**
-     * Indicate that the user has a subscription.
-     */
-    public function withSubscription(string $plan = 'basic'): static
-    {
-        return $this->has(Subscription::factory()->state(['plan' => $plan]), 'subscription');
-    }
-
-    /**
      * Assign roles to the user.
      */
     public function withRole(string $role): static

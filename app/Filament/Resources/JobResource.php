@@ -106,7 +106,7 @@ class JobResource extends Resource
                 Forms\Components\TextInput::make('duration')
                     ->label('Duration'),
 
-                Forms\Components\Select::make('location')
+                Forms\Components\Select::make('location_id')
                     ->relationship('location', 'name')
                     ->required()
                     ->createOptionForm([

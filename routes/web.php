@@ -76,7 +76,7 @@ Route::get('/profile/{id}', [CandidateController::class, 'show'])->name('profile
 // // Routes for Authenticated Companies
 // Route::middleware(['auth', 'hasRole:recruiter'])->group(function () {
 //     Route::get('/company/dashboard', fn() => view('company.dashboard'))->name('company.dashboard');
-//     Route::get('/company/{slug}', [CompanyController::class, 'profile'])->name('company.profile');
+Route::get('/company/{slug}', [CompanyController::class, 'profile'])->name('company.profile');
 // });
 
 // Admin Routes

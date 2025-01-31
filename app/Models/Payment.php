@@ -31,4 +31,15 @@ class Payment extends Model
     {
         return $query->where('paid_at', $paid_at);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($payment) {
+            if (!$payment->company_id && $payment->subscription) {
+                $payment->company_id = $payment->subscription->company_id;
+            }
+        });
+    }
 }

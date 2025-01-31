@@ -31,10 +31,17 @@ class JobController extends Controller
                 $query->where('title', 'like', "%$search%")
                     ->orWhereHas('company', fn($q) => $q->where('name', 'like', "%$search%"))
                     ->orWhereHas('tag', fn($q) => $q->where('name', 'like', "%$search%"))
-                    ->orWhereHas('category', fn($q) => $q->where('name', 'like', "%$search%"));
+                    ->orWhereHas('category', fn($q) => $q->where('name', 'like', "%$search%"))
+                    ->orWhereHas(
+                        'location',
+                        fn($q) =>
+                        $q->where('address', 'like', "%$search%")
+                            ->orWhere('country', 'like', "%$search%")
+                            ->orWhere('name', 'like', "%$search%")
+                    );
             })
             ->when($countryName, function ($query) use ($countryName) {
-                $query->whereHas('company', function ($q) use ($countryName) {
+                $query->whereHas('location', function ($q) use ($countryName) {
                     $q->where('country', $countryName);
                 });
             })
@@ -45,26 +52,42 @@ class JobController extends Controller
 
     public function show($id)
     {
-        $job = Job::with('company')->findOrFail($id);
+        $job = Job::with(['company', 'location'])->findOrFail($id);
 
         $relatedJobs = Job::where('category_id', $job->category_id)
             ->where('id', '!=', $job->id)
+            ->with(['company', 'location'])
             ->get();
 
-        JobView::create([
-            'job_id' => $job->id,
-            'user_id' => auth()->id() ?? null,
-            'ip' => request()->ip(),
-            'user_agent' => request()->userAgent(),
-            'viewed_at' => now(),
-            'details' => json_encode([
-                'device' => request()->header('User-Agent'),
-            ]),
-            'view_count' => 1,
-        ]);
+        $jobView = JobView::where('job_id', $job->id)
+            ->where(function ($query) {
+                if (auth()->check()) {
+                    $query->where('user_id', auth()->id());
+                } else {
+                    $query->where('ip', request()->ip());
+                }
+            })
+            ->first();
+
+        if ($jobView) {
+            $jobView->increment('view_count');
+        } else {
+            JobView::create([
+                'job_id' => $job->id,
+                'user_id' => auth()->id() ?? null,
+                'ip' => request()->ip(),
+                'user_agent' => request()->userAgent(),
+                'viewed_at' => now(),
+                'details' => json_encode([
+                    'device' => request()->header('User-Agent'),
+                ]),
+                'view_count' => 1,
+            ]);
+        }
 
         return view('job-details', compact('job', 'relatedJobs'));
     }
+
 
     public function filter(Request $request)
     {

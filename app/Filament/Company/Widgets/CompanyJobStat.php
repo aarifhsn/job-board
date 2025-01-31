@@ -16,11 +16,14 @@ class CompanyJobStat extends BaseWidget
         //     return [];
         // }
         $user = auth()->user();
-        $company = $user->recruiter->company;
-        $job_count = $company ? Job::where('company_id', $company->id)->count() : 0;
-        $candidates_applied = $company
-            ? Job::where('company_id', $company->id)->with('applicants')->count()
-            : 0;
+        $company = $user->recruiter?->company;
+
+        if (!$company) {
+            return [];
+        }
+
+        $job_count = Job::where('company_id', $company->id)->count();
+        $candidates_applied = Job::where('company_id', $company->id)->with('applicants')->count();
 
         return [
             Stat::make('Jobs', $job_count)
